@@ -91,10 +91,70 @@
     background: #4D9BC1;
 }
 
-.test_id {
+.mogi {
     margin-left: 20%;
     margin-top: 20px;
     width: 70%;
     height: 500px;
     border: 1px dotted #4D9BC1;
+}
+
+.mogi h1 {
+    text-align: center;
+}
+
+.mogi h2 {
+    margin: 10px;
+    font-weight: lighter;
+}
+
+.mogi h1 span {
+    color: #4D9BC1;
+    margin: 0 10px;
+}
+
+.check-result {
+    margin: 10px 35%;
+    display: flex;
+    font-size: large;
+}
+
+.result {
+    margin-left: 20%;
+}
+
+.user_ans {
+    margin: 10px;
+    color: red;
+    font-size: 1.5em;
+}
+
+.kanji-box {
+    /* font-weight: bold; */
+    /* margin-top: 5px; */
+    margin-left: 20px;
+}
+
+.kanji {
+    /* margin-top: 5px; */
+    color: #4D9BC1;
+    font-weight: bold;
+}
+
+.ans {
+    margin-left: 20px;
+    width: 80%;
+    display: flex;
+}
+
+.answer {
+    min-width: 19%;
+    margin-top: 5px;
+}
+
+.answer_tf {
+    /* justify-items: end; */
+    width: 5%;
+    border: none;
+    /* margin-left: 10%; */
 }

@@ -4,6 +4,48 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.logo {
+    width: 300px;
+    height: 150px;
+    margin: 10px;
+    /* border: 1px solid #4D9BC1; */
+}
+
+.logo:hover {
+    padding: 10px;
+}
+
+.log_text {
+    position: absolute;
+    right: 30px;
+    color: #4D9BC1;
+}
+
+.log_text:hover {
+    color: red;
+    font-size: 1.2em;
+    transform: rotate(5deg);
+}
+
+.hder {
+    margin-left: 50px;
+}
+
+.hd_text {
+    font-size: 1.5em;
+    color: #4D9BC1;
+    display: inline-block;
+    font-size: 120%;
+    text-decoration: none;
+    transition: .3s;
+}
+
+.hd_text:hover {
+    color: red;
+    font-size: 1.2em;
+    transform: rotate(5deg);
+}
+
 .nav_head {
     margin-left: 150px;
     text-align: center;
@@ -104,9 +146,10 @@ nav ul li {
     /* width: 100%; */
 }
 
-input[type="checkbox"] {
+
+/* input[type="checkbox"] {
     display: none;
-}
+} */
 
 .container {
     position: relative;
@@ -263,4 +306,9 @@ input[type="checkbox"] {
     right: 10px;
     bottom: 10px;
     z-index: 100;
+}
+
+.center {
+    align-items: center !important;
+    margin: auto !important;
 }

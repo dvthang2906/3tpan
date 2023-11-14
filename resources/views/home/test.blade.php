@@ -13,9 +13,9 @@
 <body>
     <div class="nav_head">
         <div class="nomal">
-            <a href="#" class="bt_nav"><span>辞書</span></a>
-            <a href="#" class="bt_nav"><span>フラッシュカード</span></a>
-            <a href="#" class="bt_nav"><span>お問い合わせ</span></a>
+            <a href="#" class="bt_nav" title="辞書"><span>辞書</span></a>
+            <a href="{{route('flashCard')}}" class="bt_nav" title="フラッシュカード"><span>フラッシュカード</span></a>
+            <a href="{{route('test')}}" class="bt_nav" title="テストしてみよう！"><span>テスト</span></a>
         </div>
         <nav>
             <ul class="nav">
@@ -84,18 +84,22 @@
             </li>
             <li><a href="#">N4</a>
                 <ul>
-                    <li><a href="#" style="margin-left: 5px">Từ vựng</a>
+                    <li><a href="#" style="margin-left: 5px">Kanji</a>
                         <ul>
                             <li><a href="#" style="margin-left: 5px">Đề 01</a></li>
                             <li><a href="#" style="margin-left: 5px">Đề 02</a></li>
-                            <li><a href="#" style="margin-left: 5px">Đề 03</a></li>
                         </ul>
                     </li>
-                    <li><a href="#" style="margin-left: 5px">Ngữ pháp</a>
+                    <li><a href="#" style="margin-left: 5px">Vocabulary</a>
                         <ul>
                             <li><a href="#" style="margin-left: 5px">Đề 01</a></li>
                             <li><a href="#" style="margin-left: 5px">Đề 02</a></li>
-                            <li><a href="#" style="margin-left: 5px">Đề 03</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" style="margin-left: 5px">Grammar</a>
+                        <ul>
+                            <li><a href="#" style="margin-left: 5px">Đề 01</a></li>
+                            <li><a href="#" style="margin-left: 5px">Đề 02</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -120,9 +124,41 @@
             </li>
         </ul>
     </div>
-    <div class="test_id">
-        Hiển thị bài test ở đây
+    <div class="mogi">
+        <header>
+            <h1>日本語<span>AAA</span>模擬テスト</h1>
+        </header>
+        <section class="kj_test">
+            <h2>問題：___ は どう よみますか。４つから １つを えらびなさい。</h2>
+            <h3></h3>
+            <div class="question">
+                <p>問１：</p>
+                <div class="kanji-box"><span class="kanji">今日</span>
+                    <div class="ans">
+                        <div class="answer">
+                            <input type="radio" name="q1k1"><span></span>
+                        </div>
+                        <div class="answer">
+                            <input type="radio" name="q1k1"><span></span>
+                        </div>
+                        <div class="answer">
+                            <input type="radio" name="q1k1"><span></span>
+                        </div>
+                        <div class="answer">
+                            <input type="radio" name="q1k1"><span></span>
+                        </div>
+                        <input type="text" class="answer_tf"><span></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Thêm các phần khác như Từ vựng, Đọc Hiểu, Viết ở đây -->
     </div>
+    <div class="check-result">
+        <a href="#" class="bt_nav"><span>CHECK</span></a>
+        <div class="result">得点：<span class="user_ans">10</span><span>/</span><span class="total">30</span></div>
+    </div>
+
     <input type="checkbox" id="actionMenuButton" class="muti-ck" />
     <div class="actions-menu">
         <button class="btn btn--share">

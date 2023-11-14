@@ -1,0 +1,143 @@
+.cta_btn09 {
+    font-weight: bold;
+    font-size: 2em;
+    text-align: center;
+    letter-spacing: 0.1em;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.cta_btn09-contact,
+.cta_btn09-tel {
+    color: #fff;
+    position: relative;
+    display: inline-block;
+    justify-items: center;
+    text-decoration: none;
+    padding: 1em 1em 1em 60px;
+    border-radius: 10vh;
+    width: 100%;
+    /* ボタン幅 */
+    max-width: 400px;
+    height: 200px;
+    /* 最低ボタン幅 */
+    transition: 0.3s;
+}
+
+.cta_btn09-contact {
+    background: #F88400;
+    /* お問い合わせボタン色 */
+}
+
+.cta_btn09-tel {
+    background: #4D9BC1;
+    /* 電話ボタン色 */
+}
+
+.cta_btn09-contact::before,
+.cta_btn09-tel::before {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.cta_btn09 .copy_txt {
+    line-height: 1;
+    display: inline-block;
+    padding: 0.2em 1.5em;
+    letter-spacing: 0;
+    background: #fff;
+    font-size: 70%;
+    border-radius: 5px;
+}
+
+.cta_btn09-contact .copy_txt {
+    color: #F88400;
+    /* 下文字色 */
+}
+
+.cta_btn09-tel .copy_txt {
+    color: #4D9BC1;
+    /* 下文字色 */
+}
+
+.cta_btn09 img {
+    width: 1em;
+    margin-right: 0.5em;
+}
+
+.cta_btn09-contact:hover,
+.cta_btn09-tel:hover {
+    transform: scale(1.05);
+}
+
+table {
+    width: fit-content;
+    border-style: groove;
+}
+
+th {
+    background: white;
+    color: #4D9BC1;
+}
+
+th,
+td {
+    border: 1px solid #4D9BC1;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background: white;
+}
+
+tr:hover {
+    background: #4D9BC1;
+    color: white;
+}
+
+.my_table {
+    margin: auto;
+}
+
+.nomal {
+    text-align: center;
+    margin: auto;
+}
+
+.bt_user1 {
+    min-width: 50px;
+    font-size: 1em;
+    border: 1px solid green;
+    color: green;
+    border-radius: 5vh;
+}
+
+.bt_user1:hover {
+    border: 1px solid white;
+    background-color: green;
+    color: white;
+    border-radius: 5vh;
+}
+
+.bt_user2 {
+    min-width: 50px;
+    font-size: 1em;
+    border: 1px solid red;
+    color: red;
+    border-radius: 5vh;
+}
+
+.bt_user2:hover {
+    border: 1px solid white;
+    background-color: red;
+    color: white;
+    border-radius: 5vh;
+}

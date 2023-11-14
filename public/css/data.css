@@ -1,0 +1,120 @@
+.flex {
+    display: flex;
+    width: 100%;
+}
+
+.selectdiv {
+    position: relative;
+    min-width: 200px;
+    margin: 10px 50px;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+.selectdiv:after {
+    content: '<>';
+    font: 17px "Consolas", monospace;
+    color: #333;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    right: 11px;
+    /*Adjust for position however you want*/
+    top: 18px;
+    padding: 0 0 2px;
+    border-bottom: 1px solid #999;
+    /*left line */
+    position: absolute;
+    pointer-events: none;
+}
+
+.selectdiv select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* Add some styling */
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    height: 50px;
+    /* float: right; */
+    margin: 5px 0px;
+    padding: 0px 24px;
+    font-size: 16px;
+    line-height: 1.75;
+    color: black;
+    background-color: #ffffff;
+    background-image: none;
+    border: 1px solid #cccccc;
+    -ms-word-break: normal;
+    word-break: normal;
+}
+
+.dt_preview {
+    width: 45%;
+    height: auto;
+    min-height: 500px;
+    border: 1px dotted red;
+    position: absolute;
+    right: 5%;
+}
+
+.bt_data {
+    min-width: 100px;
+    line-height: 2em;
+    font-size: 1.2em;
+    text-align: center;
+    margin: 10px 30px;
+    border-radius: 1vh;
+}
+
+.bt_save {
+    background-color: white;
+    color: #D0770B;
+    border: 1px solid #D0770B;
+}
+
+.bt_save:hover {
+    background-color: #D0770B;
+    color: white;
+    border: 1px solid #D0770B;
+}
+
+.bt_update {
+    background-color: white;
+    color: #4D9BC1;
+    border: 1px solid #4D9BC1;
+}
+
+.bt_update:hover {
+    background-color: #4D9BC1;
+    color: white;
+    border: 1px solid #4D9BC1;
+}
+
+.bt_delete {
+    background-color: white;
+    color: red;
+    border: 1px solid red;
+}
+
+.bt_delete:hover {
+    background-color: red;
+    color: white;
+    border: 1px solid red;
+}
+
+#app {
+    width: 400px;
+    margin: 0px 50px 10px 50px;
+    padding: 10px;
+    line-height: 1.5;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 2px 2px 5px 0px rgba(200, 200, 200, 1);
+    font-family: 'Times New Roman';
+}
