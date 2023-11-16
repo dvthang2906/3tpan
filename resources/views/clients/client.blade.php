@@ -22,12 +22,13 @@
     {{-- TUAN --}}
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
+    @yield('css')
 
     <title>3Tpan</title>
 </head>
 
 <body>
-    @include('layouts.head')
+    {{-- @include('layouts.head') --}}
 
     <main>
         @yield('content')

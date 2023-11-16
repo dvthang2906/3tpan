@@ -5,6 +5,14 @@
 @endphp
 
 @extends('clients.client')
+@section('css')
+<link rel="stylesheet" href="{{ 'css/login.css' }}">
+@endsection
+
+@section('content')
+@if (session('msgSingup'))
+<div class="alert alert-success">{{ session('msgSingup') }}</div>
+@endif
 
 <div class="login-wrap">
     <div class="login-html">
@@ -17,9 +25,13 @@
                 @if (session('msgSingup'))
                     <div class="alert alert-success">{{ session('msgSingup') }}</div>
                 @endif
+
+                @if (session('msg'))
+                    <p style="color: red; margin-top:px;">{{ session('msg') }}</p>
+                @endif
                 <div class="group">
                     <label for="user" class="label">Username<span>*</span></label>
-                    <input id="user" type="text" class="input" required>
+                    <input id="user" type="text" class="input" value="{{ old('userName') }}" required>
                 </div>
                 <div class="group">
                     <label for="pass" class="label">Password<span>*</span></label>
@@ -36,6 +48,7 @@
                 <div class="foot-lnk">
                     <a href="#forgot">Forgot Password?</a>
                 </div>
+                @csrf
             </form>
             <form class="sign-up-htm">
                 <div class="group">
@@ -55,63 +68,17 @@
                     <input id="pass" type="text" class="input" required>
                 </div>
                 <div class="group">
-                    <input type="submit" class="button" value="Sign Up">
+                    {{-- <input type="submit" class="button" value="Sign Up"> --}}
+                    <a href="{{ route('Signup') }}" id="signUp">Sign Up</a>
                 </div>
                 <div class="hr"></div>
                 <div class="foot-lnk">
                     <label for="tab-1">Already Member?</a>
                 </div>
+                @csrf
             </form>
         </div>
     </div>
 </div>
 
-@section('content')
-    <form action="{{ route('post-login') }}" method="POST">
-
-        @if (session('msgSingup'))
-            <div class="alert alert-success">{{ session('msgSingup') }}</div>
-        @endif
-
-        <div class="loginForm">
-            <div class="login">
-                <h1>Login</h1>
-
-            </div>
-
-            <div class="inputForm">
-                @if (session('msg'))
-                    <p style="color: red; margin-top:px;">{{ session('msg') }}</p>
-                @endif
-                <div class="username">
-
-                    <div class="userForm">
-                        <i class="fa-solid fa-user" style="color:#222d3f;"></i>
-                        <input type="text" name="userName" id="user" placeholder="UserName"
-                            value="{{ old('userName') }}" required>
-                    </div>
-
-                </div>
-
-                <div class="pass">
-                    <div class="passForm">
-                        <i class="fa-solid fa-lock" style="color: #222d3f;"></i>
-                        <input type="password" name="password" id="pass" placeholder="Password" required>
-                    </div>
-                </div>
-
-
-                <div class="forgot">
-                    <a href="#" id="forgotText">Forgot password?</a>
-                </div>
-                <button id="loginBtn">Login</button>
-
-            </div>
-
-            <div class="footer">
-                <p>アカウント登録 click <a href="{{ route('Signup') }}" id="signUp">Signup</a></p>
-            </div>
-        </div>
-        @csrf
-    </form>
 @endsection
