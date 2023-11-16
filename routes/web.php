@@ -25,7 +25,7 @@ Route::post('/home', [loginController::class, 'index'])->name('post-login');
 
 //users
 Route::prefix('/users')->group(function () {
-    Route::get('/Signup', [loginController::class, 'Signup'])->name('Signup');
+    // Route::get('/Signup', [loginController::class, 'Signup'])->name('Signup');
     Route::post('/Signup', [loginController::class, 'postSingup'])->name('post-Signup');
 });
 

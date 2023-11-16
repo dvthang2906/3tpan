@@ -17,6 +17,7 @@ class loginController extends Controller
     public function index(Request $request)
     {
 
+
         $userName = $request->userName;
 
         $pass = Hash::make($request->password);
@@ -47,18 +48,21 @@ class loginController extends Controller
     }
 
 
-    public function Signup()
-    {
+    // public function Signup()
+    // {
 
-        return view('users.signup');
-    }
+    //     return view('users.signup');
+    // }
 
 
     public function postSingup(Request $request)
     {
+
+
         $fullname = $request->fullname;
         $userName = $request->UserName;
         $pass = $request->password;
+        $pass1 = $request->password1;
         $email = $request->email;
 
         // Tạo một token ngẫu nhiên
@@ -98,10 +102,6 @@ class loginController extends Controller
         $singup = new SingupUser();
         // dd($dataInsert);
         $singup->SingupUser($dataInsert);
-
-
-
-
 
 
         return redirect()->route('login')->with('msgSingup', 'ユーザーを登録できました。');
