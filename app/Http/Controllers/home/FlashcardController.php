@@ -17,16 +17,6 @@ class FlashCardController extends Controller
     protected $currentFlashcard;
     protected $user_id;
 
-    public function __construct(Request $request)
-    {
-        // $flashcards = new Flashcard();
-        // if ($request->session()->has('user_id')) {
-        // } else {
-        //     return redirect()->route('home')->with('msg', 'bạn cần đăng nhập để sử dụng tính năng này!!!!');
-        // }
-    }
-
-
 
 
     public function index(Request $request, Flashcard $flashcards)
@@ -39,9 +29,11 @@ class FlashCardController extends Controller
             // ... các xử lý khác ...
             $getFlashcards  = $flashcards->getTangoFlashcard($this->user_id);
 
+
             $count = count($getFlashcards);
 
             return view('home.flashcard', compact('getFlashcards', 'count'));
+
         }
 
 

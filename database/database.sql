@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS tango_comment(
 	tango VARCHAR(50),
 	comment TEXT,
 	created_time datetime  NULL,
-  	last_updated datetime  NULL	
+  	last_updated datetime  NULL
 );
 
 

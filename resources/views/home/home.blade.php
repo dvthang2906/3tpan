@@ -46,7 +46,7 @@
             <div class="hder hidden lg:flex lg:gap-x-12">
                 <a href="#" class="hd_text" title="ホームページ">Home</a>
                 <a href="#" class="hd_text" title="3T-Panについて">About</a>
-                <a href="#" class="hd_text" title="お問い合わせ">Contact</a>
+                <a href="{{route('contact')}}" class="hd_text" title="お問い合わせ">Contact</a>
                 @if (Session::has('username'))
                     ユーザー:
                     &nbsp;&nbsp;
@@ -67,7 +67,7 @@
     </header>
     <div class="nav_head">
         <div class="nomal">
-            <a href="#" class="bt_nav" title="辞書"><span></span></a>
+            <a href="#" class="bt_nav" title="辞書"><span>辞書</span></a>
             <a href="{{ route('flashcards') }}" class="bt_nav" title="フラッシュカード"><span>フラッシュカード</span></a>
             <a href="#" class="bt_nav" title="テストしてみよう！"><span>テスト</span></a>
         </div>

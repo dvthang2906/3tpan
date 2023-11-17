@@ -6,15 +6,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Schema;
+
 class Flashcard extends Model
 {
 
 
     use HasFactory;
 
+
     public function getTangoFlashcard($user_id)
     {
         DB::enableQueryLog();
+
+
+
+        // if(!Schema::hasTable('3tpandb.user_vocabulary')) {
+        //     return redirect()->route('flashcards')->with('msg', 'flashcard存在してない。');
+        // }
 
         // Kiểm tra xem người dùng đã học hết các từ trong bảng flashcard hiện tại chưa
         $unlearnedCount = DB::table('user_vocabulary')
@@ -42,6 +51,8 @@ class Flashcard extends Model
             // Hiển thị thông báo cho người dùng rằng họ cần hoàn thành việc học các từ hiện tại trước
             // echo "Bạn cần hoàn thành học các từ trong bảng flashcard hiện tại trước khi tạo mới.";
         }
+
+
 
 
         // lấy từ vựng trong bảng vocabulary
