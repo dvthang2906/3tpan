@@ -165,6 +165,9 @@
                         <div class="flashcard-container" style="{{ $index === 0 ? '' : 'display: none;' }}"
                             data-stt="{{ $getFLC->stt }}" data-index="{{ $index }}">
                             <div class="flashcard">
+
+                                <span class="currentFlashcard"
+                                    style="position: absolute; top: 10px;left: 10px;font-size: 20px;">1</span>
                                 @if ($getFlashcards[$index] != null)
                                     <div class="flashcard-inner">
                                         <div class="flashcard-front">
@@ -196,12 +199,11 @@
     </div>
 
     <script>
-        let currentFlashcard = parseInt(localStorage.getItem('currentFlashcard') || '0');
-        let totalFlashcards = parseInt(localStorage.getItem('currentFlashcardTotal')) || 8;
+        let currentFlashcard = parseInt(localStorage.getItem('currentFlashcard') || '1');
+        let totalFlashcards = 10;
 
         function updateFlashcardDisplay() {
-            document.getElementById('currentFlashcard').textContent = currentFlashcard + 1;
-            document.getElementById('currentFlashcardTotal').textContent = totalFlashcards;
+            document.getElementById('currentFlashcard').textContent = currentFlashcard;
         }
 
         function showFlashcard(index) {
