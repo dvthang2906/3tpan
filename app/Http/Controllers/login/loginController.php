@@ -30,12 +30,12 @@ class loginController extends Controller
             $request->session()->flash('msg', 'bạn đã nhập sai tài khoản');
             // $request->session()->flash('userName', $userName);
             // dd(session('userName'));
-            return redirect()->back();
+            return redirect()->back()->withInput();
         } else {
             // Có dữ liệu trả về từ cơ sở dữ liệu
             if ($user_login[0]->user == $userName && !Hash::check($user_login[0]->password, $pass)) {
                 $request->session()->flash('msg', 'bạn đã nhập sai mật khẩu!');
-                return redirect()->back();
+                return redirect()->back()->withInput();
             } else {
                 $user_id = $user_login[0]->id;
                 session()->put('username', $userName);
@@ -64,6 +64,11 @@ class loginController extends Controller
         $pass = $request->password;
         $pass1 = $request->password1;
         $email = $request->email;
+
+
+        if ($pass !=  $pass1) {
+            return redirect()->route('login')->with('msgSingup', 'KIEM TRA PASS KHONG TRUNG NHAU')->withInput();
+        }
 
         // Tạo một token ngẫu nhiên
         $rememberToken = Str::random(60);
@@ -104,7 +109,7 @@ class loginController extends Controller
         $singup->SingupUser($dataInsert);
 
 
-        return redirect()->route('login')->with('msgSingup', 'ユーザーを登録できました。');
+        return redirect()->route('login')->with('msgSingup', 'ユーザーを登録できました。')->withInput();
     }
 
 

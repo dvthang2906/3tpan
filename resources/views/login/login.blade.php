@@ -36,7 +36,8 @@
                     </div>
                     <div class="group">
                         <label for="pass" class="label">Password<span>*</span></label>
-                        <input id="pass" type="password" name="password" class="input" data-type="password" required>
+                        <input id="pass" type="password" name="password" class="input" data-type="password"
+                            value="{{ old('password') }}" required>
                     </div>
                     <div class="group">
                         <input id="check" type="checkbox" class="check" checked>
@@ -51,30 +52,50 @@
                     </div>
                     @csrf
                 </form>
+
+
                 <form class="sign-up-htm" action="{{ route('post-Signup') }}" method="POST">
+                    @if (session('msg'))
+                        <p style="color: red; margin-top:px;">{{ session('msg') }}</p>
+                    @endif
                     <div class="group">
                         <label for="user" class="label">Fullname<span>*</span></label>
                         <input id="user" type="text" name="fullname" class="input" value="{{ old('fullname') }}"
                             required>
+                        @error('fullname')
+                            <div class="error">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="group">
                         <label for="user" class="label">Username<span>*</span></label>
                         <input id="user" type="text" name="UserName" class="input" value="{{ old('UserName') }}"
                             required>
+                        @error('UserName')
+                            <div class="error">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="group">
                         <label for="pass" class="label">Password<span>*</span></label>
-                        <input id="pass" type="password" name="password" class="input" data-type="password" required>
+                        <input id="pass" type="password" name="password" class="input" data-type="password"
+                            value="{{ old('password') }}" required>
+                        @error('password')
+                            <div class="error">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="group">
                         <label for="pass" class="label">Repeat Password<span>*</span></label>
-                        <input id="pass" type="password" name="password1" class="input" data-type="password" required>
+                        <input id="pass" type="password" name="password1" class="input" data-type="password"
+                            value="{{ old('password1') }}" required>
                     </div>
                     <div class="group">
                         <label for="pass" class="label">Email Address<span>*</span></label>
-                        <input id="pass" type="text" name="email" class="input" required>
+                        <input id="pass" type="text" name="email" value="{{ old('email') }}" class="input"
+                            required>
+                        @error('email')
+                            <div class="error">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="group">
                         <input type="submit" class="button" value="Sign Up">
