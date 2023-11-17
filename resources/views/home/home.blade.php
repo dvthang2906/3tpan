@@ -69,7 +69,7 @@
         <div class="nomal">
             <a href="#" class="bt_nav" title="辞書"><span>辞書</span></a>
             <a href="{{ route('flashcards') }}" class="bt_nav" title="フラッシュカード"><span>フラッシュカード</span></a>
-            <a href="#" class="bt_nav" title="テストしてみよう！"><span>テスト</span></a>
+            <a href="{{ route('test') }}" class="bt_nav" title="テストしてみよう！"><span>テスト</span></a>
         </div>
         <nav class="navbar">
             <ul class="nav">
