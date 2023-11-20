@@ -1,6 +1,6 @@
 @php
     $loginUserName = '';
-    if (!Session::has('username')) {
+    if (Session::has('username')) {
         $loginUserName = session('username');
     }
 
@@ -46,7 +46,7 @@
             <div class="hder hidden lg:flex lg:gap-x-12">
                 <a href="#" class="hd_text" title="ホームページ">Home</a>
                 <a href="#" class="hd_text" title="3T-Panについて">About</a>
-                <a href="{{route('contact')}}" class="hd_text" title="お問い合わせ">Contact</a>
+                <a href="{{ route('contact') }}" class="hd_text" title="お問い合わせ">Contact</a>
                 @if (Session::has('username'))
                     ユーザー:
                     &nbsp;&nbsp;
@@ -91,7 +91,7 @@
         </ul>
     </div>
     @if (session('msg'))
-        <div class="alert alert-success">{{ session('msg') }}</div>
+        <div class="alert alert-success">{{ $loginUserName }}</div>
     @endif
     <form action="{{ route('post-jisho-search') }}" method="POST">
         <div class="search">
@@ -251,10 +251,11 @@
         var commentButton = document.getElementById("comment-button");
         var commentText = document.getElementById("comment-text");
         var commentContainer = document.getElementById("commentContainer");
+        // let loginStatus = {{ $loginUserName }};
 
         commentButton.addEventListener("click", function() {
             // Kiểm tra xem người dùng đã đăng nhập hay chưa
-            if (!window.loginStatus) {
+            if (window.loginStatus) {
                 if (confirm('Bạn cần đăng nhập. Bấm OK để đăng nhập.')) {
                     window.location.href = '{{ route('login') }}';
                 } else {
