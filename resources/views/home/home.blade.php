@@ -39,7 +39,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
-    <link rel="stylesheet" href="{{ 'build/tailwind.css' }}">
+    <link rel="stylesheet" href="{{ asset('build/tailwind.css') }}">
     <title>HomePage</title>
 </head>
 
@@ -206,9 +206,9 @@
                 <!-- Phần đăng comment -->
                 @csrf
                 <div class="form-group">
-                    <textarea id="comment-text" name="comment-text" required placeholder="Viết bình luận"></textarea>
+                    <textarea class="cmt_area" id="comment-text" name="comment-text" required placeholder="Viết bình luận"></textarea>
                 </div>
-                <button id="comment-button" type="submit" name="comment-value"
+                <button class="bt_cmt" id="comment-button" type="submit" name="comment-value"
                     style="margin-bottom: 50px;">COMMENT</button>
             </div>
         @endif

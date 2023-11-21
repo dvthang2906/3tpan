@@ -133,10 +133,10 @@
     border: 1px dotted #4D9BC1;
 }
 
-.comment {
+.cmt {
     margin: 20px 5px 5px 25%;
     width: 500px;
-    height: 500px;
+    height: fit-content;
 }
 
 .ads {
@@ -146,4 +146,48 @@
     margin-top: -200px;
     margin-left: 70%;
     border: 1px dotted #4D9BC1;
+}
+
+.comment {
+    margin: 10px;
+}
+
+.comment-text {
+    margin-left: 10px;
+}
+
+.comment-time {
+    font-size: small;
+    color: gray;
+    margin-left: 20px;
+}
+
+.comment-container {
+    /* Thêm bảng để làm đẹp phần bình luận */
+    /* border: 1px solid #ddd; */
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.cmt_area {
+    /* Quy tắc cho textarea */
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+.bt_cmt {
+    /* Quy tắc cho nút comment */
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.bt_cmt:hover {
+    background-color: #45a049;
 }
