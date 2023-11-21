@@ -182,8 +182,7 @@
 
 
     <div class="ads">
-        <iframe id="youtube-video" width="110%" height="110%"
-            src="https://www.youtube.com/embed/KR4lNERGVGE?autoplay=1&mute=1" title="YouTube video player"
+        <iframe id="" width="110%" height="110%" src="https://comp.ecc.ac.jp/" title="ECCコンピュータ専門学校"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen>
