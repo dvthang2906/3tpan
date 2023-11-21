@@ -201,15 +201,17 @@
                 @endforeach
             @endif
         </div>
-        <div class="comment-container">
-            <!-- Phần đăng comment -->
-            @csrf
-            <div class="form-group">
-                <textarea id="comment-text" name="comment-text" required placeholder="Viết bình luận"></textarea>
+        @if (!isset($tangoValue) || $tangoValue != '')
+            <div class="comment-container">
+                <!-- Phần đăng comment -->
+                @csrf
+                <div class="form-group">
+                    <textarea id="comment-text" name="comment-text" required placeholder="Viết bình luận"></textarea>
+                </div>
+                <button id="comment-button" type="submit" name="comment-value"
+                    style="margin-bottom: 50px;">COMMENT</button>
             </div>
-            <button id="comment-button" type="submit" name="comment-value"
-                style="margin-bottom: 50px;">COMMENT</button>
-        </div>
+        @endif
     </div>
     <script>
         // Lắng nghe sự kiện click trên nút "COMMENT"
