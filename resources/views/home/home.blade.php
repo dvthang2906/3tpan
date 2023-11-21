@@ -213,6 +213,9 @@
             </div>
         @endif
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <script>
         // Lắng nghe sự kiện click trên nút "COMMENT"
         var commentButton = document.getElementById("comment-button");
