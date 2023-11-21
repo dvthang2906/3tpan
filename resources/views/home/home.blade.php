@@ -177,74 +177,36 @@
 
 
     <div class="ads">
-        {{-- <iframe style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden" frameborder="0"
-            type="text/html" src="https://www.dailymotion.com/embed/video/x51gnyf?autoplay=1" width="150%"
-            height="150%" allowfullscreen title="Dailymotion Video Player" allow="autoplay">
-        </iframe> --}}
-
         <iframe id="youtube-video" width="110%" height="110%"
             src="https://www.youtube.com/embed/KR4lNERGVGE?autoplay=1&mute=1" title="YouTube video player"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen></iframe>
-
-
+            allowfullscreen>
+        </iframe>
     </div>
     <h3 class="h3">コメント欄</h3>
-
-
-    <div id="commentContainer">
-        @if (!empty($comment))
-            @foreach ($comment as $commentData)
-                <div class="comment">
-                    <div class="user" style="color: red;">{{ $commentData->user }}</div>
-                    <div class="comment-text">{{ $commentData->comment }}</div>
-                    <div class="comment-time">{{ $commentData->created_time }}</div>
-                </div>
-            @endforeach
-        @endif
-    </div>
-    <div class="comment-container">
-        <!-- Phần đăng comment -->
-        @csrf
-        <div class="form-group">
-            <textarea id="comment-text" name="comment-text" required placeholder="Viết bình luận"></textarea>
+    <div class="cmt">
+        <div id="commentContainer">
+            @if (!empty($comment))
+                @foreach ($comment as $commentData)
+                    <div class="comment">
+                        <div class="user" style="color: red;">{{ $commentData->user }}</div>
+                        <div class="comment-text">{{ $commentData->comment }}</div>
+                        <div class="comment-time">{{ $commentData->created_time }}</div>
+                    </div>
+                @endforeach
+            @endif
         </div>
-        <button id="comment-button" type="submit" name="comment-value"
-            style="margin-bottom: 50px;">COMMENT</button>
+        <div class="comment-container">
+            <!-- Phần đăng comment -->
+            @csrf
+            <div class="form-group">
+                <textarea id="comment-text" name="comment-text" required placeholder="Viết bình luận"></textarea>
+            </div>
+            <button id="comment-button" type="submit" name="comment-value"
+                style="margin-bottom: 50px;">COMMENT</button>
+        </div>
     </div>
-
-
-
-
-
-    <input type="checkbox" id="actionMenuButton" />
-    <div class="actions-menu">
-        <button class="btn btn--share">
-            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                <path fill="#ffffff" d="M21,11L14,4V8C7,9 4,14 3,19C5.5,15.5 9,13.9 14,13.9V18L21,11Z" />
-            </svg>
-        </button>
-        <button class="btn btn--star">
-            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                <path fill="#ffffff"
-                    d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" />
-            </svg>
-        </button>
-        <button class="btn btn--comment">
-            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                <path fill="#ffffff"
-                    d="M19,3A2,2 0 0,1 21,5V19C21,20.11 20.1,21 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3H19M16.7,9.35C16.92,9.14 16.92,8.79 16.7,8.58L15.42,7.3C15.21,7.08 14.86,7.08 14.65,7.3L13.65,8.3L15.7,10.35L16.7,9.35M7,14.94V17H9.06L15.12,10.94L13.06,8.88L7,14.94Z" />
-            </svg>
-        </button>
-        <label for="actionMenuButton" class="btn btn--large btn--menu" />
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-
-
 
     <script>
         // Lắng nghe sự kiện click trên nút "COMMENT"
@@ -315,9 +277,6 @@
             commentContainer.appendChild(newComment);
         }
     </script>
-
-
-
     {{-- sự kiện click nút a --}}
     <script>
         // Biến kiểm tra trạng thái hiển thị của popup
