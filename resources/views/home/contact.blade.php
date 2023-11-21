@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="{{ 'build/tailwind.css' }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ 'css/menu.css' }}">
-    <title>Document</title>
+    <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/contact.css') }}">
+    <title>Contact Form</title>
 </head>
 
 <body>
@@ -15,7 +16,7 @@
         <div class="nomal">
             <a href="#" class="bt_nav" title="辞書"><span>辞書</span></a>
             <a href="#" class="bt_nav" title="フラッシュカード"><span>フラッシュカード</span></a>
-            <a href="{{route('test')}}" class="bt_nav" title="テストしてみよう！"><span>テスト</span></a>
+            <a href="{{ route('test') }}" class="bt_nav" title="テストしてみよう！"><span>テスト</span></a>
         </div>
         <nav>
             <ul class="nav">
@@ -51,8 +52,7 @@
                         </div>
                     </div>
                     <div class=" sm:col-span-2">
-                        <label for="email"
-                            class=" text-sm font-semibold leading-6 text-gray-900">メールアドバイス</label>
+                        <label for="email" class=" text-sm font-semibold leading-6 text-gray-900">メールアドバイス</label>
                         <div class="mt-2.5">
                             <input type="email" name="email" id="email" autocomplete="email"
                                 class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
@@ -98,26 +98,6 @@
                 @csrf
             </form>
         </div>
-    </div>
-    <div class="actions-menu">
-        <button class="btn btn--share">
-            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                <path fill="#ffffff" d="M21,11L14,4V8C7,9 4,14 3,19C5.5,15.5 9,13.9 14,13.9V18L21,11Z" />
-            </svg>
-        </button>
-        <button class="btn btn--star">
-            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                <path fill="#ffffff"
-                    d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" />
-            </svg>
-        </button>
-        <button class="btn btn--comment">
-            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                <path fill="#ffffff"
-                    d="M19,3A2,2 0 0,1 21,5V19C21,20.11 20.1,21 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3H19M16.7,9.35C16.92,9.14 16.92,8.79 16.7,8.58L15.42,7.3C15.21,7.08 14.86,7.08 14.65,7.3L13.65,8.3L15.7,10.35L16.7,9.35M7,14.94V17H9.06L15.12,10.94L13.06,8.88L7,14.94Z" />
-            </svg>
-        </button>
-        <label for="actionMenuButton" class="btn btn--large btn--menu" />
     </div>
 </body>
 
