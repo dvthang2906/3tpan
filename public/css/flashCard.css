@@ -1,3 +1,13 @@
+body {
+    background-image: url('public/images/2flashCard_bg.jpg');
+    /* Đường dẫn đến hình nền của bạn */
+    background-size: cover;
+    /* Chọn kiểu kích thước hình nền, ví dụ: cover, contain */
+    background-repeat: no-repeat;
+    /* Không lặp lại hình nền */
+    margin: 0;
+}
+
 h1 {
     margin: 20px;
     color: #4D9BC1;

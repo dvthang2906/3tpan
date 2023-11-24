@@ -21,6 +21,9 @@ CREATE TABLE IF NOT EXISTS login_infomation(
 -- them token
 ALTER TABLE login_infomation ADD COLUMN remember_token VARCHAR(100) NULL AFTER email;
 
+ALTER TABLE login_infomation ADD COLUMN level VARCHAR(10) AFTER id;
+
+
 
 -- foreign key
 
