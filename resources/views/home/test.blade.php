@@ -8,6 +8,14 @@
     <link rel="stylesheet" href="{{ asset('css/test.css') }}">
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
     <title>Test Page</title>
+    <style>
+        .scrollable {
+            max-height: 350px;
+            /* Hoặc giá trị phù hợp với nhu cầu của bạn */
+            overflow-y: auto;
+            /* Cho phép thanh cuộn dọc nếu nội dung vượt quá max-height */
+        }
+    </style>
 </head>
 
 <body>
@@ -31,54 +39,54 @@
         <ul class="nav_t">
             <li><a href="#">N1</a>
                 <ul>
-                    <li><a href="#" style="margin-left: 5px">Từ vựng</a>
+                    <li><a href="#" style="margin-left: 5px">Vocabulary</a>
                         <ul>
-                            <li><a href="#" style="margin-left: 5px">Đề 01</a></li>
-                            <li><a href="#" style="margin-left: 5px">Đề 02</a></li>
-                            <li><a href="#" style="margin-left: 5px">Đề 03</a></li>
+                            <li><a href="#" style="margin-left: 5px">コード番号01</a></li>
+                            <li><a href="#" style="margin-left: 5px">コード番号02</a></li>
+                            <li><a href="#" style="margin-left: 5px">コード番号03</a></li>
                         </ul>
                     </li>
-                    <li><a href="#" style="margin-left: 5px">Ngữ pháp</a>
+                    <li><a href="#" style="margin-left: 5px">Grammar</a>
                         <ul>
-                            <li><a href="#" style="margin-left: 5px">Đề 01</a></li>
-                            <li><a href="#" style="margin-left: 5px">Đề 02</a></li>
-                            <li><a href="#" style="margin-left: 5px">Đề 03</a></li>
+                            <li><a href="#" style="margin-left: 5px">コード番号01</a></li>
+                            <li><a href="#" style="margin-left: 5px">コード番号02</a></li>
+                            <li><a href="#" style="margin-left: 5px">コード番号03</a></li>
                         </ul>
                     </li>
                 </ul>
             </li>
             <li><a href="#">N2</a>
                 <ul>
-                    <li><a href="#" style="margin-left: 5px">Từ vựng</a>
+                    <li><a href="#" style="margin-left: 5px">Vocabulary</a>
                         <ul>
-                            <li><a href="#" style="margin-left: 5px">Đề 01</a></li>
-                            <li><a href="#" style="margin-left: 5px">Đề 02</a></li>
-                            <li><a href="#" style="margin-left: 5px">Đề 03</a></li>
+                            <li><a href="#" style="margin-left: 5px">コード番号01</a></li>
+                            <li><a href="#" style="margin-left: 5px">コード番号02</a></li>
+                            <li><a href="#" style="margin-left: 5px">コード番号03</a></li>
                         </ul>
                     </li>
-                    <li><a href="#" style="margin-left: 5px">Ngữ pháp</a>
+                    <li><a href="#" style="margin-left: 5px">Grammar</a>
                         <ul>
-                            <li><a href="#" style="margin-left: 5px">Đề 01</a></li>
-                            <li><a href="#" style="margin-left: 5px">Đề 02</a></li>
-                            <li><a href="#" style="margin-left: 5px">Đề 03</a></li>
+                            <li><a href="#" style="margin-left: 5px">コード番号01</a></li>
+                            <li><a href="#" style="margin-left: 5px">コード番号02</a></li>
+                            <li><a href="#" style="margin-left: 5px">コード番号03</a></li>
                         </ul>
                     </li>
                 </ul>
             </li>
             <li><a href="#">N3</a>
                 <ul>
-                    <li><a href="#" style="margin-left: 5px">Từ vựng</a>
+                    <li><a href="#" style="margin-left: 5px">Vocabulary</a>
                         <ul>
-                            <li><a href="#" style="margin-left: 5px">Đề 01</a></li>
-                            <li><a href="#" style="margin-left: 5px">Đề 02</a></li>
-                            <li><a href="#" style="margin-left: 5px">Đề 03</a></li>
+                            <li><a href="#" style="margin-left: 5px">01</a></li>
+                            <li><a href="#" style="margin-left: 5px">02</a></li>
+                            <li><a href="#" style="margin-left: 5px">03</a></li>
                         </ul>
                     </li>
-                    <li><a href="#" style="margin-left: 5px">Ngữ pháp</a>
+                    <li><a href="#" style="margin-left: 5px">Grammar</a>
                         <ul>
-                            <li><a href="#" style="margin-left: 5px">Đề 01</a></li>
-                            <li><a href="#" style="margin-left: 5px">Đề 02</a></li>
-                            <li><a href="#" style="margin-left: 5px">Đề 03</a></li>
+                            <li><a href="#" style="margin-left: 5px">01</a></li>
+                            <li><a href="#" style="margin-left: 5px">02</a></li>
+                            <li><a href="#" style="margin-left: 5px">03</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -87,38 +95,38 @@
                 <ul>
                     <li><a style="margin-left: 5px">Kanji</a>
                         <ul>
-                            <li><a style="margin-left: 5px">Đề 01</a></li>
-                            <li><a style="margin-left: 5px">Đề 02</a></li>
+                            <li><a style="margin-left: 5px">コード番号01</a></li>
+                            <li><a style="margin-left: 5px">コード番号02</a></li>
                         </ul>
                     </li>
                     <li><a style="margin-left: 5px">Vocabulary</a>
                         <ul>
-                            <li><a style="margin-left: 5px">Đề 01</a></li>
-                            <li><a style="margin-left: 5px">Đề 02</a></li>
+                            <li><a style="margin-left: 5px">コード番号01</a></li>
+                            <li><a style="margin-left: 5px">コード番号02</a></li>
                         </ul>
                     </li>
                     <li><a style="margin-left: 5px">Grammar</a>
                         <ul>
-                            <li><a style="margin-left: 5px">Đề 01</a></li>
-                            <li><a style="margin-left: 5px">Đề 02</a></li>
+                            <li><a style="margin-left: 5px">コード番号01</a></li>
+                            <li><a style="margin-left: 5px">コード番号02</a></li>
                         </ul>
                     </li>
                 </ul>
             </li>
             <li><a href="#">N5</a>
                 <ul>
-                    <li><a href="#" style="margin-left: 5px">Từ vựng</a>
+                    <li><a href="#" style="margin-left: 5px">Vocabulary</a>
                         <ul>
-                            <li><a href="#" style="margin-left: 5px">Đề 01</a></li>
-                            <li><a href="#" style="margin-left: 5px">Đề 02</a></li>
-                            <li><a href="#" style="margin-left: 5px">Đề 03</a></li>
+                            <li><a href="#" style="margin-left: 5px">コード番号01</a></li>
+                            <li><a href="#" style="margin-left: 5px">コード番号02</a></li>
+                            <li><a href="#" style="margin-left: 5px">コード番号03</a></li>
                         </ul>
                     </li>
-                    <li><a href="#" style="margin-left: 5px">Ngữ pháp</a>
+                    <li><a href="#" style="margin-left: 5px">Grammar</a>
                         <ul>
-                            <li><a href="#" style="margin-left: 5px">Đề 01</a></li>
-                            <li><a href="#" style="margin-left: 5px">Đề 02</a></li>
-                            <li><a href="#" style="margin-left: 5px">Đề 03</a></li>
+                            <li><a href="#" style="margin-left: 5px">コード番号01</a></li>
+                            <li><a href="#" style="margin-left: 5px">コード番号02</a></li>
+                            <li><a href="#" style="margin-left: 5px">コード番号03</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -129,10 +137,9 @@
         <header>
             <h1>日本語<span>AAA</span>模擬テスト</h1>
         </header>
-        <section class="kj_test">
-            <h2>問題：___ は どう よみますか。４つから １つを えらびなさい。</h2>
-
-            {{-- Nội dung câu hỏi và câu trả lời --}}
+        <h2>問題：___ は どう よみますか。４つから １つを えらびなさい。</h2>
+        {{-- Nội dung câu hỏi và câu trả lời --}}
+        <section class="kj_test scrollable" style="margin: 5px">
             @foreach ($test_mondai as $key => $mondai)
                 <div class="question">
                     <p>問{{ $key + 1 }}：{{ $mondai->QUIZ }}</p>
@@ -156,7 +163,8 @@
                 </div>
             @endforeach
         </section>
-        <!-- Thêm các phần khác như Từ vựng, Đọc Hiểu, Viết ở đây -->
+
+        <!-- Thêm các phần khác như Vocabulary, Đọc Hiểu, Viết ở đây -->
     </div>
     <div class="check-result">
         <a href="#" class="bt_nav"><span>CHECK</span></a>
@@ -188,25 +196,67 @@
 
 
 <script>
-    let hoverHistory = []; // Mảng để lưu trữ giá trị khi hover
+    let hoverHistory = [];
 
-    // Xử lý sự kiện mouseover
     document.querySelectorAll('a').forEach(link => {
         link.addEventListener('mouseover', function(event) {
+            const levelText = this.innerText;
+            if (['N1', 'N2', 'N3', 'N4', 'N5'].includes(levelText)) {
+                hoverHistory = []; // Xóa mảng cũ
+            }
 
-            hoverHistory.push(this.innerText); // Thêm vào mảng khi hover vào N4 hoặc Kanji
-            console.log('Hover:', hoverHistory.join(' > '));
+            // Xác định nhóm các giá trị có thể thay thế lẫn nhau
+            const replaceableGroups = [
+                ['Kanji', 'Vocabulary', 'Grammar'],
+                ['Vocabulary', 'Grammar'],
+                ['コード番号01', 'コード番号02', 'コード番号03'] // Điều chỉnh tùy theo số lượng "Đề" bạn có
+            ];
 
+            // Tìm nhóm có chứa giá trị hiện tại
+            let groupIndex = replaceableGroups.findIndex(group => group.includes(levelText));
+
+            // Thay thế hoặc thêm giá trị mới
+            if (groupIndex !== -1) {
+                const replaceableGroup = replaceableGroups[groupIndex];
+                let foundIndex = hoverHistory.findIndex(item => replaceableGroup.includes(item));
+
+                // Xóa tất cả các "Đề" trước khi thêm mới nếu là "コード番号"
+                if (replaceableGroup.some(item => item.startsWith('コード番号'))) {
+                    hoverHistory = hoverHistory.filter(item => !replaceableGroup.includes(item));
+                }
+
+
+                // Thay thế hoặc thêm mới
+                if (foundIndex !== -1) {
+                    hoverHistory[foundIndex] = levelText; // Thay thế giá trị cũ
+                } else {
+                    hoverHistory.push(levelText); // Thêm mới nếu không tìm thấy
+                }
+            } else {
+                hoverHistory.push(levelText); // Thêm các giá trị khác nếu không thuộc nhóm thay thế
+            }
         });
     });
+
 
     // Xử lý sự kiện click
     document.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', function(event) {
-            event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ <a>
-            if (this.innerText.includes('Đề')) {
-                console.log('Click:', this.innerText);
-                // Xử lý thêm khi click vào Đề 01, Đề 02, ...
+            event.preventDefault();
+            if (this.innerText.includes('コード番号')) {
+                console.log(hoverHistory);
+                // Kiểm tra để đảm bảo hoverHistory có đủ phần tử
+                if (hoverHistory.length === 3) {
+                    let level = 'level=' + encodeURIComponent(hoverHistory[0]);
+                    let category = 'category=' + encodeURIComponent(hoverHistory[1]);
+                    let code = 'code=' + encodeURIComponent(hoverHistory[2]);
+
+                    // Tạo chuỗi truy vấn
+                    let queryString = level + '&' + category + '&' + code;
+
+                    // Cập nhật URL
+                    window.history.pushState({}, '', '?' + queryString);
+                }
             }
         });
     });

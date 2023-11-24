@@ -8,10 +8,15 @@ use Illuminate\Http\Request;
 
 class testController extends Controller
 {
-    public function test(test $test)
+    public function test(Request $request, test $test)
     {
-        $test_mondai = $test->test_mondai();
+        if ($request->session()->has('user_id')) {
+            $test_mondai = $test->test_mondai();
 
-        return view('home.test', compact('test_mondai'));
+            return view('home.test', compact('test_mondai'));
+        }
+
+
+        return "bạn cần đăng nhập; <a href=\"" . route('login') . "\">Đăng nhập</a>";
     }
 }
