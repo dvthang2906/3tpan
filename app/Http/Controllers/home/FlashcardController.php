@@ -19,7 +19,7 @@ class FlashCardController extends Controller
 
 
 
-    public function index(Request $request, Flashcard $flashcards)
+    public function index(CountFullTango $CountFullTango, Request $request, ReviewLearned $reviewLearned, Flashcard $flashcards)
     {
 
         $currentFlashcard = session('currentFlashcard');
@@ -28,14 +28,22 @@ class FlashCardController extends Controller
 
             // ... các xử lý khác ...
             $getFlashcards  = $flashcards->getTangoFlashcard($this->user_id);
-
-
             $count = count($getFlashcards);
 
-            return view('home.flashcard', compact('getFlashcards', 'count'));
+            //lấy tổng từ vựng
+            $ReviewLearned  = $reviewLearned->ReviewLearned($this->user_id);
+            $ReviewLearnedFlashcard  = $reviewLearned->ReviewLearnedFlashcard($this->user_id);
 
+
+            if (!empty($ReviewLearnedFlashcard[0])) {
+                $lever = $ReviewLearnedFlashcard[0]->lever;
+                $countVocabulary = $CountFullTango->getCountVocabulary($lever);
+                $totalLearnedCount = count($ReviewLearned);
+
+
+                return view('home.flashcard', compact('getFlashcards', 'count', 'countVocabulary', 'totalLearnedCount'));
+            }
         }
-
 
 
         return "bạn cần đăng nhập; <a href=\"" . route('login') . "\">Đăng nhập</a>";
@@ -93,8 +101,6 @@ class FlashCardController extends Controller
             $user_id = $this->user_id = session('user_id');
             // ... các xử lý khác ...
             $ReviewLearned  = $reviewLearned->ReviewLearned($this->user_id);
-
-            // $count = $countFullTango->getCountVocabulary();
 
             $ReviewLearnedFlashcard  = $reviewLearned->ReviewLearnedFlashcard($this->user_id);
 

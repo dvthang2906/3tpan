@@ -110,20 +110,6 @@
         button:hover {
             background-color: #0056b3;
         }
-
-        #progressContainer {
-            width: 100%;
-            background-color: #ddd;
-        }
-
-        #progressBar {
-            width: 0%;
-            height: 30px;
-            background-color: #4CAF50;
-            text-align: center;
-            line-height: 30px;
-            color: white;
-        }
     </style>
 </head>
 
@@ -132,11 +118,6 @@
     {{--
     <button id="reviewButton">もう一度復習</button> --}}
     @if (isset($totalLearnedCount) && $totalLearnedCount > 0)
-
-        <div id="progressContainer">
-            <div id="progressBar"></div>
-        </div>
-        <p id="progressText"></p>
 
 
         @if (isset($ReviewLearnedFlashcard) && !empty($ReviewLearnedFlashcard))
@@ -273,17 +254,7 @@
                 }
             });
 
-            function updateProgress(completed, total) {
-                var percent = (completed / total) * 100;
-                document.getElementById('progressBar').style.width = percent + '%';
-                document.getElementById('progressText').innerText =
-                    `Đã học ${completed} trên ${total} từ vựng (${Math.round(percent)}%)`;
-            }
 
-            let totalLearnedCount = {{ $totalLearnedCount }}
-            let total = {{ $count }}
-            // Ví dụ cập nhật tiến trình
-            updateProgress(totalLearnedCount, total); // Bạn đã học 200 từ vựng trên tổng số 600
 
 
             // ÔN LUYỆN

@@ -102,6 +102,22 @@
         button:hover {
             background-color: #0056b3;
         }
+
+
+        /* css của thanh hiển thị % */
+        #progressContainer {
+            width: 100%;
+            background-color: #ddd;
+        }
+
+        #progressBar {
+            width: 0%;
+            height: 30px;
+            background-color: #4CAF50;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+        }
     </style>
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
     <link href="{{ asset('build/tailwind.css') }}" rel="stylesheet">
@@ -158,6 +174,10 @@
                 <a href="#" class="hd_text1" title="お問い合わせ">スキップ</a>
             </div>
         </div>
+        <div id="progressContainer">
+            <div id="progressBar"></div>
+        </div>
+        <p id="progressText"></p>
         <div class="word">
             @if (isset($getFlashcards))
                 <div class="flashcard-container-all">
@@ -283,6 +303,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            let totalLearnedCount = {{ $totalLearnedCount }}
+            let total = {{ $countVocabulary }}
             let currentFlashcard = parseInt(localStorage.getItem('currentFlashcard'));
             if (isNaN(currentFlashcard)) {
                 currentFlashcard = 0;
@@ -333,6 +355,9 @@
                 updateBtn.addEventListener('click', (event) => {
                     event.stopPropagation();
 
+                    totalLearnedCount++;
+                    updateProgress(totalLearnedCount, total);
+
                     const currentContainer = document.querySelector(
                         '.flashcard-container:not([style*="display: none"])');
                     if (currentContainer) {
@@ -373,6 +398,17 @@
                 console.error('Nút "OK!NEXT" không tồn tại trong DOM.');
             }
 
+
+            // thanh hiển thị %
+            function updateProgress(completed, total) {
+                var percent = (completed / total) * 100;
+                document.getElementById('progressBar').style.width = percent + '%';
+                document.getElementById('progressText').innerText =
+                    `Đã học ${completed} trên ${total} từ vựng (${Math.round(percent)}%)`;
+            }
+
+            // Ví dụ cập nhật tiến trình
+            updateProgress(totalLearnedCount, total); // Bạn đã học 200 từ vựng trên tổng số 600
         });
     </script>
 
