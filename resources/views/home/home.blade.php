@@ -46,11 +46,12 @@
 <body>
 
     <header class="flex">
-        <a href="#"><img class="logo" src="{{ asset('images/logo3.png') }}" alt="logo"></a>
+        <a href="{{ route('home') }}"><img class="logo" src="{{ asset('images/logo3.png') }}" alt="logo"></a>
         <nav class=" mx-auto flex  items-center justify-between " aria-label="Global">
             <div class="hder hidden lg:flex lg:gap-x-12">
-                <a href="#" class="hd_text" title="ホームページ">Home</a>
+                <a href="{{ route('home') }}" class="hd_text" title="ホームページ">Home</a>
                 <a href="#" class="hd_text" title="3T-Panについて">About</a>
+                <a href="#" class="hd_text" title="3T-Panについて">3Tpan Premium</a>
                 <a href="{{ route('contact') }}" class="hd_text" title="お問い合わせ">Contact</a>
                 @if (Session::has('username'))
                     ユーザー:
@@ -102,7 +103,7 @@
         <div class="search">
             <div class="search-box">
                 <input type="text" name="value" value="{{ $tangoValue = isset($tangoValue) ? $tangoValue : '' }}"
-                    placeholder="検索ワード">
+                    placeholder="検索キーワード">
             </div>
             <div class="bt_search">
                 {{-- <button id="recordButton" class="bt_s" title="ボイスで検索"><span>🎤Ghi âm</span></button> --}}

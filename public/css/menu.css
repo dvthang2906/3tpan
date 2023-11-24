@@ -28,7 +28,7 @@ body {
 }
 
 .hder {
-    margin-left: 50px;
+    margin-left: -200px;
 }
 
 .hd_text {
@@ -145,11 +145,6 @@ nav ul li {
     background-color: #4D9BC1;
     /* width: 100%; */
 }
-
-
-/* input[type="checkbox"] {
-    display: none;
-} */
 
 .container {
     position: relative;
