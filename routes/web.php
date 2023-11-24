@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\home\FlashCardController;
+use App\Http\Controllers\home\testController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JishoController;
 use App\Http\Controllers\login\loginController;
@@ -24,7 +25,6 @@ Route::get('/login', [HomeController::class, 'login'])->name('login');
 Route::post('/home', [loginController::class, 'index'])->name('post-login');
 
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
-Route::get('/test', [HomeController::class, 'test'])->name('test');
 
 //users
 Route::prefix('/users')->group(function () {
@@ -64,6 +64,9 @@ Route::prefix('/home')->group(function () {
     // API Google Cloud Text-to-Speech
     Route::post('/synthesize-speech', [SpeechController::class, 'synthesize']);
     Route::post('/upload-audio', [SpeechController::class, 'uploadAudio']);
+
+    //test
+    Route::get('/test', [testController::class, 'test'])->name('test');
 });
 
 //logout
