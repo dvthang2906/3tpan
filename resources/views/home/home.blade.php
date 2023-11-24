@@ -41,6 +41,12 @@
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
     <link rel="stylesheet" href="{{ asset('build/tailwind.css') }}">
     <title>HomePage</title>
+
+    <style>
+        .red-placeholder::placeholder {
+            color: red;
+        }
+    </style>
 </head>
 
 <body>
@@ -228,6 +234,17 @@
         commentButton.addEventListener("click", function() {
             // Kiểm tra xem người dùng đã đăng nhập hay chưa
             console.log('loginStatus: ', loginStatus);
+            if (commentText.value == '') {
+
+                if (commentText.value == '') {
+                    commentText.classList.add('red-placeholder');
+                    commentText.placeholder = 'Bạn cần nhập nội dung Comment!!!';
+                    return;
+                } else {
+                    // Nếu không rỗng, đảm bảo xóa class để không hiển thị màu đỏ
+                    commentText.classList.remove('red-placeholder');
+                }
+            }
             if (loginStatus == '' || !loginStatus) {
                 if (confirm('Bạn cần đăng nhập. Bấm OK để đăng nhập.')) {
                     window.location.href = '{{ route('login') }}';
