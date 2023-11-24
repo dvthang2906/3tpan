@@ -251,6 +251,8 @@
                     .then(function(response) {
                         // Xử lý phản hồi từ Controller ở đây
                         var commentValue = response.data;
+                        // Để xóa nội dung, thiết lập giá trị của nó thành chuỗi rỗng
+                        commentText.value = '';
                         reloadData(commentValue);
                         // console.log(commentValue);
                     })
