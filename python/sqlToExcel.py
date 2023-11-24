@@ -9,7 +9,7 @@ db_connection_str = 'mysql+mysqlconnector://3tpan:ecc@localhost/3tpandb'
 engine = create_engine(db_connection_str)
 
 # Đọc dữ liệu từ MySQL vào DataFrame
-df = pd.read_sql('DESC login_infomation', con=engine)
+df = pd.read_sql('DESC vocabulary', con=engine)
 
 # Ghi DataFrame vào Excel
-df.to_excel('login_infomation.xlsx', index=False)
+df.to_excel('vocabulary.xlsx', index=False)

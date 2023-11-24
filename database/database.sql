@@ -52,6 +52,8 @@ CREATE TABLE IF NOT EXISTS vocabulary(
 	mean VARCHAR(255)
 );
 
+-- 
+
 DELETE FROM vocabulary WHERE stt IS NULL;
 
 
