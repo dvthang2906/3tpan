@@ -44,7 +44,7 @@ CREATE TABLE alphabet (
 DROP TABLE IF EXISTS vocabulary;
 CREATE TABLE IF NOT EXISTS vocabulary(
 	stt int PRIMARY KEY,
-	lever VARCHAR(15),
+	level VARCHAR(15),
 	tango VARCHAR(255),
 	romaji VARCHAR(50),
 	hiragana VARCHAR(255),
@@ -52,7 +52,28 @@ CREATE TABLE IF NOT EXISTS vocabulary(
 	mean VARCHAR(255)
 );
 
--- 
+-- Kanji
+DROP TABLE IF EXISTS kanji
+CREATE TABLE IF NOT EXISTS kanji(
+	stt int PRIMARY KEY,
+	level VARCHAR(15),
+	kanji VARCHAR(255),
+	onyomi_romaji VARCHAR(50),
+	onyomi VARCHAR(50),
+	kunyomi_romaji VARCHAR(50),
+	kunyomi VARCHAR(50),
+	kanji_mean VARCHAR(255)
+);
+
+-- Grammar
+DROP TABLE IF EXISTS grammar
+CREATE TABLE IF NOT EXISTS grammar(
+	stt int PRIMARY KEY,
+	level VARCHAR(15),
+	grm_romaji VARCHAR(255),
+	grm_hira VARCHAR(255),
+	grm_mean VARCHAR(255)
+);
 
 DELETE FROM vocabulary WHERE stt IS NULL;
 
