@@ -10,11 +10,12 @@ class test extends Model
 {
     use HasFactory;
 
-    public function test_mondai()
+    public function test_mondai($category)
     {
         $test_mondai = DB::table('test_mondai')
             ->select()
-            ->where('CATEGORY', 'kanji')
+            ->where('LEVER', 'N4')
+            ->where('CATEGORY', $category)
             ->get();
 
         return $test_mondai;

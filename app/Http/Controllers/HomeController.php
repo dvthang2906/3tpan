@@ -31,4 +31,9 @@ class HomeController extends Controller
     //     $result = [];
     //     return view('home.test');
     // }
+
+    public function testLivewire()
+    {
+        return view('home.testLivewire');
+    }
 }

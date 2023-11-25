@@ -11,9 +11,9 @@ class testController extends Controller
     public function test(Request $request, test $test)
     {
         if ($request->session()->has('user_id')) {
-            $test_mondai = $test->test_mondai();
+            // $test_mondai = $test->test_mondai();
 
-            return view('home.test', compact('test_mondai'));
+            return view('home.test');
         }
 
 

@@ -19,6 +19,10 @@ use App\Http\Controllers\SpeechController;
 |
 */
 
+Route::get('/testLivewire', [HomeController::class, 'testLivewire']);
+
+
+
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/login', [HomeController::class, 'login'])->name('login');
 
