@@ -37,9 +37,7 @@
         </nav>
     </div>
     {{-- GỌI LIVEWIRE ĐỂ LẤY DỮ LIỆU Ở DƯỚI --}}
-    @livewire('counter')
-
-
+    @livewire('test-livewire')
 
 
     <!-- Thêm các phần khác như Vocabulary, Đọc Hiểu, Viết ở đây -->
@@ -139,6 +137,7 @@
         });
     });
 </script>
+{{-- cần thiết để có thể chạy được  --}}
 @livewireScripts
 
 </html>
