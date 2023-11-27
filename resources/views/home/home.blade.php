@@ -189,7 +189,7 @@
 
 
     <div class="ads">
-        <iframe id="" width="110%" height="110%" src="https://comp.ecc.ac.jp/" title="ECCコンピュータ専門学校"
+        <iframe id="" width="350px" height="350px" src="https://comp.ecc.ac.jp/" title="ECCコンピュータ専門学校"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen>

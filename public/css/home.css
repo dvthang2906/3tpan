@@ -142,10 +142,8 @@
 
 .ads {
     position: absolute;
-    width: 300px;
-    height: 200px;
-    margin-top: -200px;
-    margin-left: 70%;
+    margin-top: -250px;
+    margin-left: 72%;
     border: 1px dotted #4D9BC1;
 }
 
