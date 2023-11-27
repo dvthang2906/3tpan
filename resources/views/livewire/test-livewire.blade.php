@@ -1,11 +1,8 @@
 @php
     $count = 0;
+    $totalCount = 0;
 @endphp
 <div>
-    {{-- <button wire:click="updateCategory('vocabulary')">Vocabulary</button>
-    <button wire:click="updateCategory('kanji')">Kanji</button>
-    <button wire:click="updateCategory('grammar')">Grammar</button> --}}
-    {{-- Care about people's approval and you will be their prisoner. --}}
     <div class="contents">
         <ul class="nav_t">
 
@@ -51,6 +48,7 @@
                         @if ($question->Q_ID == $mondai->Q_ID)
                             @php
                                 $count++;
+                                $totalCount++;
                             @endphp
                             <div class="kanji-box"><span class="kanji">{{ $count }}:
                                     {{ $question->KANJI }}</span>
@@ -58,29 +56,23 @@
                                     @foreach ($test_answer as $answer)
                                         @if ($question->K_ID == $answer->K_ID)
                                             <div class="answer">
-                                                <input type="radio" name="q1k1"><span>{{ $answer->ANS1 }}</span>
+                                                <input type="radio" name={{ $answer->K_ID }}
+                                                    value="{{ $answer->K_ID }}:{{ $answer->ANS1 }}"><span>{{ $answer->ANS1 }}</span>
                                             </div>
                                             <div class="answer">
-                                                <input type="radio" name="q1k1"><span>{{ $answer->ANS2 }}</span>
+                                                <input type="radio" name={{ $answer->K_ID }}
+                                                    value="{{ $answer->K_ID }}:{{ $answer->ANS2 }}"><span>{{ $answer->ANS2 }}</span>
                                             </div>
                                             <div class="answer">
-                                                <input type="radio" name="q1k1"><span>{{ $answer->ANS3 }}</span>
+                                                <input type="radio" name={{ $answer->K_ID }}
+                                                    value="{{ $answer->K_ID }}:{{ $answer->ANS3 }}"><span>{{ $answer->ANS3 }}</span>
                                             </div>
                                             <div class="answer">
-                                                <input type="radio" name="q1k1"><span>{{ $answer->ANS4 }}</span>
+                                                <input type="radio" name={{ $answer->K_ID }}
+                                                    value="{{ $answer->K_ID }}:{{ $answer->ANS4 }}"><span>{{ $answer->ANS4 }}</span>
                                             </div>
                                         @endif
                                     @endforeach
-                                    {{-- <div class="answer">
-                                        <input type="radio" name="q1k1"><span></span>
-                                    </div>
-                                    <div class="answer">
-                                        <input type="radio" name="q1k1"><span></span>
-                                    </div>
-                                    <div class="answer">
-                                        <input type="radio" name="q1k1"><span></span>
-                                    </div> --}}
-                                    {{-- <input type="text" class="answer_tf"><span></span> --}}
                                 </div>
                             </div>
                         @endif
@@ -93,19 +85,26 @@
                         <p>問{{ $key + 1 }}：{{ $mondai->QUIZ }}</p>
                         @foreach ($test_answer as $answer)
                             @if ($mondai->Q_ID == $answer->K_ID)
+                                @php
+                                    $totalCount++;
+                                @endphp
                                 <div class="kanji-box">
                                     <div class="ans">
                                         <div class="answer">
-                                            <input type="radio" name="q1k1"><span>{{ $answer->ANS1 }}</span>
+                                            <input type="radio" name={{ $answer->K_ID }}
+                                                value="{{ $answer->K_ID }}:{{ $answer->ANS1 }}"><span>{{ $answer->ANS1 }}</span>
                                         </div>
                                         <div class="answer">
-                                            <input type="radio" name="q1k1"><span>{{ $answer->ANS2 }}</span>
+                                            <input type="radio" name={{ $answer->K_ID }}
+                                                value="{{ $answer->K_ID }}:{{ $answer->ANS2 }}"><span>{{ $answer->ANS2 }}</span>
                                         </div>
                                         <div class="answer">
-                                            <input type="radio" name="q1k1"><span>{{ $answer->ANS3 }}</span>
+                                            <input type="radio" name={{ $answer->K_ID }}
+                                                value="{{ $answer->K_ID }}:{{ $answer->ANS3 }}"><span>{{ $answer->ANS3 }}</span>
                                         </div>
                                         <div class="answer">
-                                            <input type="radio" name="q1k1"><span>{{ $answer->ANS4 }}</span>
+                                            <input type="radio" name={{ $answer->K_ID }}
+                                                value="{{ $answer->K_ID }}:{{ $answer->ANS4 }}"><span>{{ $answer->ANS4 }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -114,7 +113,16 @@
                     </div>
                 @endif
             @endforeach
+            @php
+                session()->put('totalCount', $totalCount);
+            @endphp
+
         </section>
 
 
+    </div>
+
+    <div class="check-result">
+        <a class="bt_nav" id="CheckButton"><span>CHECK</span></a>
+        <div class="result">得点：<span class="user_ans" id="user_result"></span>/<span class="total">100</span></div>
     </div>

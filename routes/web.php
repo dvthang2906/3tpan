@@ -72,6 +72,7 @@ Route::prefix('/home')->group(function () {
 
     //test
     Route::get('/test', [testController::class, 'test'])->name('test');
+    Route::post('/test', [testController::class, 'postTest'])->name('post-test');
 });
 
 //logout

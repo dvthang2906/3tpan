@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('css/test.css') }}">
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Test Page</title>
     <style>
         .scrollable {
@@ -41,12 +42,6 @@
 
 
     <!-- Thêm các phần khác như Vocabulary, Đọc Hiểu, Viết ở đây -->
-    </div>
-    <div class="check-result">
-        <a href="#" class="bt_nav"><span>CHECK</span></a>
-        <div class="result">得点：<span class="user_ans">10</span><span>/</span><span class="total">30</span></div>
-    </div>
-
     <input type="checkbox" id="actionMenuButton" class="muti-ck" />
     <div class="actions-menu">
         <button class="btn btn--share">
@@ -136,6 +131,64 @@
             }
         });
     });
+
+
+    // thực hiện khi bấm nút check bài test
+    // Ví dụ: Gọi khi nút bấm được nhấn
+    document.getElementById("CheckButton").addEventListener("click", function() {
+        var selectedValues = getSelectedKanjiValues();
+        console.log(selectedValues); // Hiển thị giá trị đã chọn trong console
+
+        //gửi dữ liệu đến controller
+        sendDataToServer(selectedValues);
+    });
+
+    // lấy tất cả đáp án đã chọn
+    function getSelectedKanjiValues() {
+        var selectedValues = {};
+        var checkboxes = document.querySelectorAll('.kanji-box .answer input[type="radio"]:checked');
+
+        checkboxes.forEach(function(checkbox) {
+            var [key, value] = checkbox.value.split(':');
+            selectedValues[key] = value;
+        });
+
+        return selectedValues;
+    }
+
+
+    let user_result = document.getElementById('user_result');
+
+    function sendDataToServer(dataToSend) {
+        fetch('/home/test', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                        'content') // CSRF token cho Laravel
+                },
+                body: JSON.stringify(dataToSend)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // console.log('Success:', data);
+                console.log('Giá trị của result:', data.message); // Truy cập giá trị của $result
+                let message = data.message;
+                // làm tiếp status ở đây
+
+                if (message == '') {
+                    user_result.innerText = data.result;
+                } else {
+                    user_result.innerText = data.result;
+                    alert(message.message);
+                }
+
+                if ()
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
 </script>
 {{-- cần thiết để có thể chạy được  --}}
 @livewireScripts

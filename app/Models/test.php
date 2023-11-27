@@ -41,4 +41,25 @@ class test extends Model
 
         return $test_answer;
     }
+
+    public function check_test($key, $value)
+    {
+        $count = 0;
+
+        $sample_results = DB::table('test_answer')
+            ->select('CORRECT')
+            ->where('K_ID', $key)
+            ->get();
+
+        //so sanh ket qua
+        if ($sample_results[0]->CORRECT == $value) {
+            $count++;
+        }
+        // else {
+
+        //      $sample_results[0]->K_ID;
+        // }
+
+        return $count;
+    }
 }
