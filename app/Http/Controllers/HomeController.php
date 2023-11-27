@@ -36,4 +36,8 @@ class HomeController extends Controller
     {
         return view('home.testLivewire');
     }
+    // about
+    public function about () {
+        return view('home.about');
+    }
 }

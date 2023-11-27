@@ -29,6 +29,7 @@ Route::get('/login', [HomeController::class, 'login'])->name('login');
 Route::post('/home', [loginController::class, 'index'])->name('post-login');
 
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+Route::get('/about', [HomeController::class, 'about'])->name('about');
 
 //users
 Route::prefix('/users')->group(function () {

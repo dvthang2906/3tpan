@@ -56,7 +56,7 @@
         <nav class=" mx-auto flex  items-center justify-between " aria-label="Global">
             <div class="hder hidden lg:flex lg:gap-x-12">
                 <a href="{{ route('home') }}" class="hd_text" title="ホームページ">Home</a>
-                <a href="#" class="hd_text" title="3T-Panについて">About</a>
+                <a href="{{ route('about') }}" class="hd_text" title="3T-Panについて">About</a>
                 <a href="#" class="hd_text" title="3T-Panについて">3Tpan Premium</a>
                 <a href="{{ route('contact') }}" class="hd_text" title="お問い合わせ">Contact</a>
                 @if (Session::has('username'))
