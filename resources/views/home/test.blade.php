@@ -172,9 +172,22 @@
             .then(response => response.json())
             .then(data => {
                 // console.log('Success:', data);
-                console.log('Giá trị của result:', data.message); // Truy cập giá trị của $result
+                console.log('Giá trị của falsemondai:', data.countFalse); // Truy cập giá trị của $result
                 let message = data.message;
                 // làm tiếp status ở đây
+                if (data.status == true) {
+                    alert('SAI : ' + data.countFalse)
+                    let falseMondaiName = document.getElementById(data.falseMondai);
+                    falseMondaiName.style.color = 'red';
+
+                    // Lưu trạng thái style
+                    localStorage.setItem('falseMondaiColor', 'red');
+
+                    // // Khi tải lại trang, kiểm tra và áp dụng style nếu cần
+                    // if (localStorage.getItem('falseMondaiColor')) {
+                    //     falseMondaiName.style.color = localStorage.getItem('falseMondaiColor');
+                    // }
+                }
 
                 if (message == '') {
                     user_result.innerText = data.result;
@@ -183,7 +196,6 @@
                     alert(message.message);
                 }
 
-                if ()
             })
             .catch((error) => {
                 console.error('Error:', error);

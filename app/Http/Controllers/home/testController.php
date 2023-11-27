@@ -28,11 +28,13 @@ class testController extends Controller
         $processedData = [];
         $result = 0;
         $count = 0;
+        $countFalse = 0;
         $totalCount = session('totalCount');
         $user_id = session('user_id');
         $level = 'N4';
         $message = '';
         $status = false;
+        $falseMondai = '';
 
         // Xử lý từng cặp key-value
         foreach ($data as $key => $value) {
@@ -41,11 +43,13 @@ class testController extends Controller
             $count += $test->check_test($key, $value);
             if ($test->check_test($key, $value) == 0) {
                 $status = true;
+                $falseMondai = $value;
+                $countFalse++;
             }
         }
 
         $result = floor((100 / $totalCount) * $count);
-        if ($result >= 10) {
+        if ($result >= 60) {
             $message = $succsessLevel->checkLevel($level, $user_id);
         } else {
             $message = '';
@@ -59,6 +63,8 @@ class testController extends Controller
                 'result' => $result,
                 'message' => $message,
                 'status' => $status,
+                'falseMondai' => $falseMondai,
+                'countFalse' => $countFalse,
             ]
         );
     }

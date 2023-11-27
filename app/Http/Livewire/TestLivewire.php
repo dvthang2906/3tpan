@@ -11,7 +11,7 @@ class TestLivewire extends Component
     public $test_mondai;
     public $test_question;
     public $test_answer;
-    public $category = 'grammar'; // Giá trị mặc định
+    public $category = 'kanji'; // Giá trị mặc định
 
 
     public function mount()
