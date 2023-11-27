@@ -7,29 +7,25 @@
         <ul class="nav_t">
 
             @for ($i = 1; $i <= 5; $i++)
-                <li><a>N{{ $i }}</a>
+                <li>
+                    <a>N{{ $i }}</a>
                     <ul>
-                        <li><a style="margin-left: 5px">Kanji</a>
-                            <ul>
-                                <li><a style="margin-left: 5px" wire:click="updateCategory('kanji')">コード番号01</a></li>
-                                {{-- <li><a style="margin-left: 5px">コード番号02</a></li> --}}
-                            </ul>
-                        </li>
-                        <li><a style="margin-left: 5px">Vocabulary</a>
-                            <ul>
-                                <li><a style="margin-left: 5px" wire:click="updateCategory('vocabulary')">コード番号01</a></li>
-                                {{-- <li><a style="margin-left: 5px">コード番号02</a></li> --}}
-                            </ul>
-                        </li>
-                        <li><a style="margin-left: 5px">Grammar</a>
-                            <ul>
-                                <li><a style="margin-left: 5px" wire:click="updateCategory('grammar')">コード番号01</a></li>
-                                {{-- <li><a style="margin-left: 5px">コード番号02</a></li> --}}
-                            </ul>
-                        </li>
+                        @foreach (['kanji' => 'Kanji', 'vocabulary' => 'Vocabulary', 'grammar' => 'Grammar'] as $key => $value)
+                            <li>
+                                <a style="margin-left: 5px">{{ $value }}</a>
+                                <ul>
+                                    <li><a style="margin-left: 5px"
+                                            wire:click="updateCategory('{{ $key }}')">コード番号01</a></li>
+                                    {{-- Example for additional items:
+                                <li><a style="margin-left: 5px">コード番号02</a></li>
+                                --}}
+                                </ul>
+                            </li>
+                        @endforeach
                     </ul>
                 </li>
             @endfor
+
 
         </ul>
     </div>
@@ -56,20 +52,28 @@
                                     @foreach ($test_answer as $answer)
                                         @if ($question->K_ID == $answer->K_ID)
                                             <div class="answer">
-                                                <input type="radio" name={{ $answer->K_ID }}
-                                                    value="{{ $answer->K_ID }}:{{ $answer->ANS1 }}"><span>{{ $answer->ANS1 }}</span>
+                                                <input type="radio" name="{{ $answer->K_ID }}"
+                                                    value="{{ $answer->K_ID }}:{{ $answer->ANS1 }}">
+                                                <span
+                                                    id="answer-{{ $answer->K_ID }}-{{ $answer->ANS1 }}">{{ $answer->ANS1 }}</span>
                                             </div>
                                             <div class="answer">
-                                                <input type="radio" name={{ $answer->K_ID }}
-                                                    value="{{ $answer->K_ID }}:{{ $answer->ANS2 }}"><span>{{ $answer->ANS2 }}</span>
+                                                <input type="radio" name="{{ $answer->K_ID }}"
+                                                    value="{{ $answer->K_ID }}:{{ $answer->ANS2 }}">
+                                                <span
+                                                    id="answer-{{ $answer->K_ID }}-{{ $answer->ANS2 }}">{{ $answer->ANS2 }}</span>
                                             </div>
                                             <div class="answer">
-                                                <input type="radio" name={{ $answer->K_ID }}
-                                                    value="{{ $answer->K_ID }}:{{ $answer->ANS3 }}"><span>{{ $answer->ANS3 }}</span>
+                                                <input type="radio" name="{{ $answer->K_ID }}"
+                                                    value="{{ $answer->K_ID }}:{{ $answer->ANS3 }}">
+                                                <span
+                                                    id="answer-{{ $answer->K_ID }}-{{ $answer->ANS3 }}">{{ $answer->ANS3 }}</span>
                                             </div>
                                             <div class="answer">
-                                                <input type="radio" name={{ $answer->K_ID }}
-                                                    value="{{ $answer->K_ID }}:{{ $answer->ANS4 }}"><span>{{ $answer->ANS4 }}</span>
+                                                <input type="radio" name="{{ $answer->K_ID }}"
+                                                    value="{{ $answer->K_ID }}:{{ $answer->ANS4 }}">
+                                                <span
+                                                    id="answer-{{ $answer->K_ID }}-{{ $answer->ANS4 }}">{{ $answer->ANS4 }}</span>
                                             </div>
                                         @endif
                                     @endforeach
@@ -91,21 +95,30 @@
                                 <div class="kanji-box">
                                     <div class="ans">
                                         <div class="answer">
-                                            <input type="radio" name={{ $answer->K_ID }}
-                                                value="{{ $answer->K_ID }}:{{ $answer->ANS1 }}"><span>{{ $answer->ANS1 }}</span>
+                                            <input type="radio" name="{{ $answer->K_ID }}"
+                                                value="{{ $answer->K_ID }}:{{ $answer->ANS1 }}">
+                                            <span
+                                                id="answer-{{ $answer->K_ID }}-{{ $answer->ANS1 }}">{{ $answer->ANS1 }}</span>
                                         </div>
                                         <div class="answer">
-                                            <input type="radio" name={{ $answer->K_ID }}
-                                                value="{{ $answer->K_ID }}:{{ $answer->ANS2 }}"><span>{{ $answer->ANS2 }}</span>
+                                            <input type="radio" name="{{ $answer->K_ID }}"
+                                                value="{{ $answer->K_ID }}:{{ $answer->ANS2 }}">
+                                            <span
+                                                id="answer-{{ $answer->K_ID }}-{{ $answer->ANS2 }}">{{ $answer->ANS2 }}</span>
                                         </div>
                                         <div class="answer">
-                                            <input type="radio" name={{ $answer->K_ID }}
-                                                value="{{ $answer->K_ID }}:{{ $answer->ANS3 }}"><span>{{ $answer->ANS3 }}</span>
+                                            <input type="radio" name="{{ $answer->K_ID }}"
+                                                value="{{ $answer->K_ID }}:{{ $answer->ANS3 }}">
+                                            <span
+                                                id="answer-{{ $answer->K_ID }}-{{ $answer->ANS3 }}">{{ $answer->ANS3 }}</span>
                                         </div>
                                         <div class="answer">
-                                            <input type="radio" name={{ $answer->K_ID }}
-                                                value="{{ $answer->K_ID }}:{{ $answer->ANS4 }}"><span>{{ $answer->ANS4 }}</span>
+                                            <input type="radio" name="{{ $answer->K_ID }}"
+                                                value="{{ $answer->K_ID }}:{{ $answer->ANS4 }}">
+                                            <span
+                                                id="answer-{{ $answer->K_ID }}-{{ $answer->ANS4 }}">{{ $answer->ANS4 }}</span>
                                         </div>
+
                                     </div>
                                 </div>
                             @endif

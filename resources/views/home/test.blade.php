@@ -72,136 +72,111 @@
     document.querySelectorAll('a').forEach(link => {
         link.addEventListener('mouseover', function(event) {
             const levelText = this.innerText;
-            if (['N1', 'N2', 'N3', 'N4', 'N5'].includes(levelText)) {
-                hoverHistory = []; // Xóa mảng cũ
-            }
-
-            // Xác định nhóm các giá trị có thể thay thế lẫn nhau
-            const replaceableGroups = [
-                ['Kanji', 'Vocabulary', 'Grammar'],
-                ['Vocabulary', 'Grammar'],
-                ['コード番号01', 'コード番号02', 'コード番号03'] // Điều chỉnh tùy theo số lượng "Đề" bạn có
-            ];
-
-            // Tìm nhóm có chứa giá trị hiện tại
-            let groupIndex = replaceableGroups.findIndex(group => group.includes(levelText));
-
-            // Thay thế hoặc thêm giá trị mới
-            if (groupIndex !== -1) {
-                const replaceableGroup = replaceableGroups[groupIndex];
-                let foundIndex = hoverHistory.findIndex(item => replaceableGroup.includes(item));
-
-                // Xóa tất cả các "Đề" trước khi thêm mới nếu là "コード番号"
-                if (replaceableGroup.some(item => item.startsWith('コード番号'))) {
-                    hoverHistory = hoverHistory.filter(item => !replaceableGroup.includes(item));
-                }
-
-
-                // Thay thế hoặc thêm mới
-                if (foundIndex !== -1) {
-                    hoverHistory[foundIndex] = levelText; // Thay thế giá trị cũ
-                } else {
-                    hoverHistory.push(levelText); // Thêm mới nếu không tìm thấy
-                }
-            } else {
-                hoverHistory.push(levelText); // Thêm các giá trị khác nếu không thuộc nhóm thay thế
-            }
+            updateHoverHistory(levelText);
         });
     });
 
+    function updateHoverHistory(levelText) {
+        if (['N1', 'N2', 'N3', 'N4', 'N5'].includes(levelText)) {
+            hoverHistory = [];
+        }
 
-    // Xử lý sự kiện click
+        const replaceableGroups = [
+            ['Kanji', 'Vocabulary', 'Grammar'],
+            ['Vocabulary', 'Grammar'],
+            ['コード番号01', 'コード番号02', 'コード番号03']
+        ];
+
+        let groupIndex = replaceableGroups.findIndex(group => group.includes(levelText));
+        if (groupIndex !== -1) {
+            const replaceableGroup = replaceableGroups[groupIndex];
+            hoverHistory = hoverHistory.filter(item => !replaceableGroup.includes(item));
+            hoverHistory.push(levelText);
+        } else {
+            hoverHistory.push(levelText);
+        }
+    }
+
     document.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', function(event) {
             event.preventDefault();
-            if (this.innerText.includes('コード番号')) {
-                console.log(hoverHistory);
-                // Kiểm tra để đảm bảo hoverHistory có đủ phần tử
-                if (hoverHistory.length === 3) {
-                    let level = 'level=' + encodeURIComponent(hoverHistory[0]);
-                    let category = 'category=' + encodeURIComponent(hoverHistory[1]);
-                    let code = 'code=' + encodeURIComponent(hoverHistory[2]);
-
-                    // Tạo chuỗi truy vấn
-                    let queryString = level + '&' + category + '&' + code;
-
-                    // Cập nhật URL
-                    window.history.pushState({}, '', '?' + queryString);
-                }
+            if (this.innerText.includes('コード番号') && hoverHistory.length === 3) {
+                updateURLQuery();
             }
         });
     });
 
-
-    // thực hiện khi bấm nút check bài test
-    // Ví dụ: Gọi khi nút bấm được nhấn
-    document.getElementById("CheckButton").addEventListener("click", function() {
-        var selectedValues = getSelectedKanjiValues();
-        console.log(selectedValues); // Hiển thị giá trị đã chọn trong console
-
-        //gửi dữ liệu đến controller
-        sendDataToServer(selectedValues);
-    });
-
-    // lấy tất cả đáp án đã chọn
-    function getSelectedKanjiValues() {
-        var selectedValues = {};
-        var checkboxes = document.querySelectorAll('.kanji-box .answer input[type="radio"]:checked');
-
-        checkboxes.forEach(function(checkbox) {
-            var [key, value] = checkbox.value.split(':');
-            selectedValues[key] = value;
-        });
-
-        return selectedValues;
+    function updateURLQuery() {
+        let [level, category, code] = hoverHistory;
+        let queryString =
+            `level=${encodeURIComponent(level)}&category=${encodeURIComponent(category)}&code=${encodeURIComponent(code)}`;
+        window.history.pushState({}, '', '?' + queryString);
     }
 
+    document.getElementById("CheckButton").addEventListener("click", function() {
+        sendDataToServer(getSelectedKanjiValues());
+    });
 
-    let user_result = document.getElementById('user_result');
+    function getSelectedKanjiValues() {
+        return Array.from(document.querySelectorAll('.kanji-box .answer input[type="radio"]:checked'))
+            .reduce((selectedValues, checkbox) => {
+                let [key, value] = checkbox.value.split(':');
+                selectedValues[key] = value;
+                return selectedValues;
+            }, {});
+    }
 
     function sendDataToServer(dataToSend) {
         fetch('/home/test', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-                        'content') // CSRF token cho Laravel
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 },
                 body: JSON.stringify(dataToSend)
             })
             .then(response => response.json())
-            .then(data => {
-                // console.log('Success:', data);
-                console.log('Giá trị của falsemondai:', data.countFalse); // Truy cập giá trị của $result
-                let message = data.message;
-                // làm tiếp status ở đây
-                if (data.status == true) {
-                    alert('SAI : ' + data.countFalse)
-                    let falseMondaiName = document.getElementById(data.falseMondai);
-                    falseMondaiName.style.color = 'red';
-
-                    // Lưu trạng thái style
-                    localStorage.setItem('falseMondaiColor', 'red');
-
-                    // // Khi tải lại trang, kiểm tra và áp dụng style nếu cần
-                    // if (localStorage.getItem('falseMondaiColor')) {
-                    //     falseMondaiName.style.color = localStorage.getItem('falseMondaiColor');
-                    // }
-                }
-
-                if (message == '') {
-                    user_result.innerText = data.result;
-                } else {
-                    user_result.innerText = data.result;
-                    alert(message.message);
-                }
-
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+            .then(data => handleServerResponse(data))
+            .catch(error => console.error('Error:', error));
     }
+
+    function handleServerResponse(data) {
+        console.log('Phản hồi từ server:', data); // In toàn bộ đối tượng data để kiểm tra
+
+        // Kiểm tra và hiển thị thông báo nếu có câu trả lời sai
+        if (data.status === true) {
+            alert('SAI : ' + data.countFalse);
+        }
+
+        // Kiểm tra và thay đổi màu sắc của các câu trả lời sai
+        if (Array.isArray(data.incorrectAnswerIds) && data.incorrectAnswerIds.length > 0) {
+            data.incorrectAnswerIds.forEach(answerId => {
+                let incorrectAnswerElement = document.getElementById(answerId);
+                if (incorrectAnswerElement) {
+                    incorrectAnswerElement.style.color = 'red';
+                } else {
+                    console.error('Không tìm thấy phần tử với ID:', answerId);
+                }
+            });
+        } else {
+            console.log('Không có ID câu trả lời sai hoặc danh sách rỗng.');
+        }
+
+        // Hiển thị kết quả
+        if (data.result !== undefined) {
+            user_result.innerText = data.result;
+        }
+
+        // Hiển thị thông báo bổ sung, nếu có
+        if (data.message) {
+            alert(data.message);
+        }
+    }
+
+
+    let user_result = document.getElementById('user_result');
 </script>
+
 {{-- cần thiết để có thể chạy được  --}}
 @livewireScripts
 

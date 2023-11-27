@@ -12,60 +12,73 @@ class testController extends Controller
     public function test(Request $request)
     {
         if ($request->session()->has('user_id')) {
-            // $test_mondai = $test->test_mondai();
-
             return view('home.test');
         }
-
 
         return "bạn cần đăng nhập; <a href=\"" . route('login') . "\">Đăng nhập</a>";
     }
 
-
     public function postTest(Request $request, test $test, succsessLevel $succsessLevel)
     {
-        $data = $request->all();
-        $processedData = [];
-        $result = 0;
+        $user_id = session('user_id');
+        $totalCount = session('totalCount', 0);
+
+        // Gọi hàm processTestData để xử lý dữ liệu và lấy các thông tin cần thiết
+        list($count, $countFalse, $falseMondai, $incorrectAnswerIds) = $this->processTestData($request->all(), $test);
+
+        // Tính toán kết quả
+        $result = $this->calculateResult($count, $totalCount);
+
+        // Tạo thông điệp dựa trên kết quả
+        $message = $this->generateMessage($result, $succsessLevel, 'N4', $user_id);
+
+        // Trả về phản hồi JSON
+        return response()->json([
+            'result' => $result,
+            'message' => $message,
+            'status' => $countFalse > 0,
+            'falseMondai' => $falseMondai,
+            'countFalse' => $countFalse,
+            'incorrectAnswerIds' => $incorrectAnswerIds // Mảng ID của các câu trả lời sai
+        ]);
+    }
+
+
+
+    private function processTestData($data, $test)
+    {
         $count = 0;
         $countFalse = 0;
-        $totalCount = session('totalCount');
-        $user_id = session('user_id');
-        $level = 'N4';
-        $message = '';
-        $status = false;
         $falseMondai = '';
+        $incorrectAnswerIds = []; // Mảng để lưu trữ các ID câu trả lời sai
 
-        // Xử lý từng cặp key-value
         foreach ($data as $key => $value) {
-            $processedData[] = ["Key" => $key, "Value" => $value];
+            // Giả sử $key là ID của câu hỏi và $value là giá trị của câu trả lời
+            // Bạn cần điều chỉnh logic này cho phù hợp với cấu trúc dữ liệu của bạn
 
-            $count += $test->check_test($key, $value);
             if ($test->check_test($key, $value) == 0) {
-                $status = true;
-                $falseMondai = $value;
-                $countFalse++;
+                // Câu trả lời sai
+                $falseMondai = $value; // Lưu trữ câu trả lời sai
+                $countFalse++; // Tăng số lượng câu trả lời sai
+                $incorrectAnswerIds[] = "answer-{$key}-{$value}"; // Tạo và thêm ID vào mảng
+            } else {
+                // Câu trả lời đúng
+                $count++; // Tăng số lượng câu trả lời đúng
             }
         }
 
-        $result = floor((100 / $totalCount) * $count);
-        if ($result >= 60) {
-            $message = $succsessLevel->checkLevel($level, $user_id);
-        } else {
-            $message = '';
-        }
+        return [$count, $countFalse, $falseMondai, $incorrectAnswerIds];
+    }
 
-        // Xóa session trước khi trả về response
-        // session()->forget('totalCount');
 
-        return response()->json(
-            [
-                'result' => $result,
-                'message' => $message,
-                'status' => $status,
-                'falseMondai' => $falseMondai,
-                'countFalse' => $countFalse,
-            ]
-        );
+
+    private function calculateResult($count, $totalCount)
+    {
+        return $totalCount > 0 ? floor((100 / $totalCount) * $count) : 0;
+    }
+
+    private function generateMessage($result, $succsessLevel, $level, $user_id)
+    {
+        return $result >= 60 ? $succsessLevel->checkLevel($level, $user_id) : '';
     }
 }
