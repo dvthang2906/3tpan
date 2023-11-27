@@ -7,118 +7,6 @@
     <title>Flashcard</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <style>
-        .flashcard-container-all {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            background-color: #eaeaea;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .flashcard-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .flashcard {
-            width: 300px;
-            height: 200px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-            background-color: white;
-            cursor: pointer;
-            perspective: 1000px;
-            position: relative;
-        }
-
-        .flashcard-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-        }
-
-        .flashcard.flip .flashcard-inner {
-            transform: rotateY(180deg);
-        }
-
-        .flashcard-front,
-        .flashcard-content {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            backface-visibility: hidden;
-            padding: 20px;
-            border-radius: 12px;
-            box-sizing: border-box;
-            /* Đảm bảo padding không làm thay đổi kích thước */
-
-        }
-
-        .flashcard-content {
-            transform: rotateY(180deg);
-            background-color: #fafafa;
-            color: #333;
-            text-align: left;
-            /* Căn văn bản sang trái */
-            align-items: flex-start;
-            /* Căn các thành phần con trong flex container sang trái */
-        }
-
-        .buttons {
-            margin-top: 30px;
-            display: flex;
-            gap: 20px;
-        }
-
-        button {
-            padding: 10px 20px;
-            cursor: pointer;
-            border: none;
-            background-color: #007bff;
-            color: white;
-            border-radius: 5px;
-            font-size: 16px;
-            transition: background-color 0.2s;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-
-        /* css của thanh hiển thị % */
-        #progressContainer {
-            width: 100%;
-            background-color: #ddd;
-        }
-
-        #progressBar {
-            width: 0%;
-            height: 30px;
-            background-color: #4CAF50;
-            text-align: center;
-            line-height: 30px;
-            color: white;
-        }
-    </style>
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
     <link href="{{ asset('build/tailwind.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/flashCard.css') }}">
@@ -131,12 +19,42 @@
         <nav class=" mx-auto flex  items-center justify-between " aria-label="Global">
             <div class="hder hidden lg:flex lg:gap-x-12">
                 <a href="{{ route('home') }}" class="hd_text" title="ホームページ">Home</a>
-                <a href="#" class="hd_text" title="3T-Panについて">About</a>
+                <a href="{{ route('about') }}" class="hd_text" title="3T-Panについて">About</a>
+                <a href="#" class="hd_text" title="3T-Panについて">3Tpan Premium</a>
                 <a href="{{ route('contact') }}" class="hd_text" title="お問い合わせ">Contact</a>
-                <a href="{{ route('login') }}" class="log_text">LOG IN<span aria-hidden="true">&rarr;</span></a>
+                @if (Session::has('username'))
+                    ユーザー:
+                    &nbsp;&nbsp;
+                    {{ session('username') }}
+                @endif
+                <a href="{{ route('logout') }}" class="log_text">
+                    @php
+                        if (Session::has('login_status')) {
+                            $login = 'ログアウト';
+                        } else {
+                            $login = 'ログイン';
+                        }
+                    @endphp
+                    <span aria-hidden="true">{{ $login }}&rarr;</span>
+                </a>
             </div>
         </nav>
     </header>
+    <div class="nav_head">
+        <div class="nomal">
+            <a href="#" class="bt_nav" title="辞書"><span>辞書</span></a>
+            <a href="{{ route('flashcards') }}" class="bt_nav" title="フラッシュカード"><span>フラッシュカード</span></a>
+            <a href="{{ route('test') }}" class="bt_nav" title="テストしてみよう！"><span>テスト</span></a>
+        </div>
+        <nav class="navbar">
+            <ul class="nav">
+                <li class="nav-item"><a href="{{ route('pronunciation') }}"><span>話す</span></a></li>
+                <li class="nav-item"><a href="#"><span>読む</span></a></li>
+                <li class="nav-item"><a href="#"><span>聴く</span></a></li>
+                <li class="nav-item"><a href="#"><span>書く</span></a></li>
+            </ul>
+        </nav>
+    </div>
     <ul class="menu">
         <li class="menu__mega">
             <a href="#" class="init-bottom">ライブラリ</a>
@@ -169,9 +87,9 @@
     <div class="word_card">
         <div class="txt_word">
             <div class="hder hidden lg:flex lg:gap-x-12">
-                <a href="#" class="hd_text1" title="ホームページ">ヒント</a>
-                <a href="#" class="hd_text1" title="3T-Panについて">じどうさいせい</a>
-                <a href="#" class="hd_text1" title="お問い合わせ">スキップ</a>
+                <a href="#" class="hd_text1" title="">ヒント</a>
+                <a href="#" class="hd_text1" title="">じどうさいせい</a>
+                <a href="#" class="hd_text1" title="">スキップ</a>
             </div>
         </div>
         <div id="progressContainer">
@@ -185,9 +103,6 @@
                         <div class="flashcard-container" style="{{ $index === 0 ? '' : 'display: none;' }}"
                             data-stt="{{ $getFLC->stt }}" data-index="{{ $index }}">
                             <div class="flashcard">
-                                {{--
-                                <span class="currentFlashcard"
-                                    style="position: absolute; top: 10px;left: 10px;font-size: 20px;"></span> --}}
                                 @if ($getFlashcards[$index] != null)
                                     <div class="flashcard-inner">
                                         <div class="flashcard-front">
@@ -205,12 +120,12 @@
                         </div>
                     @endforeach
                     <div class="buttons">
-                        <button id="Review_learned_Btn"><a href="{{ route('reviewLearned') }}"
-                                style="text-decoration: none"><span style="color: white;">Ôn luyện
+                        <button class="bt_try" id="Review_learned_Btn"><a href="{{ route('reviewLearned') }}"><span>Ôn
+                                    luyện
                                     lại</span></a></button>
-                        <button class="prevBtn bt_nav">Prev</button>
-                        <button class="nextBtn bt_nav">Next</button>
-                        <button id="Update_learned_Btn" class="bt_nav">OK!NEXT</button>
+                        <button class="prevBtn"><span>Prev</span></button>
+                        <button class="nextBtn"><span>Next</span></button>
+                        <button id="Update_learned_Btn" class="btcomplete"><span> OK!NEXT</span></button>
                     </div>
                 </div>
             @endif

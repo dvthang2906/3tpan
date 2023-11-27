@@ -159,15 +159,12 @@ li.menu__mega ul.menu__second-level>li:nth-child(3n+2) {
     text-align: center;
     margin: 30px 15%;
     width: 70%;
-    /* height: fit-content; */
+    height: 500px;
     border: 1px dotted #4D9BC1;
 }
 
-.bt_word {
-    position: relative;
-    align-items: center;
-    text-align: center;
-    margin-bottom: 10px;
+.hder {
+    margin-left: 50px;
 }
 
 .hd_text1 {
@@ -200,4 +197,301 @@ li.menu__mega ul.menu__second-level>li:nth-child(3n+2) {
 
 .mx-all {
     margin-left: 11%;
+}
+
+
+/* css của thanh hiển thị % */
+
+#progressContainer {
+    width: 100%;
+    background-color: #ddd;
+}
+
+#progressBar {
+    width: 0%;
+    height: 30px;
+    background-color: #4CAF50;
+    text-align: center;
+    line-height: 30px;
+    color: white;
+}
+
+.flashcard-container-all {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    /* background-color: #eaeaea; */
+    background-image: url('../images/flashCard_bg.jpg');
+    background-size: 800px 400px;
+    background-position: top center;
+    background-repeat: no-repeat;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.flashcard-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.flashcard {
+    margin-top: -50px;
+    width: 400px;
+    height: 250px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    background-color: white;
+    cursor: pointer;
+    perspective: 1000px;
+    position: relative;
+}
+
+.flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.flashcard.flip .flashcard-inner {
+    transform: rotateY(180deg);
+}
+
+.flashcard-front,
+.flashcard-content {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backface-visibility: hidden;
+    padding: 20px;
+    border-radius: 12px;
+    box-sizing: border-box;
+    /* Đảm bảo padding không làm thay đổi kích thước */
+}
+
+.flashcard-content {
+    transform: rotateY(180deg);
+    background-color: #fafafa;
+    color: #333;
+    text-align: left;
+    /* Căn văn bản sang trái */
+    align-items: flex-start;
+    /* Căn các thành phần con trong flex container sang trái */
+}
+
+.buttons {
+    margin-top: 60px !important;
+    width: 100%;
+    display: flex;
+}
+
+.prevBtn {
+    margin: 5px;
+    position: relative;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    max-width: 200px;
+}
+
+.prevBtn::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 4px;
+    left: 4px;
+    width: 100%;
+    height: 100%;
+    -moz-border-radius: 100vh;
+    -webkit-border-radius: 100vh;
+    border-radius: 100vh;
+    background-color: #4D9BC1;
+}
+
+.prevBtn span {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: bold;
+    border-radius: 100vh;
+    border: solid 1px #4D9BC1;
+    color: #4D9BC1;
+    padding: 1em 2em;
+    background-color: #FFF;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.prevBtn:hover span {
+    background-color: #4D9BC1;
+    color: white;
+    transform: translate(4px, 4px);
+    transition: all 0.3s ease-in-out;
+}
+
+.nextBtn {
+    margin: 5px;
+    position: relative;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    max-width: 200px;
+}
+
+.nextBtn::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 4px;
+    left: 4px;
+    width: 100%;
+    height: 100%;
+    -moz-border-radius: 100vh;
+    -webkit-border-radius: 100vh;
+    border-radius: 100vh;
+    background-color: #4D9BC1;
+}
+
+.nextBtn span {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: bold;
+    border-radius: 100vh;
+    border: solid 1px #4D9BC1;
+    color: #4D9BC1;
+    padding: 1em 2em;
+    background-color: #FFF;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.nextBtn:hover span {
+    background-color: #4D9BC1;
+    color: white;
+    transform: translate(4px, 4px);
+    transition: all 0.3s ease-in-out;
+}
+
+.btcomplete {
+    margin: 5px;
+    position: relative;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    max-width: 200px;
+}
+
+.btcomplete::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 4px;
+    left: 4px;
+    width: 100%;
+    height: 100%;
+    -moz-border-radius: 100vh;
+    -webkit-border-radius: 100vh;
+    border-radius: 100vh;
+    background-color: #4D9BC1;
+}
+
+.btcomplete span {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: bold;
+    border-radius: 100vh;
+    border: solid 1px #4D9BC1;
+    color: #4D9BC1;
+    padding: 1em 2em;
+    background-color: #FFF;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.btcomplete:hover span {
+    background-color: #4D9BC1;
+    color: white;
+    transform: translate(4px, 4px);
+    transition: all 0.3s ease-in-out;
+}
+
+.bt_try {
+    margin: 5px;
+    position: relative;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    max-width: 200px;
+}
+
+.bt_try::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 4px;
+    left: 4px;
+    width: 100%;
+    height: 100%;
+    -moz-border-radius: 100vh;
+    -webkit-border-radius: 100vh;
+    border-radius: 100vh;
+    background-color: #4D9BC1;
+}
+
+.bt_try span {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: bold;
+    border-radius: 100vh;
+    border: solid 1px #4D9BC1;
+    color: #4D9BC1;
+    padding: 1em 2em;
+    background-color: #FFF;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.bt_try:hover span {
+    background-color: #4D9BC1;
+    color: white;
+    transform: translate(4px, 4px);
+    transition: all 0.3s ease-in-out;
 }
