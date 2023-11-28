@@ -137,5 +137,13 @@
 
     <div class="check-result">
         <a class="bt_nav" id="CheckButton"><span>CHECK</span></a>
-        <div class="result">得点：<span class="user_ans" id="user_result"></span>/<span class="total">100</span></div>
+    </div>
+    <!-- Bảng thông báo Modal -->
+    <div id="myModal" class="modal">
+        <!-- Nội dung bảng thông báo -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>試験結果</h2>
+            <div id="score"></div>
+        </div>
     </div>

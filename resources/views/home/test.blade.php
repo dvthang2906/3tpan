@@ -109,7 +109,7 @@
         }
 
         /* Style cho nội dung chính */
-        .modal-content p {
+        .modal-content div {
             font-size: 18px;
             /* Kích thước chữ */
             color: #555555;
@@ -194,15 +194,7 @@
         <label for="actionMenuButton" class="btn btn--large btn--menu" />
     </div>
 
-    <!-- Bảng thông báo Modal -->
-    <div id="myModal" class="modal">
-        <!-- Nội dung bảng thông báo -->
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>試験結果</h2>
-            <div id="score"></div>
-        </div>
-    </div>
+
 </body>
 
 
@@ -285,11 +277,12 @@
 
         // Kiểm tra và hiển thị thông báo nếu có câu trả lời sai
         if (data.status === true) {
-            alert('SAI : ' + data.countFalse);
+            // alert('SAI : ' + data.countFalse);
             if (data.result !== undefined) {
-                user_result.innerText = data.result;
-                // var mess = '不正解: ' + data.countFalse + '問' + '<br>あなたの結果： ' + data.result + '点';
-                // showScore(mess);
+                // user_result.innerText = data.result;
+
+                var mess = '不正解: ' + data.countFalse + '問' + '<br>あなたの結果： ' + data.result + '点';
+                showScore('1' + mess);
             }
         }
 
@@ -309,26 +302,26 @@
 
         // Hiển thị kết quả
         if (data.result !== undefined && data.status === false) {
-            user_result.innerText = data.result;
-            // var result = 'あなたの結果： ' + data.result + '点';
-            // showScore(result);
+            // user_result.innerText = data.result;
+
+            var result = 'あなたの結果： ' + data.result + '点';
+            console.log('2' + result);
+            showScore(result);
         }
 
         // Hiển thị thông báo bổ sung, nếu có
         if (data.message) {
-            alert(data.message.message);
-            // let message = data.message.message;
-            // showScore(message);
+            // alert(data.message.message);
+            let message = data.message.message;
+            console.log('3' + message);
+            showScore(message);
         }
     }
 
 
-    let user_result = document.getElementById('user_result');
-
-
     // logic hiển thị bảng thông báo điểm và kết quả.
-    function showScore(finalScore) {
-        document.getElementById('score').innerText = finalScore;
+    function showScore(text) {
+        document.getElementById('score').innerHTML = text;
         document.getElementById('myModal').style.display = 'block';
     }
 
