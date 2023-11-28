@@ -7,17 +7,15 @@ use App\Models\succsessLevel;
 use App\Models\test;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class testController extends Controller
 {
     protected $level;
+    protected $succsessScore = 10;
 
     public function __construct()
     {
-        // In giá trị của $level
-        Log::info('Level: ' . $this->level);
-
-        // Log::info('Level: ' . $this->session('level'));
     }
 
     public function test(Request $request)
@@ -32,20 +30,19 @@ class testController extends Controller
     public function postLevel(Request $request)
     {
         $level = $request->input('level');
-        $this->level = $level;
-        // Lưu trữ giá trị vào session
-        // $request->session()->put('level', $level);
+
+        $request->session()->put('level', $level);
 
         return response()->json(['level' => $level]);
     }
-
-
 
     public function postTest(Request $request, test $test, succsessLevel $succsessLevel)
     {
         $user_id = session('user_id');
         $totalCount = session('totalCount', 0);
 
+        // Cập nhật $this->level trong mỗi yêu cầu
+        $this->updateLevelFromSession();
 
         // Gọi hàm processTestData để xử lý dữ liệu và lấy các thông tin cần thiết
         list($count, $countFalse, $falseMondai, $incorrectAnswerIds) = $this->processTestData($request->all(), $test);
@@ -103,6 +100,13 @@ class testController extends Controller
 
     private function generateMessage($result, $succsessLevel, $level, $user_id)
     {
-        return $result >= 3 ? $succsessLevel->checkLevel($level, $user_id) : '';
+        return $result >= $this->succsessScore ? $succsessLevel->checkLevel($level, $user_id) : '';
+    }
+
+    private function updateLevelFromSession()
+    {
+        if (Session::has('level')) {
+            $this->level = Session::get('level');
+        }
     }
 }

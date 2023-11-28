@@ -32,7 +32,7 @@
     </div>
     <div class="mogi">
         <header>
-            <h1>日本語<span>AAA</span>模擬テスト</h1>
+            <h1>日本語<span>{{ session('level') }}</span>模擬テスト</h1>
         </header>
         <h2>問題：___ は どう よみますか。４つから １つを えらびなさい。</h2>
         {{-- Nội dung câu hỏi và câu trả lời --}}
