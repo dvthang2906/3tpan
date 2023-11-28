@@ -74,9 +74,6 @@ class testController extends Controller
         $incorrectAnswerIds = []; // Mảng để lưu trữ các ID câu trả lời sai
 
         foreach ($data as $key => $value) {
-            // Giả sử $key là ID của câu hỏi và $value là giá trị của câu trả lời
-            // Bạn cần điều chỉnh logic này cho phù hợp với cấu trúc dữ liệu của bạn
-
             if ($test->check_test($key, $value) == 0) {
                 // Câu trả lời sai
                 $falseMondai = $value; // Lưu trữ câu trả lời sai

@@ -40,7 +40,8 @@
 
             @foreach ($test_mondai as $key => $mondai)
                 @if ($mondai->CATEGORY == 'kanji')
-                    <p>問{{ $key + 1 }}：{{ $mondai->QUIZ }}</p>
+                    <p>問{{ $key + 1 }}：{!! \App\Helpers\MyHelper::highlightKanji($mondai->QUIZ) !!}
+                    </p>
                     @foreach ($test_question as $key_question => $question)
                         @if ($question->Q_ID == $mondai->Q_ID)
                             @php
