@@ -12,6 +12,7 @@ class TestLivewire extends Component
     public $test_question;
     public $test_answer;
     public $category = 'vocabulary'; // Giá trị mặc định
+    public $level = 'N4';
 
 
     public function mount()
@@ -19,9 +20,10 @@ class TestLivewire extends Component
         $this->loadData();
     }
 
-    public function updateCategory($newCategory)
+    public function updateCategory($newCategory, $newLevel)
     {
         $this->category = $newCategory;
+        $this->level = $newLevel;
         $this->loadData();
     }
 
@@ -29,7 +31,7 @@ class TestLivewire extends Component
     private function loadData()
     {
         $test = new test();
-        $this->test_mondai = $test->test_mondai($this->category);
+        $this->test_mondai = $test->test_mondai($this->category, $this->level);
         // dd($this->test_mondai);
 
         $this->test_question = $test->test_question();

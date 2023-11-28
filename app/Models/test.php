@@ -13,11 +13,11 @@ class test extends Model
     use HasFactory;
 
 
-    public function test_mondai($category)
+    public function test_mondai($category, $level)
     {
         $test_mondai = DB::table('test_mondai')
             ->select()
-            ->where('LEVER', 'N4')
+            ->where('LEVER', $level)
             ->where('CATEGORY', $category)
             ->get();
 

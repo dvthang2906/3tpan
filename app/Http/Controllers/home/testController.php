@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class testController extends Controller
 {
-
+    protected $level;
 
     public function test(Request $request)
     {
@@ -20,10 +20,19 @@ class testController extends Controller
         return "bạn cần đăng nhập; <a href=\"" . route('login') . "\">Đăng nhập</a>";
     }
 
+    public function postLevel(Request $request)
+    {
+        $level = $request->input('level');
+        $this->level = $level;
+
+        return response()->json(['level' => $level]);
+    }
+
     public function postTest(Request $request, test $test, succsessLevel $succsessLevel)
     {
         $user_id = session('user_id');
         $totalCount = session('totalCount', 0);
+
 
         // Gọi hàm processTestData để xử lý dữ liệu và lấy các thông tin cần thiết
         list($count, $countFalse, $falseMondai, $incorrectAnswerIds) = $this->processTestData($request->all(), $test);
@@ -32,7 +41,7 @@ class testController extends Controller
         $result = $this->calculateResult($count, $totalCount);
 
         // Tạo thông điệp dựa trên kết quả
-        $message = $this->generateMessage($result, $succsessLevel, 'N4', $user_id);
+        $message = $this->generateMessage($result, $succsessLevel, $this->level, $user_id);
 
         // Trả về phản hồi JSON
         return response()->json([
@@ -81,6 +90,6 @@ class testController extends Controller
 
     private function generateMessage($result, $succsessLevel, $level, $user_id)
     {
-        return $result >= 3 ? $succsessLevel->checkLevel($level, $user_id) : '';
+        return $result >= 20 ? $succsessLevel->checkLevel($level, $user_id) : '';
     }
 }

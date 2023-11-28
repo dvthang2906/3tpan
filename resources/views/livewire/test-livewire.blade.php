@@ -15,7 +15,8 @@
                                 <a style="margin-left: 5px">{{ $value }}</a>
                                 <ul>
                                     <li><a style="margin-left: 5px"
-                                            wire:click="updateCategory('{{ $key }}')">コード番号01</a></li>
+                                            wire:click="updateCategory('{{ $key }}', 'N{{ $i }}')">コード番号01</a>
+                                    </li>
                                     {{-- Example for additional items:
                                 <li><a style="margin-left: 5px">コード番号02</a></li>
                                 --}}

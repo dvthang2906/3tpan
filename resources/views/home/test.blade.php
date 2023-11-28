@@ -243,6 +243,8 @@
         let queryString =
             `level=${encodeURIComponent(level)}&category=${encodeURIComponent(category)}&code=${encodeURIComponent(code)}`;
         window.history.pushState({}, '', '?' + queryString);
+        //send level to server
+        sendLeveltoServer(level);
     }
 
     document.getElementById("CheckButton").addEventListener("click", function() {
@@ -256,6 +258,22 @@
                 selectedValues[key] = value;
                 return selectedValues;
             }, {});
+    }
+
+    // fetch level sang controller
+    function sendLeveltoServer(level) {
+        fetch('/home/postLevel', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    level: level
+                })
+            }).then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
     }
 
     function sendDataToServer(dataToSend) {
