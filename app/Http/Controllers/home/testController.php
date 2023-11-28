@@ -6,10 +6,19 @@ use App\Http\Controllers\Controller;
 use App\Models\succsessLevel;
 use App\Models\test;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class testController extends Controller
 {
     protected $level;
+
+    public function __construct()
+    {
+        // In giá trị của $level
+        Log::info('Level: ' . $this->level);
+
+        // Log::info('Level: ' . $this->session('level'));
+    }
 
     public function test(Request $request)
     {
@@ -24,9 +33,13 @@ class testController extends Controller
     {
         $level = $request->input('level');
         $this->level = $level;
+        // Lưu trữ giá trị vào session
+        // $request->session()->put('level', $level);
 
         return response()->json(['level' => $level]);
     }
+
+
 
     public function postTest(Request $request, test $test, succsessLevel $succsessLevel)
     {
@@ -90,6 +103,6 @@ class testController extends Controller
 
     private function generateMessage($result, $succsessLevel, $level, $user_id)
     {
-        return $result >= 20 ? $succsessLevel->checkLevel($level, $user_id) : '';
+        return $result >= 3 ? $succsessLevel->checkLevel($level, $user_id) : '';
     }
 }
