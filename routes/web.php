@@ -8,6 +8,8 @@ use App\Http\Controllers\login\loginController;
 use App\Http\Controllers\VoiceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SpeechController;
+use App\Http\Controllers\testABCXYZ\balinhtinhController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,7 +21,10 @@ use App\Http\Controllers\SpeechController;
 |
 */
 
+
+// thử nghiệm những công nghệ mới
 Route::get('/testLivewire', [HomeController::class, 'testLivewire']);
+Route::get('/testBalinhtinh', [balinhtinhController::class, 'index']);
 
 
 

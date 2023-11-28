@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 
 class testController extends Controller
 {
+
+
     public function test(Request $request)
     {
         if ($request->session()->has('user_id')) {
@@ -79,6 +81,6 @@ class testController extends Controller
 
     private function generateMessage($result, $succsessLevel, $level, $user_id)
     {
-        return $result >= 60 ? $succsessLevel->checkLevel($level, $user_id) : '';
+        return $result >= 3 ? $succsessLevel->checkLevel($level, $user_id) : '';
     }
 }

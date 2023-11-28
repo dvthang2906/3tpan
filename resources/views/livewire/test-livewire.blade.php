@@ -8,7 +8,7 @@
 
             @for ($i = 1; $i <= 5; $i++)
                 <li>
-                    <a>N{{ $i }}</a>
+                    <a id="level">N{{ $i }}</a>
                     <ul>
                         @foreach (['kanji' => 'Kanji', 'vocabulary' => 'Vocabulary', 'grammar' => 'Grammar'] as $key => $value)
                             <li>
