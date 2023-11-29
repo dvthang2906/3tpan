@@ -17,7 +17,7 @@ class succsessLevel extends Model
             ->update(['level' => $level]);
 
         return [
-            'message' => 'おめでとうございます！' . $level . '合格しました。',
+            'message' => $level . 'に合格しました。<br>おめでとうございます！',
         ];
     }
 }

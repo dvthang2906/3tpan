@@ -34,13 +34,13 @@
         <header>
             <h1>日本語<span>{{ session('level') }}</span>模擬テスト</h1>
         </header>
-        <h2>問題：___ は どう よみますか。４つから １つを えらびなさい。</h2>
+        <h2>問題:___ は どう よみますか。４つから １つを えらびなさい。</h2>
         {{-- Nội dung câu hỏi và câu trả lời --}}
         <section class="kj_test scrollable" style="margin: 5px">
 
             @foreach ($test_mondai as $key => $mondai)
                 @if ($mondai->CATEGORY == 'kanji')
-                    <p>問{{ $key + 1 }}：{!! \App\Helpers\MyHelper::highlightKanji($mondai->QUIZ) !!}
+                    <p>問{{ $key + 1 }}:{!! \App\Helpers\MyHelper::highlightKanji($mondai->QUIZ) !!}
                     </p>
                     @foreach ($test_question as $key_question => $question)
                         @if ($question->Q_ID == $mondai->Q_ID)
@@ -48,7 +48,7 @@
                                 $count++;
                                 $totalCount++;
                             @endphp
-                            <div class="kanji-box"><span class="kanji">{{ $count }}:
+                            <div class="kanji-box"><span class="kanji">{!! \App\Helpers\MyHelper::convertNumberToSymbol($count) !!}:
                                     {{ $question->KANJI }}</span>
                                 <div class="ans">
                                     @foreach ($test_answer as $answer)
@@ -88,7 +88,7 @@
                     @endphp
                 @else
                     <div class="question">
-                        <p>問{{ $key + 1 }}：{{ $mondai->QUIZ }}</p>
+                        <p>問{{ $key + 1 }}:{{ $mondai->QUIZ }}</p>
                         @foreach ($test_answer as $answer)
                             @if ($mondai->Q_ID == $answer->K_ID)
                                 @php
