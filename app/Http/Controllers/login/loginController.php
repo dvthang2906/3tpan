@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\login;
 
 use App\Http\Controllers\Controller;
+use App\Models\HomeRecommendation;
 use App\Models\SingupUser;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ use Illuminate\Support\Str;
 class loginController extends Controller
 {
 
-    public function index(Request $request)
+    public function index(Request $request, HomeRecommendation $homeRecommendation)
     {
 
 
@@ -41,8 +42,11 @@ class loginController extends Controller
                 session()->put('username', $userName);
                 session()->put('user_id', $user_id);
                 session()->put('login_status', 'logined');
+                //単語。おすすめ
+                $recommendWord = $homeRecommendation->Recommendation();
+                // dd($recommendWord);
 
-                return view('home.home', compact('user_login'));
+                return view('home.home', compact('user_login', 'recommendWord'));
             }
         }
     }

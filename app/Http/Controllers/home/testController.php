@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Session;
 class testController extends Controller
 {
     protected $level;
-    protected $succsessScore = 10;
+    //số điểm đỗ.
+    protected $succsessScore = 60;
 
     public function __construct()
     {
@@ -40,6 +41,7 @@ class testController extends Controller
     {
         $user_id = session('user_id');
         $totalCount = session('totalCount', 0);
+        // $total = count($request->all()); // tổng tất cả câu người dùng đã làm
 
         // Cập nhật $this->level trong mỗi yêu cầu
         $this->updateLevelFromSession();
@@ -60,6 +62,8 @@ class testController extends Controller
             'status' => $countFalse > 0,
             'falseMondai' => $falseMondai,
             'countFalse' => $countFalse,
+            // 'total' => $total,
+            'totalCount' => $totalCount,
             'incorrectAnswerIds' => $incorrectAnswerIds // Mảng ID của các câu trả lời sai
         ]);
     }

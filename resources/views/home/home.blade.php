@@ -46,6 +46,16 @@
         .red-placeholder::placeholder {
             color: red;
         }
+
+        /* CSS của おすすめ単語 */
+        .centered-item {
+            text-align: center;
+            /* Các quy tắc CSS khác ở đây nếu cần */
+        }
+
+        .today_list li .item-word {
+            color: black;
+        }
     </style>
 </head>
 
@@ -96,10 +106,15 @@
         <p>今日のおすすめ</p>
     </div>
     <div class="today_new">
-
-        <ul class="today_list">
-            <li>今日：Hôm nay</li>
-            <li>a</li>
+        <ul class="today_list" style="margin: 10px;">
+            @if (isset($recommendWord))
+                @foreach ($recommendWord as $word)
+                    <li class="centered-item">{{ $word->tango }}</li>
+                    <li class="item-word" style="color: black;">{{ $word->hiragana }}</li>
+                    {{-- <li class="item-word" style="color: black;">{{ $word->mean }}</li> --}}
+                    <hr>
+                @endforeach
+            @endif
         </ul>
     </div>
     @if (session('msg'))

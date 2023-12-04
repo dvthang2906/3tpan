@@ -3,15 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\alphabet;
+use App\Models\HomeRecommendation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(HomeRecommendation $homeRecommendation)
     {
         $result = [];
-        return view('home.home', compact('result'));
+
+        $recommendWord = $homeRecommendation->Recommendation();
+        // dd($recommendWord);
+
+        return view('home.home', compact('result', 'recommendWord'));
     }
     public function login()
     {
@@ -37,7 +42,8 @@ class HomeController extends Controller
         return view('home.testLivewire');
     }
     // about
-    public function about () {
+    public function about()
+    {
         return view('home.about');
     }
 }

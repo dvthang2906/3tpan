@@ -146,7 +146,7 @@
 
                     <button class="prevBtn">Prev</button>
                     <button class="nextBtn">Next</button>
-                    <button id="delete_learned_Btn">OK!CUT</button>
+                    <button id="delete_learned_Btn">覚えた</button>
                 </div>
             </div>
         @endif

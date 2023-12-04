@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Chat\ChatController;
+use App\Http\Controllers\Chat\GPTController;
 use App\Http\Controllers\home\FlashCardController;
 use App\Http\Controllers\home\testController;
 use App\Http\Controllers\HomeController;
@@ -24,7 +26,12 @@ use App\Http\Controllers\testABCXYZ\balinhtinhController;
 
 // thử nghiệm những công nghệ mới
 Route::get('/testLivewire', [HomeController::class, 'testLivewire']);
+
+
 Route::get('/testBalinhtinh', [balinhtinhController::class, 'index']);
+
+
+
 
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\test;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class TestLivewire extends Component
@@ -24,6 +25,7 @@ class TestLivewire extends Component
     {
         $this->category = $newCategory;
         $this->level = $newLevel;
+        session()->put('category', $newCategory);
         $this->loadData();
     }
 
@@ -31,6 +33,7 @@ class TestLivewire extends Component
     private function loadData()
     {
         $test = new test();
+
         $this->test_mondai = $test->test_mondai($this->category, $this->level);
         // dd($this->test_mondai);
 

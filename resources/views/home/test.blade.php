@@ -299,8 +299,9 @@
             if (data.result !== undefined) {
                 // user_result.innerText = data.result;
 
-                var mess = '不正解: ' + data.countFalse + '問' + '<br>あなたの結果： ' + data.result + '点';
-                showScore('1' + mess);
+                var mess = '不正解: ' + data.countFalse + '問' + '/' + data.totalCount +
+                    '問<br>合計： ' + data.result + '点';
+                showScore(mess);
             }
         }
 

@@ -120,12 +120,11 @@
                         </div>
                     @endforeach
                     <div class="buttons">
-                        <button class="bt_try" id="Review_learned_Btn"><a href="{{ route('reviewLearned') }}"><span>Ôn
-                                    luyện
-                                    lại</span></a></button>
+                        <button class="bt_try" id="Review_learned_Btn"><a
+                                href="{{ route('reviewLearned') }}"><span>復習</span></a></button>
                         <button class="prevBtn"><span>Prev</span></button>
                         <button class="nextBtn"><span>Next</span></button>
-                        <button id="Update_learned_Btn" class="btcomplete"><span> OK!NEXT</span></button>
+                        <button id="Update_learned_Btn" class="btcomplete"><span> 一応覚えた</span></button>
                     </div>
                 </div>
             @endif
@@ -236,11 +235,11 @@
                 var percent = (completed / total) * 100;
                 document.getElementById('progressBar').style.width = percent + '%';
                 document.getElementById('progressText').innerText =
-                    `Đã học ${completed} trên ${total} từ vựng (${Math.round(percent)}%)`;
+                    `${total}語彙のうち ${completed} 語を学びました(${Math.round(percent)}%)`;
             }
 
             // Ví dụ cập nhật tiến trình
-            updateProgress(totalLearnedCount, total); // Bạn đã học 200 từ vựng trên tổng số 600
+            updateProgress(totalLearnedCount, total);
         });
     </script>
 

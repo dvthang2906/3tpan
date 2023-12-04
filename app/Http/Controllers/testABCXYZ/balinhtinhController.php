@@ -10,6 +10,7 @@ class balinhtinhController extends Controller
     //
     public function index()
     {
+
         return view('testABCXYZ.balinhtinh');
     }
 }

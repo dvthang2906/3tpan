@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HomeRecommendation;
 use App\Models\TangoComment;
 use App\Services\JishoService;
 use GuzzleHttp\Client;
@@ -28,7 +29,7 @@ class JishoController extends Controller
         return view('home.home', compact('results'));
     }
 
-    public function postJishoSearch(Request $request, JishoService $jishoService)
+    public function postJishoSearch(HomeRecommendation $homeRecommendation, Request $request, JishoService $jishoService)
     {
 
         if (!empty($request->value)) {
@@ -64,9 +65,13 @@ class JishoController extends Controller
         // tìm kiếm ví dụ theo từ vựng
         // dd($comment);
 
+        //単語。おすすめ
+        $recommendWord = $homeRecommendation->Recommendation();
+
+
 
         // Trả về view với kết quả tìm kiếm
-        return view('home.home', compact('result', 'tangoValue', 'imiString', 'comment'));
+        return view('home.home', compact('result', 'tangoValue', 'imiString', 'comment', 'recommendWord'));
     }
 
 
