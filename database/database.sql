@@ -113,5 +113,19 @@ CREATE TABLE IF NOT EXISTS tango_comment(
 );
 
 
+//Contact
+DROP TABLE IF EXISTS contact;
+CREATE TABLE IF NOT EXISTS contact(
+    id INT AUTO_INCREMENT PRIMARY KEY,     -- ID duy nhất cho mỗi liên hệ
+    first_name VARCHAR(50) NOT NULL,       -- Tên
+    last_name VARCHAR(50) NOT NULL,        -- Họ
+    email VARCHAR(100),                    -- Địa chỉ Email
+    country VARCHAR(25),
+    phone_number VARCHAR(15),              -- Số điện thoại
+    message TEXT,                          -- messsage
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Thời gian tạo bản ghi
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- Thời gian cập nhật bản ghi
+);
+
 
 
