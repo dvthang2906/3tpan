@@ -85767,7 +85767,7 @@ video {
     .lg\:list-inside {
         list-style-position: inside;
     }
-    .lg\:list-outside {
+    .lg\:list-outside {;
         list-style-position: outside;
     }
     .lg\:list-none {
@@ -109334,7 +109334,7 @@ video {
         -moz-user-select: none;
         user-select: none;
     }
-    .xl\:select-text {
+    /* .xl\:select-text {
         -webkit-user-select: text;
         -moz-user-select: text;
         user-select: text;
@@ -109348,7 +109348,7 @@ video {
         -webkit-user-select: auto;
         -moz-user-select: auto;
         user-select: auto;
-    }
+    } */
     .xl\:resize-none {
         resize: none;
     }

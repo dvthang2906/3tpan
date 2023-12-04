@@ -9,6 +9,24 @@
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
     <link rel="stylesheet" href="{{ asset('css/contact.css') }}">
     <title>Contact Form</title>
+    <style>
+        /* Ẩn mũi tên mặc định của trình duyệt cho phần tử select */
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        /* Đảm bảo rằng SVG mũi tên hiển thị đúng cách */
+        .custom-arrow svg {
+            pointer-events: none;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    </style>
+
 </head>
 
 <body>
@@ -33,7 +51,7 @@
                 <h2 class="tracking-tight text-gray-900 sm:text-4xl">お問い合わせ</h2>
                 <p class="text-gray-600">以下の情報を入力して、送信ボタンを押してください</p>
             </div>
-            <form action="#" method="POST" class="max-w-xl" style="margin: auto; margin-top:20px">
+            <form action="{{ route('contact') }}" method="POST" class="max-w-xl" style="margin: auto; margin-top:20px">
                 <div class=" grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
                     <div>
                         <label for="first-name" class="block text-sm font-semibold leading-6 text-gray-900">性</label>
@@ -70,7 +88,7 @@
                                     <option>UK</option>
                                     <option>VN</option>
                                 </select>
-                                <svg class="pointer-events-none absolute right-3 top-0 h-full w-5 text-gray-400"
+                                <svg class="custom-arrow pointer-events-none absolute right-3 top-0 h-full w-5 text-gray-400"
                                     viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                     <path fill-rule="evenodd"
                                         d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
@@ -91,7 +109,7 @@
                     </div>
                 </div>
                 <div class="mt-10">
-                    <button type="submit"
+                    <button type="submit" id="contactSubmit"
                         class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                         送信</button>
                 </div>

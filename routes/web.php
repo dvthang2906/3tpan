@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Chat\ChatController;
-use App\Http\Controllers\Chat\GPTController;
+
+use App\Http\Controllers\contact\contactController;
 use App\Http\Controllers\home\FlashCardController;
 use App\Http\Controllers\home\testController;
 use App\Http\Controllers\HomeController;
@@ -40,7 +40,11 @@ Route::get('/login', [HomeController::class, 'login'])->name('login');
 
 Route::post('/home', [loginController::class, 'index'])->name('post-login');
 
-Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+//contact
+Route::get('/contact', [contactController::class, 'index'])->name('contact');
+Route::post('/contact', [contactController::class, 'postContact'])->name('post-contact');
+
+
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 
 //users
