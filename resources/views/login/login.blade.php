@@ -11,12 +11,24 @@
 
 @section('content')
     @if (session('msgSingup'))
-        <div class="alert alert-success">{{ session('msgSingup') }}</div>
+        <div class="notification success">
+            {{ session('msgSingup') }}
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
     @endif
+    @if (session('status'))
+        <div class="notification success">
+            {{ session('status') }}
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+    @endif
+
+
 
     <div class="login-wrap">
         <div class="login-html">
-            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign
+            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1"
+                class="tab">Sign
                 In</label>
             <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign
                 Up</label>
@@ -55,7 +67,7 @@
 
 
                 <form class="sign-up-htm" action="{{ route('post-Signup') }}" method="POST">
-                    @if (session('msg'))
+                    @if (session('msg-singup'))
                         <p style="color: red; margin-top:px;">{{ session('msg') }}</p>
                     @endif
                     <div class="group">
@@ -110,4 +122,25 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            let totalTime = 5;
+            let intervalTime = 100; // 100ms cho mỗi cập nhật
+            let elapsed = 0;
+
+            const progressBar = document.getElementById('progress-bar');
+            const interval = setInterval(() => {
+                elapsed += intervalTime;
+                let progress = (elapsed / (totalTime * 1000)) * 100;
+                progressBar.style.width = progress + '%';
+
+                if (elapsed >= totalTime * 1000) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        document.querySelector('.notification').style.display = 'none';
+                    }, 500); // Thêm một chút thời gian trước khi ẩn thông báo
+                }
+            }, intervalTime);
+        });
+    </script>
 @endsection

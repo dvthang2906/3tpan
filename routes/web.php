@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\contact\contactController;
 use App\Http\Controllers\home\FlashCardController;
 use App\Http\Controllers\home\testController;
@@ -41,8 +42,13 @@ Route::get('/login', [HomeController::class, 'login'])->name('login');
 Route::get('/forgot-password', [loginController::class, 'forgotPassword'])->name('forgot-password');
 Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('post-forgot-password');
 
-// làm đến đây.
-Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+// Route hiển thị form reset mật khẩu
+Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+
+// Route xử lý dữ liệu form
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+
+
 
 
 Route::post('/home', [loginController::class, 'index'])->name('post-login');

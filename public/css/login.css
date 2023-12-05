@@ -204,3 +204,26 @@ span {
     margin-top: 1px;
     margin-left: 3px;
 }
+
+.notification {
+    width: 50%;
+    /* Thu nhỏ và căn giữa */
+    margin: 0 auto;
+    /* Căn giữa */
+    padding: 15px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #4CAF50;
+    margin-bottom: 20px;
+    position: relative;
+    text-align: center;
+    /* Căn chữ giữa */
+}
+
+.progress-bar {
+    height: 5px;
+    background-color: #fff;
+    width: 0%;
+    transition: width 1s linear;
+    /* Điều chỉnh để transition mượt mà hơn */
+}

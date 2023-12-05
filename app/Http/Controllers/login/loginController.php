@@ -22,7 +22,7 @@ class loginController extends Controller
 
         $userName = $request->userName;
 
-        $pass = Hash::make($request->password);
+        $pass = $request->password;
 
 
         $user_login = DB::select('SELECT * FROM login_infomation WHERE user = ?', [$userName]);
@@ -35,29 +35,23 @@ class loginController extends Controller
             return redirect()->back()->withInput();
         } else {
             // Có dữ liệu trả về từ cơ sở dữ liệu
-            if ($user_login[0]->user == $userName && !Hash::check($user_login[0]->password, $pass)) {
-                $request->session()->flash('msg', 'bạn đã nhập sai mật khẩu!');
-                return redirect()->back()->withInput();
-            } else {
+            if ($user_login[0]->user == $userName && Hash::check($pass, $user_login[0]->password)) {
+                // Mật khẩu đúng
                 $user_id = $user_login[0]->id;
                 session()->put('username', $userName);
                 session()->put('user_id', $user_id);
                 session()->put('login_status', 'logined');
-                //単語。おすすめ
-                $recommendWord = $homeRecommendation->Recommendation();
-                // dd($recommendWord);
 
+                $recommendWord = $homeRecommendation->Recommendation();
                 return view('home.home', compact('user_login', 'recommendWord'));
+            } else {
+                // Mật khẩu sai
+                $request->session()->flash('msg', 'bạn đã nhập sai mật khẩu!');
+                return redirect()->back()->withInput(['userName' => $userName]);
             }
         }
     }
 
-
-    // public function Signup()
-    // {
-
-    //     return view('users.signup');
-    // }
 
 
     public function postSingup(Request $request)
@@ -102,7 +96,7 @@ class loginController extends Controller
         $dataInsert = [
             $fullname,
             $userName,
-            $pass,
+            hash::make($pass),
             $email,
             now()->format('Y-m-d H:i:s'),
             now()->format('Y-m-d H:i:s'),
@@ -116,7 +110,7 @@ class loginController extends Controller
         $singup->SingupUser($dataInsert);
 
 
-        return redirect()->route('login')->with('msgSingup', 'ユーザーを登録できました。')->withInput();
+        return redirect()->route('login')->with('msg-singup', 'ユーザーを登録できました。')->withInput();
     }
 
 
