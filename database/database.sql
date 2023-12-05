@@ -123,9 +123,18 @@ CREATE TABLE IF NOT EXISTS contact(
     country VARCHAR(25),
     phone_number VARCHAR(15),              -- Số điện thoại
     message TEXT,                          -- messsage
+    remember_token VARCHAR(100),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Thời gian tạo bản ghi
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- Thời gian cập nhật bản ghi
 );
 
+
+// reset password
+CREATE TABLE password_resets (
+    email VARCHAR(255) NOT NULL,
+    token VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP NULL DEFAULT NULL,
+    INDEX password_resets_email_index (email)
+);
 
 

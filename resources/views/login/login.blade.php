@@ -48,7 +48,7 @@
                     </div>
                     <div class="hr"></div>
                     <div class="foot-lnk">
-                        <a href="#forgot">Forgot Password?</a>
+                        <a href="{{ route('forgot-password') }}">Forgot Password?</a>
                     </div>
                     @csrf
                 </form>

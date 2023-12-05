@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
@@ -62,7 +63,6 @@ class loginController extends Controller
     public function postSingup(Request $request)
     {
 
-
         $fullname = $request->fullname;
         $userName = $request->UserName;
         $pass = $request->password;
@@ -74,11 +74,12 @@ class loginController extends Controller
             return redirect()->route('login')->with('msgSingup', 'KIEM TRA PASS KHONG TRUNG NHAU')->withInput();
         }
 
+
         // Tạo một token ngẫu nhiên
         $rememberToken = Str::random(60);
 
         $relus = [
-            'fullname' => 'required|regex:/^[a-zA-Z\s]+$/',
+            'fullname' => 'required',
             'UserName' => 'required|unique:login_infomation,user',
             'password' => 'required|min:6',
             'email' => 'required|email'
@@ -86,7 +87,7 @@ class loginController extends Controller
 
         $message = [
             'fullname.required' => '入力が必要',
-            'fullname.regex' => '半角英数字で入力してください',
+            // 'fullname.regex' => '半角英数字で入力してください',
             'UserName.required' => '入力が必要',
             'UserName.unique' => '名前はすでに存在します。',
             'password.required' => '入力が必要',
@@ -95,8 +96,8 @@ class loginController extends Controller
             'email.email' => 'メールアドレスを正しく入力してください',
         ];
 
-        $request->validate($relus, $message);
 
+        $request->validate($relus, $message);
 
         $dataInsert = [
             $fullname,
@@ -108,13 +109,22 @@ class loginController extends Controller
             $rememberToken,
         ];
 
+
+
         $singup = new SingupUser();
-        // dd($dataInsert);
+
         $singup->SingupUser($dataInsert);
 
 
         return redirect()->route('login')->with('msgSingup', 'ユーザーを登録できました。')->withInput();
     }
+
+
+    public function forgotPassword()
+    {
+        return view('login.forgotPassword');
+    }
+
 
 
     public function loguot()
