@@ -66,6 +66,7 @@
                 </form>
 
 
+
                 <form class="sign-up-htm" action="{{ route('post-Signup') }}" method="POST">
                     @if (session('msg-singup'))
                         <p style="color: red; margin-top:px;">{{ session('msg') }}</p>
