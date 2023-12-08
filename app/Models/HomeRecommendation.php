@@ -34,6 +34,13 @@ class HomeRecommendation extends Model
 
                 return $vocabulary;
             }
+        } else {
+            $vocabulary = DB::table('vocabulary')
+                ->inRandomOrder()
+                ->limit($count)
+                ->get();
+
+            return $vocabulary;
         }
     }
 }

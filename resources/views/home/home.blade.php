@@ -41,6 +41,8 @@
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
     <link rel="stylesheet" href="{{ asset('build/tailwind.css') }}">
     <title>HomePage</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
     <style>
         .red-placeholder::placeholder {
@@ -56,6 +58,90 @@
         .today_list li .item-word {
             color: black;
         }
+
+        /* Phong cách chung cho modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            /* Màu nền mờ với độ trong suốt */
+            animation: fadeIn 0.5s;
+            /* Hiệu ứng xuất hiện */
+        }
+
+        /* Hiệu ứng fade in cho modal */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Phong cách cho nội dung modal */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            /* Căn giữa và cách trên */
+            padding: 20px;
+            border-radius: 5px;
+            /* Bo góc */
+            border: 1px solid #888;
+            width: 50%;
+            /* Chiều rộng */
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            /* Đổ bóng */
+            animation: slideIn 0.5s;
+            /* Hiệu ứng trượt vào */
+        }
+
+        /* Hiệu ứng slide in cho nội dung modal */
+        @keyframes slideIn {
+            from {
+                margin-top: -50%;
+            }
+
+            to {
+                margin-top: 15%;
+            }
+        }
+
+        /* Phong cách cho nút đóng */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+
+        /* Phong cách cho thông tin chi tiết */
+        .modal-content p {
+            font-size: 18px;
+            /* Tăng kích thước font chữ */
+            color: #333;
+            line-height: 1.8;
+        }
+
+
+        .modal-content span {
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -69,11 +155,25 @@
                 <a href="{{ route('about') }}" class="hd_text" title="3T-Panについて">About</a>
                 <a href="#" class="hd_text" title="3T-Panについて">3Tpan Premium</a>
                 <a href="{{ route('contact') }}" class="hd_text" title="お問い合わせ">Contact</a>
-                @if (Session::has('username'))
-                    ユーザー:
-                    &nbsp;&nbsp;
-                    {{ session('username') }}
-                @endif
+                <!-- Modal -->
+                <div id="myModal" class="modal">
+                    <!-- Nội dung Modal -->
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <p>ユーザーID: <span id="userName"></span></p>
+                        <p>氏名: <span id="userFullName"></span></p>
+                        <p>レベル: <span id="level"></span></p>
+                        <p>メールアドレス: <span id="email"></span></p>
+                    </div>
+                </div>
+                <div>
+                    @if (Session::has('username'))
+                        ユーザー:
+                        &nbsp;&nbsp;
+                        <a href="#" style="color: red" id="userLink"
+                            data-userName="{{ session('username') }}">{{ session('username') }}</a>
+                    @endif
+                </div>
                 <a href="{{ route('logout') }}" class="log_text">
                     @php
                         if (Session::has('login_status')) {
@@ -102,6 +202,7 @@
             </ul>
         </nav>
     </div>
+
     <div class="balloon2">
         <p>今日のおすすめ</p>
     </div>
@@ -393,6 +494,60 @@
         function closePopup() {
             document.getElementById('popup').remove();
             isPopupVisible = false;
+        }
+
+
+        // lấy API thông tin người dùng
+        document.getElementById('userLink').addEventListener('click', function(e) {
+            e.preventDefault();
+
+            // Khi người dùng nhấn vào nút, mở modal
+            document.getElementById("myModal").style.display = "block";
+
+            var userName = this.getAttribute('data-userName');
+
+            console.log(userName);
+
+            // Gửi yêu cầu AJAX đến máy chủ để lấy thông tin
+            fetch('/user-information', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content')
+                    },
+                    body: JSON.stringify({
+                        userName: userName
+                    }) // Sửa lại cú pháp tại đây
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Điền thông tin vào modal
+                    console.log(data);
+                    document.getElementById('userName').innerText = data.user;
+                    document.getElementById('userFullName').innerText = data.fullnameUser;
+                    if (data.level != null) {
+                        document.getElementById('level').innerText = data.level;
+                    } else {
+                        document.getElementById('level').innerText = "bạn chưa có level";
+                    }
+                    document.getElementById('email').innerText = data.email;
+                    // Hiển thị modal
+                    document.getElementById('userModal').style.display = 'block';
+                });
+        });
+
+
+        // Khi người dùng nhấn vào <span> (x), đóng modal
+        document.getElementsByClassName("close")[0].onclick = function() {
+            document.getElementById("myModal").style.display = "none";
+        }
+
+        // Khi người dùng nhấn ra ngoài modal, đóng nó
+        window.onclick = function(event) {
+            if (event.target == document.getElementById("myModal")) {
+                document.getElementById("myModal").style.display = "none";
+            }
         }
     </script>
 

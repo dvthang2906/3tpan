@@ -14,6 +14,7 @@
 </head>
 
 <body>
+    <h1>test</h1>
     <header class="flex">
         <a href="{{ route('home') }}"><img class="logo" src="{{ asset('images/logo3.png') }}" alt="logo"></a>
         <nav class=" mx-auto flex  items-center justify-between " aria-label="Global">
@@ -134,8 +135,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            let totalLearnedCount = {{ $totalLearnedCount }}
-            let total = {{ $countVocabulary }}
+            let totalLearnedCount = {{ isset($totalLearnedCount) ? $totalLearnedCount : 0 }}
+            let total = {{ isset($countVocabulary) ? $countVocabulary : 0 }}
             let currentFlashcard = parseInt(localStorage.getItem('currentFlashcard'));
             if (isNaN(currentFlashcard)) {
                 currentFlashcard = 0;

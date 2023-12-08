@@ -23,12 +23,16 @@ class FlashCardController extends Controller
     {
 
         $currentFlashcard = session('currentFlashcard');
+
+
         if ($request->session()->has('user_id')) {
             $user_id = $this->user_id = session('user_id');
 
             // ... các xử lý khác ...
             $getFlashcards  = $flashcards->getTangoFlashcard($this->user_id);
             $count = count($getFlashcards);
+
+            // dd($getFlashcards);
 
             //lấy tổng từ vựng
             $ReviewLearned  = $reviewLearned->ReviewLearned($this->user_id);
@@ -37,16 +41,17 @@ class FlashCardController extends Controller
 
             if (!empty($ReviewLearnedFlashcard[0])) {
                 $lever = $ReviewLearnedFlashcard[0]->lever;
+
                 $countVocabulary = $CountFullTango->getCountVocabulary($lever);
                 $totalLearnedCount = count($ReviewLearned);
 
 
                 return view('home.flashcard', compact('getFlashcards', 'count', 'countVocabulary', 'totalLearnedCount'));
             }
+            return  view('home.flashcard', compact('getFlashcards', 'count'));
+        } else {
+            return "bạn cần đăng nhập; <a href=\"" . route('login') . "\">Đăng nhập</a>";
         }
-
-
-        return "bạn cần đăng nhập; <a href=\"" . route('login') . "\">Đăng nhập</a>";
     }
 
 

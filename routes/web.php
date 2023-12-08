@@ -12,6 +12,9 @@ use App\Http\Controllers\VoiceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SpeechController;
 use App\Http\Controllers\testABCXYZ\balinhtinhController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,7 +52,17 @@ Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showRese
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 
-
+// lấy thông tin người dùng
+Route::post('/user-information', function (Request $request) {
+    try {
+        $userName = $request->input('userName');
+        $user = DB::table('login_infomation')->where('user', $userName)->first();
+        return response()->json($user);
+    } catch (\Exception $e) {
+        Log::error($e->getMessage());
+        return response()->json(['error' => 'Lỗi xảy ra'], 500);
+    }
+});
 
 Route::post('/home', [loginController::class, 'index'])->name('post-login');
 

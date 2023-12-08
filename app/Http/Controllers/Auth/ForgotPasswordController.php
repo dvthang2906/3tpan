@@ -30,7 +30,7 @@ class ForgotPasswordController extends Controller
         $user = User::where('email', $request->email)->first();
         if (!$user) {
             // Xử lý nếu không tìm thấy email
-            return 2;
+            return redirect()->route('login')->withErrors($validator)->with('status', '入力されたemailが間違いました。    ');
         }
 
         // Tạo token và lưu vào bảng password_resets
