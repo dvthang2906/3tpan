@@ -15,7 +15,7 @@ class Flashcard extends Model
     use HasFactory;
 
 
-    public function getTangoFlashcard($user_id)
+    public function getTangoFlashcard($user_id, $level)
     {
         DB::enableQueryLog();
 
@@ -35,6 +35,7 @@ class Flashcard extends Model
         if ($unlearnedCount === 0) {
             // Đặt logic tạo flashcard mới ở đây
             $newFlashcards = DB::table('vocabulary')
+                ->where('lever', $level)
                 ->inRandomOrder()
                 ->limit(10)
                 ->get();

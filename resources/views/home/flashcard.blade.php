@@ -14,7 +14,6 @@
 </head>
 
 <body>
-    <h1>test</h1>
     <header class="flex">
         <a href="{{ route('home') }}"><img class="logo" src="{{ asset('images/logo3.png') }}" alt="logo"></a>
         <nav class=" mx-auto flex  items-center justify-between " aria-label="Global">

@@ -16,6 +16,7 @@ class FlashCardController extends Controller
     //
     protected $currentFlashcard;
     protected $user_id;
+    protected $level;
 
 
 
@@ -27,9 +28,12 @@ class FlashCardController extends Controller
 
         if ($request->session()->has('user_id')) {
             $user_id = $this->user_id = session('user_id');
+            $this->level = DB::table('login_infomation')->select('level')->where('id', $this->user_id)->get();
+            $userLevel = $this->level[0]->level;
+
 
             // ... các xử lý khác ...
-            $getFlashcards  = $flashcards->getTangoFlashcard($this->user_id);
+            $getFlashcards  = $flashcards->getTangoFlashcard($this->user_id, $userLevel);
             $count = count($getFlashcards);
 
             // dd($getFlashcards);
@@ -41,6 +45,7 @@ class FlashCardController extends Controller
 
             if (!empty($ReviewLearnedFlashcard[0])) {
                 $lever = $ReviewLearnedFlashcard[0]->lever;
+
 
                 $countVocabulary = $CountFullTango->getCountVocabulary($lever);
                 $totalLearnedCount = count($ReviewLearned);
