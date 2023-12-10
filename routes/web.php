@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\contact\contactController;
 use App\Http\Controllers\home\FlashCardController;
+use App\Http\Controllers\home\NewsController;
 use App\Http\Controllers\home\testController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JishoController;
@@ -116,6 +117,9 @@ Route::prefix('/home')->group(function () {
     Route::get('/test', [testController::class, 'test'])->name('test');
     Route::post('/test', [testController::class, 'postTest'])->name('post-test');
     Route::post('/postLevel', [testController::class, 'postLevel'])->name('post-level');
+
+    // newsRead
+    Route::get('/news', [NewsController::class, 'index'])->name('news');
 });
 
 //logout

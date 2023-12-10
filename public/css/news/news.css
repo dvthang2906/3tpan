@@ -1,0 +1,110 @@
+:root {
+    --main-font: 'Helvetica', sans-serif;
+    --secondary-color: #4CAF50;
+    --border-color: #ddd;
+    --footer-font-size: 12px;
+    --footer-color: #999;
+    --background-color: #f5f5f5;
+    --primary-text-color: #333;
+}
+
+body {
+    font-family: var(--main-font);
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--primary-text-color);
+}
+
+.outer-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 20px;
+    padding: 20px;
+    width: 80%;
+    /* Điều chỉnh chiều rộng tại đây */
+    margin: 0 auto;
+    /* Căn giữa container trong viewport */
+}
+
+.news-container {
+    width: 25%;
+    margin-right: 20px;
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.news-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #fff;
+}
+
+.news-item img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.news-text {
+    flex: 1;
+    overflow: auto;
+}
+
+.news-text h2 {
+    font-size: 16px;
+    color: var(--secondary-color);
+    margin-top: 10px;
+}
+
+.news-footer {
+    display: flex;
+    justify-content: flex-end;
+    font-size: var(--footer-font-size);
+    color: var(--footer-color);
+}
+
+.news-footer span {
+    white-space: nowrap;
+}
+
+.news-footer span:last-child {
+    margin-left: auto;
+}
+
+.content-container {
+    padding: 5px;
+    width: 750px;
+    float: right;
+    margin-left: 10px;
+    margin-top: 0px;
+    border: 1px solid black;
+}
+
+.content-container {
+    flex-grow: 1;
+    /* Thêm bất kỳ thuộc tính định dạng nào khác bạn muốn cho nội dung */
+}
+
+
+/* Truy vấn media cho kích thước màn hình nhỏ hơn */
+
+@media (max-width: 768px) {
+    .outer-container {
+        flex-direction: column;
+    }
+    .content-container,
+    .news-container {
+        width: 100%;
+        margin-left: 0;
+        float: none;
+    }
+    .news-container {
+        margin-top: 20px;
+    }
+}

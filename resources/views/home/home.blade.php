@@ -196,7 +196,7 @@
         <nav class="navbar">
             <ul class="nav">
                 <li class="nav-item"><a href="{{ route('pronunciation') }}"><span>話す</span></a></li>
-                <li class="nav-item"><a href="#"><span>読む</span></a></li>
+                <li class="nav-item"><a href="{{ route('news') }}"><span>読む</span></a></li>
                 <li class="nav-item"><a href="#"><span>聴く</span></a></li>
                 <li class="nav-item"><a href="#"><span>書く</span></a></li>
             </ul>
@@ -518,7 +518,7 @@
                     },
                     body: JSON.stringify({
                         userName: userName
-                    }) // Sửa lại cú pháp tại đây
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {
