@@ -18,4 +18,21 @@ class news extends Model
 
         return $data;
     }
+
+    public function getNewContent($id)
+    {
+        $dataNews = DB::table('news')
+            ->select('content')
+            ->where('id', $id);
+
+        // In ra câu lệnh SQL và các giá trị được bind
+        // $sql = $dataNews->toSql();
+        // $bindings = $dataNews->getBindings();
+        // // dd($sql, $bindings);
+        // // Thực thi truy vấn (nếu cần)
+        $content = $dataNews->get();
+        // dd($dataNews);
+
+        return $content;
+    }
 }

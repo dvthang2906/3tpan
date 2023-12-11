@@ -120,6 +120,9 @@ Route::prefix('/home')->group(function () {
 
     // newsRead
     Route::get('/news', [NewsController::class, 'index'])->name('news');
+
+    //API audio
+    Route::get('/news', [NewsController::class, 'index'])->name('news');
 });
 
 //logout
