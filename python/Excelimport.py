@@ -9,8 +9,8 @@ db_password = "ecc"
 db_name = "3tpandb"
 
 # Tên tệp Excel và tên sheet
-excel_file = "N4_test.xlsx"
-sheet_name = "s1"
+excel_file = "N3-vocabulary.xlsx"
+sheet_name = "Sheet1"
 
 # Tạo kết nối MySQL
 db_connection = mysql.connector.connect(
@@ -25,16 +25,16 @@ engine = create_engine(
 # Đọc dữ liệu từ tệp Excel vào DataFrame
 df = pd.read_excel(excel_file, sheet_name=sheet_name)
 
-# # Loại bỏ các hàng có giá trị NA trong cột 'stt'
-# df = df.dropna(subset=["stt"])
+# Loại bỏ các hàng có giá trị NA trong cột 'stt'
+df = df.dropna(subset=["stt"])
 
-# # Ép kiểu cho cột 'stt' thành int
-# if "stt" in df.columns:
-#     df["stt"] = df["stt"].astype(int)
+# Ép kiểu cho cột 'stt' thành int
+if "stt" in df.columns:
+    df["stt"] = df["stt"].astype(int)
 
 
 # Lưu DataFrame vào MySQL
-df.to_sql(name="test_mondai", con=engine, if_exists="replace", index=False)
+df.to_sql(name="vocabulary", con=engine, if_exists="replace", index=False)
 # In ra 5 hàng đầu tiên của DataFrame
 # print(df.head())
 
