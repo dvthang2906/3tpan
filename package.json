@@ -17,6 +17,7 @@
         "tailwindcss": "^3.3.3"
     },
     "dependencies": {
+        "jquery": "^3.7.1",
         "natural": "^0.6.3"
     }
 }

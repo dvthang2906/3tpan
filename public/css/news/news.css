@@ -83,7 +83,37 @@ body {
     float: right;
     margin-left: 10px;
     margin-top: 0px;
-    border: 1px solid black;
+    /* border: 2px solid var(--secondary-color); */
+    /* Dày hơn và sử dụng màu phụ */
+    background-color: #fff;
+    /* Nền trắng để nội dung nổi bật */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Thêm bóng đổ nhẹ */
+    border-radius: 10px;
+    /* Làm tròn góc viền */
+    overflow: hidden;
+    /* Đảm bảo nội dung không tràn ra ngoài viền bo tròn */
+    transition: box-shadow 0.3s ease-in-out;
+    /* Hiệu ứng chuyển đổi cho bóng đổ */
+    border: 1px solid transparent;
+    /* Viền trong suốt */
+    padding: 10px;
+    /* Padding 10 pixels trên mọi cạnh */
+}
+
+.content-container:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    /* Tăng bóng đổ khi hover */
+}
+
+.content-container p {
+    /* white-space: pre-wrap; */
+    /* Đảm bảo xuống dòng và khoảng trắng được giữ nguyên */
+    border: 1px solid transparent;
+    /* Viền trong suốt */
+    padding: 10px;
+    /* Padding 10 pixels trên mọi cạnh */
+    line-height: 2em;
 }
 
 .content-container {
@@ -107,4 +137,14 @@ body {
     .news-container {
         margin-top: 20px;
     }
+}
+
+#toggleButton {
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.full-width-audio {
+    width: 80%;
 }

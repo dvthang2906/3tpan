@@ -13,6 +13,7 @@ use App\Http\Controllers\VoiceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SpeechController;
 use App\Http\Controllers\testABCXYZ\balinhtinhController;
+use App\Http\Controllers\TranslationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -34,6 +35,9 @@ Route::get('/testLivewire', [HomeController::class, 'testLivewire']);
 
 
 Route::get('/testBalinhtinh', [balinhtinhController::class, 'index']);
+
+// Microsoft Translator API
+Route::get('/translate', [TranslationController::class, 'translate']);
 
 
 

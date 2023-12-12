@@ -34,7 +34,8 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/Helpers/MyHelper.php"
+            "app/Helpers/MyHelper.php",
+            "app/Helpers/FuriganaHelper.php"
         ]
     },
     "autoload-dev": {

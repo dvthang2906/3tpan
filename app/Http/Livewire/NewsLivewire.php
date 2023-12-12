@@ -10,17 +10,25 @@ class NewsLivewire extends Component
 
     public $newsID = 1;
     public $data;
-    public $content;
+    public $DataContent;
+    // public $readStatuses = [];
 
     public function mount()
     {
         $this->getNews();
+        // Example initialization, adapt it to your actual data source
+        // foreach ($this->data as $item) {
+        //     $this->readStatuses[$item->id] = false; // Initialize with false or a default value
+        // }
     }
 
     public function updateNewID($newID)
     {
         $this->newsID = $newID;
         $this->getNews();
+        // // Update logic
+        // $this->readStatuses[$newID] = true; // Mark as read
+        // $this->emit('newsItemUpdated', $newID);
     }
 
     public function getNews()
@@ -28,7 +36,8 @@ class NewsLivewire extends Component
         $getData = new news();
         $this->data = $getData->getDataNews();
 
-        $this->content = $getData->getNewContent($this->newsID);
+        $this->DataContent = $getData->getNewContent($this->newsID);
+        // dd($this->DataContent);
     }
 
     public function render()
