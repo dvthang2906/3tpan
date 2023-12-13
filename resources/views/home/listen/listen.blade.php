@@ -17,11 +17,12 @@
 </head>
 
 <body>
-    <video controls>
-        <source src="#" type="video/mp4">
-        <track label="English" kind="subtitles" srclang="en" src="path_to_your_subtitles_en.vtt" default>
-        <track label="Japanese" kind="subtitles" srclang="ja" src="path_to_your_subtitles_ja.vtt">
-        Your browser does not support the video tag.
+    <video controls width="720">
+        <source src="{{ asset('video/Hàng xóm của tôi là Totoro.mp4') }}" type="video/mp4">
+        <track label="VIETNAMESE" kind="subtitles" srclang="vn"
+            src="{{ asset('video/1988.My.Neighbor.Totoro.BluRay.720p.DTS.3Audio.x264-CHD [co hieu ung, bai hat tieng Anh].vtt') }}"
+            default>
+        Your browser does not support the video tag or the file format of this video.
     </video>
     {{-- <section class="flex w-full flex-col">
         <div class="relative z-10 pt-[56.25%]">
