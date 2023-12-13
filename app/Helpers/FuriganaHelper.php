@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Models\news\getFullTangoModel;
+use Illuminate\Support\Facades\Log;
 
 class FuriganaHelper
 {
@@ -22,7 +23,7 @@ class FuriganaHelper
                 $wordsWithFurigana[$tango->kanji] = $tango->hiragana;
             }
         }
-
+        Log::info($matches[0]);
 
         // Sắp xếp từ dài xuống ngắn
         uksort($wordsWithFurigana, function ($a, $b) {
@@ -38,7 +39,6 @@ class FuriganaHelper
             // Nếu không tồn tại, trả về từ gốc
             return $kanji;
         }, $text);
-
 
         return $text;
     }

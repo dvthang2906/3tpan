@@ -43,8 +43,6 @@ class testController extends Controller
         $totalCount = session('totalCount', 0);
         // $total = count($request->all()); // tổng tất cả câu người dùng đã làm
 
-        Log::build($request->all());
-
         // Cập nhật $this->level trong mỗi yêu cầu
         $this->updateLevelFromSession();
 
