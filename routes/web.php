@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\contact\contactController;
 use App\Http\Controllers\home\FlashCardController;
+use App\Http\Controllers\home\ListenController;
 use App\Http\Controllers\home\NewsController;
 use App\Http\Controllers\home\testController;
 use App\Http\Controllers\HomeController;
@@ -127,6 +128,9 @@ Route::prefix('/home')->group(function () {
 
     //API audio
     Route::get('/news', [NewsController::class, 'index'])->name('news');
+
+    // 聴く
+    Route::get('/listen', [ListenController::class, 'index'])->name('listen');
 });
 
 //logout
