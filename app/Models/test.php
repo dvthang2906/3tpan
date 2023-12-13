@@ -24,30 +24,33 @@ class test extends Model
         return $test_mondai;
     }
 
-    public function test_question()
+    public function test_question($level)
     {
         $test_question = DB::table('test_question')
             ->select()
+            ->where('LEVER', $level)
             ->get();
 
         return $test_question;
     }
 
-    public function test_answer()
+    public function test_answer($level)
     {
         $test_answer = DB::table('test_answer')
             ->select()
+            ->where('LEVER', $level)
             ->get();
 
         return $test_answer;
     }
 
-    public function check_test($key, $value)
+    public function check_test($key, $value, $level)
     {
         $count = 0;
 
         $sample_results = DB::table('test_answer')
             ->select('CORRECT')
+            ->where('LEVER', $level)
             ->where('K_ID', $key)
             ->get();
 

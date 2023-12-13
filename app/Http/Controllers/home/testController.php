@@ -43,11 +43,13 @@ class testController extends Controller
         $totalCount = session('totalCount', 0);
         // $total = count($request->all()); // tổng tất cả câu người dùng đã làm
 
+        Log::build($request->all());
+
         // Cập nhật $this->level trong mỗi yêu cầu
         $this->updateLevelFromSession();
 
         // Gọi hàm processTestData để xử lý dữ liệu và lấy các thông tin cần thiết
-        list($count, $countFalse, $falseMondai, $incorrectAnswerIds) = $this->processTestData($request->all(), $test);
+        list($count, $countFalse, $falseMondai, $incorrectAnswerIds) = $this->processTestData($request->all(), $test, $this->level);
 
         // Tính toán kết quả
         $result = $this->calculateResult($count, $totalCount);
@@ -70,7 +72,7 @@ class testController extends Controller
 
 
 
-    private function processTestData($data, $test)
+    private function processTestData($data, $test, $level)
     {
         $count = 0;
         $countFalse = 0;
@@ -78,7 +80,7 @@ class testController extends Controller
         $incorrectAnswerIds = []; // Mảng để lưu trữ các ID câu trả lời sai
 
         foreach ($data as $key => $value) {
-            if ($test->check_test($key, $value) == 0) {
+            if ($test->check_test($key, $value, $level) == 0) {
                 // Câu trả lời sai
                 $falseMondai = $value; // Lưu trữ câu trả lời sai
                 $countFalse++; // Tăng số lượng câu trả lời sai

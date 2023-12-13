@@ -34,7 +34,7 @@ df = pd.read_excel(excel_file, sheet_name=sheet_name)
 
 
 # Lưu DataFrame vào MySQL
-df.to_sql(name="test_question", con=engine, if_exists="replace", index=False)
+df.to_sql(name="test_question", con=engine, if_exists="append", index=False)
 
 # Đóng kết nối MySQL
 db_connection.close()

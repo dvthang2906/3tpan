@@ -37,9 +37,9 @@ class TestLivewire extends Component
         $this->test_mondai = $test->test_mondai($this->category, $this->level);
         // dd($this->test_mondai);
 
-        $this->test_question = $test->test_question();
+        $this->test_question = $test->test_question($this->level);
         // dd($this->test_question);
-        $this->test_answer = $test->test_answer();
+        $this->test_answer = $test->test_answer($this->level);
         // dd($this->test_answer);
     }
 
