@@ -34,39 +34,7 @@ if "stt" in df.columns:
 
 
 # Lưu DataFrame vào MySQL
-df.to_sql(name="vocabulary", con=engine, if_exists="replace", index=False)
-# In ra 5 hàng đầu tiên của DataFrame
-# print(df.head())
-
-# df = df.drop(columns=["Unnamed: 0"])
-
-
-##########
-
-# import pandas as pd
-
-# df = pd.read_excel(r"C:\N5-vocabulary", sheet_name="Sheet1")
-# array1 = df.values.tolist()
-# for l in array1:
-#     (
-#         name1,
-#         brand_id1,
-#         campainge1,
-#         sreport1,
-#         rreport1,
-#         buysreport1,
-#         buyrreport1,
-#         product_id1,
-#         brand_011,
-#         product_011,
-#     ) = l
-#     name = name1
-#     brand_id = brand_id1
-#     campainge = campainge1
-#     product_id = product_id1
-#     brand_01 = brand_011
-#     product_01 = product_011
-#     print(name1, campainge1, product_id1, brand_id1, product_011, brand_011)
+df.to_sql(name="vocabulary", con=engine, if_exists="append", index=False)
 
 
 # Đóng kết nối MySQL
