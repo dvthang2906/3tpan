@@ -35,10 +35,11 @@
 
     <video id="my_video_1" class="video-js vjs-default-skin" controls preload="auto" width="640" height="264"
         data-setup='{}'>
-        <source src="path_to_your_video.mp4" type="video/mp4">
+        <source src="http://127.0.0.1:8001/video/1" type="video/mp4">
         <!-- Thêm phụ đề tại đây -->
         <track kind="captions" src="path_to_your_subtitle.vtt" srclang="en" label="English">
     </video>
+
 
     <script>
         var player = videojs('my_video_1');
