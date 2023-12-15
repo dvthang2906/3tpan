@@ -11,6 +11,13 @@
     <link href="{{ asset('build/tailwind.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/flashCard.css') }}">
     <title>FLASH CARD</title>
+    <style>
+        path {
+    stroke-dasharray: 0;
+    stroke-dashoffset: 0;
+    transition: stroke-dasharray 0.5s ease-in-out, stroke-dashoffset 0.5s ease-in-out;
+}
+    </style>
 </head>
 
 <body>
