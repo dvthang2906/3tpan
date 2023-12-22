@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 
 <head>
     <meta charset="UTF-8">
@@ -11,7 +11,7 @@
 <body>
     <h1><a href="{{ route('home') }}">HOME</a>&nbsp;video List</h1>
 
-
+    {{-- dữ liệu lấy ra từ database --}}
     @foreach ($Videolist as $videos)
         <div>
             <a href="{{ route('listen-id', ['id' => $videos->id]) }}">{{ $videos->id }}</a>
@@ -21,6 +21,7 @@
             <p>{{ $videos->updated_at }}</p>
         </div>
     @endforeach
+    {{-- dữ liệu lấy ra từ database --}}
 
 
 </body>
