@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <h1>video List</h1>
+    <h1><a href="{{ route('home') }}">HOME</a>&nbsp;video List</h1>
 
 
     @foreach ($Videolist as $videos)

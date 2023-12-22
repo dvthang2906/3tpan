@@ -52,13 +52,15 @@
     </head>
 
     <body>
-        <h1>VIDEO</h1>
+        <h1><a href="{{ route('home') }}">HOME</a>&nbsp;VIDEO</h1>
         <video id="my_video_1" class="video-js vjs-default-skin" controls preload="auto" width="640" height="264"
             autoplay muted>
             <source src="http://127.0.0.1:8001/video/{{ $idVideo }}" type="video/mp4">
             <!-- Bạn có thể thêm phụ đề tại đây -->
             <!-- <track kind="captions" src="path_to_your_subtitle.vtt" srclang="en" label="English"> -->
         </video>
+
+        <p><a href="{{ route('listen') }}">BACK</a></p>
 
 
         <script>
