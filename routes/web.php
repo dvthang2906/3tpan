@@ -131,6 +131,7 @@ Route::prefix('/home')->group(function () {
 
     // 聴く
     Route::get('/listen', [ListenController::class, 'index'])->name('listen');
+    Route::get('/listen/{id}', [ListenController::class, 'listen'])->name('listen-id');
 });
 
 //logout
