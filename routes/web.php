@@ -7,6 +7,7 @@ use App\Http\Controllers\home\FlashCardController;
 use App\Http\Controllers\home\ListenController;
 use App\Http\Controllers\home\NewsController;
 use App\Http\Controllers\home\testController;
+use App\Http\Controllers\home\WriteKanjiController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JishoController;
 use App\Http\Controllers\login\loginController;
@@ -132,6 +133,9 @@ Route::prefix('/home')->group(function () {
     // 聴く
     Route::get('/listen', [ListenController::class, 'index'])->name('listen');
     Route::get('/listen/{id}', [ListenController::class, 'listen'])->name('listen-id');
+
+    // 書く
+    Route::get('/writeKanji', [WriteKanjiController::class, 'index'])->name('write-kanji');
 });
 
 //logout
