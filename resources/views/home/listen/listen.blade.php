@@ -11,23 +11,108 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
 
         <style>
-            .vjs-text-track-display div {
-                position: absolute;
-                top: 10%;
-                /* Điều chỉnh giá trị này để thay đổi vị trí */
+            body {
+                font-family: Arial, sans-serif;
+                /* Clean, modern font */
+                background-color: #f4f4f4;
+                /* Light background for contrast */
+                color: #333;
+                /* Dark text for readability */
+                margin: 0;
+                padding: 20px;
             }
 
-            /* Tùy chỉnh nút play */
+            /* Styling the header */
+            h1 {
+                text-align: center;
+                /* Center the header */
+                color: #007bff;
+                /* A vibrant color for the header */
+                margin-bottom: 30px;
+                /* Spacing below the header */
+            }
+
+            h1 a {
+                color: #007bff;
+                text-decoration: none;
+            }
+
+            h1 a:hover {
+                text-decoration: underline;
+            }
+
+            /* Container for centering the video with a balanced layout */
+            #video-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+                margin-bottom: 20px;
+                /* Spacing below the video container */
+            }
+
+            /* Styling the video player for a sleek, modern appearance */
+            #my_video_1 {
+                max-width: 640px;
+                /* Adjustable width */
+                max-height: 360px;
+                /* Maintain aspect ratio */
+                border: none;
+                /* Removing the border for a cleaner look */
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+                /* Subtle shadow for depth */
+                border-radius: 5px;
+                /* Slightly rounded corners */
+            }
+
+            /* Big play button with a minimalistic, modern style */
             .vjs-big-play-button {
-                /* Thêm các thuộc tính CSS tại đây */
+                font-size: 3em;
+                color: #fff;
+                background-color: rgba(255, 255, 255, 0.3);
+                /* Lighter, less intrusive */
+                border-radius: 50%;
+                transition: all 0.3s ease;
             }
 
-            /* Tùy chỉnh thanh tiến trình */
-            .vjs-progress-control {
-                /* Thêm các thuộc tính CSS tại đây */
-                cursor: pointer;
+            .vjs-big-play-button:hover {
+                background-color: rgba(255, 255, 255, 0.5);
+                /* More visible on hover */
+                transform: scale(1.05);
+                /* Subtle increase in size */
             }
 
+            /* Control bar with a modern, transparent look */
+            .video-js .vjs-control-bar {
+                background-color: rgba(255, 255, 255, 0.2);
+                /* Light, transparent */
+                transition: background-color 0.3s ease;
+            }
+
+            .video-js:hover .vjs-control-bar {
+                background-color: rgba(255, 255, 255, 0.4);
+                /* More visible on hover */
+            }
+
+            /* Progress bar with a stylish color */
+            .video-js .vjs-progress-holder .vjs-play-progress,
+            .video-js .vjs-progress-holder .vjs-load-progress {
+                background: #4CAF50;
+                /* Green for a fresh look */
+            }
+
+            /* Styling for control buttons */
+            .video-js .vjs-control {
+                color: #fff;
+                transition: color 0.2s ease;
+            }
+
+            .video-js .vjs-control:hover {
+                color: #4CAF50;
+                /* Matching the progress bar color */
+            }
+
+            /* Other buttons and icons */
             .vjs-button {
                 background: transparent;
                 border: none;
@@ -35,32 +120,58 @@
                 margin-left: 10px;
                 cursor: pointer;
                 color: #fff;
-                /* Màu của biểu tượng */
             }
 
             .vjs-button i {
                 font-size: 16px;
-                /* Điều chỉnh kích thước biểu tượng */
             }
 
             .vjs-icon-next {
-                color: white; // Màu sắc của biểu tượng
-                font-size: 16px; // Kích thước của biểu tượng
-                /* Thêm các tùy chỉnh CSS khác nếu cần */
+                color: #fff;
+                font-size: 16px;
+            }
+
+            /* Link to go back - Styled as a button with better visibility */
+            div a {
+                display: block;
+                /* Full-width block for better clickability */
+                background-color: #007bff;
+                color: #fff;
+                padding: 10px 15px;
+                text-decoration: none;
+                border-radius: 5px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                margin: 20px auto;
+                /* Centering the link */
+                width: max-content;
+                /* Only as wide as it needs to be */
+                text-align: center;
+            }
+
+            div a:hover {
+                background-color: #0056b3;
+                /* Slightly darker on hover */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                /* Enhanced shadow on hover */
             }
         </style>
+
+
+
     </head>
 
     <body>
         <h1><a href="{{ route('home') }}">HOME</a>&nbsp;VIDEO</h1>
-        <video id="my_video_1" class="video-js vjs-default-skin" controls preload="auto" width="640" height="264"
-            autoplay muted>
-            <source src="http://127.0.0.1:8001/video/{{ $idVideo }}" type="video/mp4">
-            <!-- Bạn có thể thêm phụ đề tại đây -->
-            <!-- <track kind="captions" src="path_to_your_subtitle.vtt" srclang="en" label="English"> -->
-        </video>
+        <div id="video-container">
+            <video id="my_video_1" class="video-js vjs-default-skin" controls preload="auto" width="600"
+                height="380" autoplay muted>
+                <source src="http://127.0.0.1:8001/video/{{ $idVideo }}" type="video/mp4">
+                <!-- Bạn có thể thêm phụ đề tại đây -->
+                <!-- <track kind="captions" src="path_to_your_subtitle.vtt" srclang="en" label="English"> -->
+            </video>
+        </div>
 
-        <p><a href="{{ route('listen') }}">BACK</a></p>
+        <div><a href="{{ route('listen') }}">BACK</a></div>
 
 
         <script>
