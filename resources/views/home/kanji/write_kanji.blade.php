@@ -5,8 +5,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Write-Kanji</title>
     <style>
+        /* Style cho modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        /* Style cho nội dung modal */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        /* Style cho nút đóng */
+        .close {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            background-color: #ddd;
+        }
+
+
         iframe path {
             stroke-dasharray: 1000;
             /* A large enough value */
@@ -55,56 +93,139 @@
 <body>
     <h1>Write-Kanji</h1>
     <!-- Khung chứa SVG -->
-    {{-- <div id="svg-container"></div> --}}
-    <iframe src="http://127.0.0.1:8002/svg-file"></iframe>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="svg-container"></div>
+        </div>
+    </div>
 
+    <a href="#">0f9b0</a>
+    <a href="#">0f9b1</a>
+    <a href="#">0f9b2</a>
+    <a href="#">0f9b4</a>
+    <a href="#">0f92e</a>
+    <a href="#">04e07</a>
 
     <script>
-        function updateSVG(svgElement) {
-            // Kiểm tra xem svgElement có tồn tại không
-            if (!svgElement) {
-                console.error('SVG element is not found.');
-                return;
-            }
+        document.addEventListener('DOMContentLoaded', function() {
+            // Lấy tất cả các thẻ <a> và gắn sự kiện click cho mỗi thẻ
+            document.querySelectorAll('a').forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const text = this.textContent || this.innerText;
+                    console.log(text);
 
-            const paths = svgElement.querySelectorAll('path');
-            paths.forEach(function(path) {
-                const length = path.getTotalLength();
-                path.style.strokeDasharray = length;
-                path.style.strokeDashoffset = length;
+                    // LẤY DỮ LIỆU TỪ API
+                    fetch('http://127.0.0.1:8002/svg-file/' + text)
+                        .then(response => response.text())
+                        .then(data => {
+                            // Loại bỏ các comments XML và DTD không mong muốn
+                            data = data.replace(/<!--.*?-->\s*/g, '');
 
-                // Xác định animation delay dựa vào ID của path
-                const pathId = path.id;
-                const order = parseInt(pathId.match(/\d+$/)[0], 10); // Lấy số cuối cùng trong ID
-                const delay = (order - 1) * 2; // Giả sử mỗi nét cần 2 giây để hoàn tất
-                path.style.animation = `drawStroke 2s ${delay}s forwards`;
+                            const svgContainer = document.getElementById('svg-container');
+                            if (svgContainer) {
+                                svgContainer.innerHTML = data;
+                                updateSVG(svgContainer.querySelector('svg'));
+                            }
+
+                            // Hiển thị modal
+                            const modal = document.getElementById('myModal');
+                            modal.style.display = 'block';
+
+                            // Đóng modal khi click vào nút đóng
+                            const closeButton = document.querySelector('.close');
+                            closeButton.addEventListener('click', function() {
+                                modal.style.display = 'none';
+                            });
+                        })
+                        .catch(error => console.error('Lỗi khi tải SVG:', error));
+                });
             });
-        }
 
-        updateSVG(document.querySelector('svg'));
+            function updateSVG(svgElement) {
+                // Kiểm tra xem svgElement có tồn tại không
+                if (!svgElement) {
+                    console.error('SVG element is not found.');
+                    return;
+                }
 
+                const paths = svgElement.querySelectorAll('path');
+                paths.forEach(function(path) {
+                    const length = path.getTotalLength();
+                    path.style.strokeDasharray = length;
+                    path.style.strokeDashoffset = length;
 
-        // // Hàm để tải và chèn SVG
-        // function loadAndInsertSVG() {
-        //     fetch('http://127.0.0.1:8002/svg-file') // Đường dẫn đến API
-        //         .then(response => response.text())
-        //         .then(svgContent => {
-        //             const container = document.getElementById('svg-container');
-        //             container.innerHTML = svgContent; // Chèn SVG vào DOM
-
-        //             const svgElement = container.querySelector('svg');
-        //             if (svgElement) {
-        //                 updateSVG(svgElement); // Cập nhật SVG
-        //             } else {
-        //                 console.error('SVG element was not found after insertion.');
-        //             }
-        //         })
-        //         .catch(error => console.error('Error fetching SVG:', error));
-        // }
-
-        // loadAndInsertSVG();
+                    // Xác định animation delay dựa vào ID của path
+                    const pathId = path.id;
+                    const order = parseInt(pathId.match(/\d+$/)[0], 10); // Lấy số cuối cùng trong ID
+                    const delay = (order - 1) * 2; // Giả sử mỗi nét cần 2 giây để hoàn tất
+                    path.style.animation = `drawStroke 2s ${delay}s forwards`;
+                });
+            }
+        });
     </script>
 
+    {{-- <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('a').addEventListener('click', function(e) {
+                e.preventDefault();
+                const text = this.textContent || this.innerText;
+                console.log(text);
+
+                // LẤY DỮ LIỆU TỪ API
+                $(document).ready(function() {
+                    fetch('http://127.0.0.1:8002/svg-file/' + text)
+                        .then(response => response.text())
+                        .then(data => {
+                            // Loại bỏ các comments XML và DTD không mong muốn
+                            data = data.replace(/<!--.*?-->\s*/g, '');
+
+                            const svgContainer = document.getElementById('svg-container');
+                            if (svgContainer) {
+                                svgContainer.innerHTML = data;
+                                updateSVG(svgContainer.querySelector('svg'));
+                            }
+
+                            // Hiển thị modal
+                            const modal = document.getElementById('myModal');
+                            modal.style.display = 'block';
+
+                            // Đóng modal khi click vào nút đóng
+                            const closeButton = document.querySelector('.close');
+                            closeButton.addEventListener('click', function() {
+                                modal.style.display = 'none';
+                            });
+
+
+                        })
+                        .catch(error => console.error('Lỗi khi tải SVG:', error));
+                });
+
+                function updateSVG(svgElement) {
+                    // Kiểm tra xem svgElement có tồn tại không
+                    if (!svgElement) {
+                        console.error('SVG element is not found.');
+                        return;
+                    }
+
+                    const paths = svgElement.querySelectorAll('path');
+                    paths.forEach(function(path) {
+                        const length = path.getTotalLength();
+                        path.style.strokeDasharray = length;
+                        path.style.strokeDashoffset = length;
+
+                        // Xác định animation delay dựa vào ID của path
+                        const pathId = path.id;
+                        const order = parseInt(pathId.match(/\d+$/)[0],
+                            10); // Lấy số cuối cùng trong ID
+                        const delay = (order - 1) * 2; // Giả sử mỗi nét cần 2 giây để hoàn tất
+                        path.style.animation = `drawStroke 2s ${delay}s forwards`;
+                    });
+                }
+            });
+        });
+    </script> --}}
 
 </body>
 
