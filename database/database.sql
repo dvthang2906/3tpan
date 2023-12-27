@@ -457,13 +457,16 @@ DROP TABLE IF EXISTS kanji;
 CREATE TABLE IF NOT EXISTS kanji (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	kanji VARCHAR(25),
-	kanji_svg VARCHAR(25)
+	kanji_svg VARCHAR(25),
+	kunyomi VARCHAR(255),
+	onyomi VARCHAR(255),
+	mean VARCHAR(255)
 );
 
-INSERT INTO kanji (kanji, kanji_svg) 
+INSERT INTO kanji (kanji, kanji_svg, kunyomi, onyomi, mean) 
 VALUES
-('鈴', '0f9b1'),
-('零', '0f9b2'),
-('領', '0f9b4'),
-('冷', '0f92e'),
-('万', '04e07');
+('鈴', '0f9b1', 'すず', 'レイ、 リン', 'small bell, buzzer'),
+('零', '0f9b2', 'ぜろ、 こぼ.す、 こぼ.れる', 'レイ', 'zero, spill, overflow, nothing, cipher'),
+('領', '0f9b4', 'えり', 'リョウ', 'jurisdiction, dominion, territory, fief, reign'),
+('冷', '0f92e', 'つめ.たい、 ひ.える、 ひ.や、 ひ.ややか、 ひ.やす、 ひ.やかす、 さ.める、 さ.ます', 'レイ', 'cool, cold (beer, person), chill'),
+('万', '04e07', ' よろず', 'マン、 バン', 'ten thousand, 10,000');

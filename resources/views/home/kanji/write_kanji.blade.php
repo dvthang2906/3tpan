@@ -8,45 +8,70 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Write-Kanji</title>
     <style>
+        .modal-content,
+        .modal-sidebar {
+            margin: 0;
+            padding: 0;
+            border: none;
+            background: transparent;
+            box-shadow: none;
+            /* Các thuộc tính khác */
+        }
+
+        .modal-overlay {
+            display: none;
+            /* Ẩn lớp phủ mặc định */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Màu đen với độ trong suốt */
+            z-index: 1;
+            /* Đảm bảo lớp phủ nằm dưới modal */
+        }
+
         /* Style cho modal */
         .modal {
             display: none;
             position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
+            z-index: 2;
+            left: 50%;
+            /* Đặt modal vào giữa màn hình theo chiều ngang */
+            top: 50%;
+            /* Đặt modal vào giữa màn hình theo chiều dọc */
+            transform: translate(-50%, -50%);
+            /* Dùng transform để căn giữa chính xác */
             background-color: rgba(0, 0, 0, 0.7);
         }
 
-        /* Style cho container của modal, sử dụng Flexbox */
-        .modal-container {
+        /* Style cho container sử dụng Flexbox */
+        .modal-flex-container {
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: stretch;
             height: 100%;
         }
 
         /* Style cho nội dung modal */
         .modal-content {
             background-color: #fefefe;
-            margin: 15px;
             padding: 20px;
             border: 1px solid #888;
             max-width: 600px;
-            position: relative;
             flex: 1;
+            /* Cho phép linh hoạt với kích thước */
         }
 
         /* Style cho div thứ hai */
         .modal-sidebar {
-            background-color: #f3f3f3;
-            margin: 15px;
+            background-color: #fefefe;
             padding: 20px;
             border: 1px solid #888;
             max-width: 300px;
             flex: 0 0 auto;
+            /* Giữ kích thước cố định */
         }
 
         /* Style cho nút đóng */
@@ -61,7 +86,6 @@
         .close:hover {
             background-color: #ddd;
         }
-
 
         iframe path {
             stroke-dasharray: 1000;
@@ -110,15 +134,31 @@
 
 <body>
     <h1>Write-Kanji</h1>
+    <div class="modal-overlay"></div>
     <!-- Khung chứa SVG -->
     <div id="myModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-flex-container">
             <span class="close">&times;</span>
-            <div id="svg-container"></div>
+            <div class="modal-content" id="svg-container">
+
+            </div>
             <div class="modal-sidebar">
-                <p><span>kanji:</span><span>kanji</span></p>
-                <p>Kunyomi:</p>
-                <p>Onyomi:</p>
+                <p id="kanji-title">
+                    <span id="kanji-label">Kanji:</span>
+                    <span id="kanji-value">kanji</span>
+                </p>
+                <p id="mean">
+                    <span>意味：</span>
+                    <span id="mean-value"></span>
+                </p>
+                <p id="kunyomi">
+                    <span>Kunyomi:</span>
+                    <span id="kunyomi-value"></span>
+                </p>
+                <p id="onyomi">
+                    <span>Onyomi:</span>
+                    <span id="onyomi-value"></span>
+                </p>
             </div>
         </div>
     </div>
@@ -134,22 +174,50 @@
             document.querySelectorAll('a').forEach(function(link) {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
-                    // const text = this.textContent || this.innerText;
-                    var text = link.getAttribute('data-value');
 
-                    console.log(text);
+                    openModal();
+
+                    var text = link.getAttribute('data-value');
 
                     // LẤY DỮ LIỆU TỪ API
                     fetch('http://127.0.0.1:8002/svg-file/' + text)
-                        .then(response => response.text())
-                        .then(data => {
-                            // Loại bỏ các comments XML và DTD không mong muốn
-                            data = data.replace(/<!--.*?-->\s*/g, '');
+                        .then(response => response.json())
+                        .then(responseData => {
+
+
+                            // Xử lý dữ liệu từ database
+                            const databaseData = responseData.data;
+
+                            let kanjiValue = document.getElementById('kanji-value');
+                            let kunyomi = document.getElementById('kunyomi-value');
+                            let onyomi = document.getElementById('onyomi-value');
+                            let mean = document.getElementById('mean-value');
+
+                            kanjiValue.innerHTML = databaseData[0].kanji;
+                            kunyomi.innerHTML = databaseData[0].kunyomi;
+                            onyomi.innerHTML = databaseData[0].onyomi;
+                            mean.innerHTML = databaseData[0].mean;
+
 
                             const svgContainer = document.getElementById('svg-container');
                             if (svgContainer) {
-                                svgContainer.innerHTML = data;
-                                updateSVG(svgContainer.querySelector('svg'));
+                                // Giải mã nội dung SVG từ Base64
+                                let svgContent = atob(responseData.svg);
+
+                                // Loại bỏ các comments XML và DTD không mong muốn từ chuỗi SVG
+                                svgContent = svgContent.replace(/<!--.*?-->\s*/g, '');
+
+                                svgContainer.innerHTML = svgContent;
+
+                                // Cập nhật SVG nếu cần
+                                const svgElement = svgContainer.querySelector('svg');
+                                if (svgElement) {
+                                    // Thay đổi kích thước của SVG
+                                    svgElement.setAttribute('width', '217px');
+                                    svgElement.setAttribute('height', '217px');
+
+                                    updateSVG(svgElement);
+                                }
                             }
 
                             // Hiển thị modal
@@ -159,6 +227,7 @@
                             // Đóng modal khi click vào nút đóng
                             const closeButton = document.querySelector('.close');
                             closeButton.addEventListener('click', function() {
+                                closeModal();
                                 modal.style.display = 'none';
                             });
                         })
@@ -187,6 +256,16 @@
                 });
             }
         });
+
+        function openModal() {
+            document.querySelector('.modal-overlay').style.display = 'block';
+            document.querySelector('.modal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.querySelector('.modal-overlay').style.display = 'none';
+            document.querySelector('.modal').style.display = 'none';
+        }
     </script>
 
     {{-- <script>
