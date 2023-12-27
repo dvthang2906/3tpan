@@ -449,3 +449,21 @@ INSERT INTO news_hiragana (kanji, hiragana) VALUES
 INSERT INTO news_hiragana (kanji, hiragana) VALUES
 ('要求', 'ようきゅう'),
 ('広告引き', 'こうこくひき');
+
+
+
+// Tables Kanji
+DROP TABLE IF EXISTS kanji;
+CREATE TABLE IF NOT EXISTS kanji (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	kanji VARCHAR(25),
+	kanji_svg VARCHAR(25)
+);
+
+INSERT INTO kanji (kanji, kanji_svg) 
+VALUES
+('鈴', '0f9b1'),
+('零', '0f9b2'),
+('領', '0f9b4'),
+('冷', '0f92e'),
+('万', '04e07');

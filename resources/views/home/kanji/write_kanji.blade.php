@@ -20,15 +20,33 @@
             background-color: rgba(0, 0, 0, 0.7);
         }
 
+        /* Style cho container của modal, sử dụng Flexbox */
+        .modal-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
         /* Style cho nội dung modal */
         .modal-content {
             background-color: #fefefe;
-            margin: 15% auto;
+            margin: 15px;
             padding: 20px;
             border: 1px solid #888;
-            width: 80%;
             max-width: 600px;
             position: relative;
+            flex: 1;
+        }
+
+        /* Style cho div thứ hai */
+        .modal-sidebar {
+            background-color: #f3f3f3;
+            margin: 15px;
+            padding: 20px;
+            border: 1px solid #888;
+            max-width: 300px;
+            flex: 0 0 auto;
         }
 
         /* Style cho nút đóng */
@@ -83,9 +101,9 @@
         }
 
         iframe svg {
-            width: 218px;
+            width: 327px;
             /* Ví dụ, gấp đôi kích thước ban đầu */
-            height: 218px;
+            height: 327px;
         }
     </style>
 </head>
@@ -97,15 +115,18 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <div id="svg-container"></div>
+            <div class="modal-sidebar">
+                <p><span>kanji:</span><span>kanji</span></p>
+                <p>Kunyomi:</p>
+                <p>Onyomi:</p>
+            </div>
         </div>
     </div>
 
-    <a href="#">0f9b0</a>
-    <a href="#">0f9b1</a>
-    <a href="#">0f9b2</a>
-    <a href="#">0f9b4</a>
-    <a href="#">0f92e</a>
-    <a href="#">04e07</a>
+
+    @foreach ($dataKanji as $data)
+        <a href="#" data-value="{{ $data->kanji_svg }}">{{ $data->kanji }}</a>
+    @endforeach
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -113,7 +134,9 @@
             document.querySelectorAll('a').forEach(function(link) {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
-                    const text = this.textContent || this.innerText;
+                    // const text = this.textContent || this.innerText;
+                    var text = link.getAttribute('data-value');
+
                     console.log(text);
 
                     // LẤY DỮ LIỆU TỪ API
