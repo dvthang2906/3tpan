@@ -268,67 +268,6 @@
         }
     </script>
 
-    {{-- <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelector('a').addEventListener('click', function(e) {
-                e.preventDefault();
-                const text = this.textContent || this.innerText;
-                console.log(text);
-
-                // LẤY DỮ LIỆU TỪ API
-                $(document).ready(function() {
-                    fetch('http://127.0.0.1:8002/svg-file/' + text)
-                        .then(response => response.text())
-                        .then(data => {
-                            // Loại bỏ các comments XML và DTD không mong muốn
-                            data = data.replace(/<!--.*?-->\s*/g, '');
-
-                            const svgContainer = document.getElementById('svg-container');
-                            if (svgContainer) {
-                                svgContainer.innerHTML = data;
-                                updateSVG(svgContainer.querySelector('svg'));
-                            }
-
-                            // Hiển thị modal
-                            const modal = document.getElementById('myModal');
-                            modal.style.display = 'block';
-
-                            // Đóng modal khi click vào nút đóng
-                            const closeButton = document.querySelector('.close');
-                            closeButton.addEventListener('click', function() {
-                                modal.style.display = 'none';
-                            });
-
-
-                        })
-                        .catch(error => console.error('Lỗi khi tải SVG:', error));
-                });
-
-                function updateSVG(svgElement) {
-                    // Kiểm tra xem svgElement có tồn tại không
-                    if (!svgElement) {
-                        console.error('SVG element is not found.');
-                        return;
-                    }
-
-                    const paths = svgElement.querySelectorAll('path');
-                    paths.forEach(function(path) {
-                        const length = path.getTotalLength();
-                        path.style.strokeDasharray = length;
-                        path.style.strokeDashoffset = length;
-
-                        // Xác định animation delay dựa vào ID của path
-                        const pathId = path.id;
-                        const order = parseInt(pathId.match(/\d+$/)[0],
-                            10); // Lấy số cuối cùng trong ID
-                        const delay = (order - 1) * 2; // Giả sử mỗi nét cần 2 giây để hoàn tất
-                        path.style.animation = `drawStroke 2s ${delay}s forwards`;
-                    });
-                }
-            });
-        });
-    </script> --}}
-
 </body>
 
 </html>
