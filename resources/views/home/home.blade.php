@@ -67,7 +67,7 @@
             left: 0;
             top: 0;
             width: 100%;
-            height: 100%;
+            height: 110%;
             overflow: auto;
             background-color: rgba(0, 0, 0, 0.6);
             /* Màu nền mờ với độ trong suốt */
@@ -97,8 +97,6 @@
             position: relative;
             background-color: #fefefe;
             margin: 15% auto;
-            /* Centering the modal-content vertically */
-            padding: 20px;
             border-radius: 5px;
             border: 1px solid #888;
             width: 50%;
@@ -161,32 +159,31 @@
         }
 
 
+        .userlogoImages img {
+            width: auto;
+            height: 150px;
+            margin-right: 0;
+            /* Reduced margin between the image and the text */
+            margin-top: 10px;
+        }
 
         .modal-content>div:not(.userlogoImages) {
             display: flex;
             flex-direction: column;
-            /* Stack the paragraphs vertically */
             justify-content: center;
-            /* Center the text vertically relative to the image */
-            padding-left: 20px;
-        }
-
-        .userlogoImages img {
-            width: auto;
-            height: 150px;
-            margin-right: 30px;
-            margin-top: 10px;
+            padding-left: 0;
+            /* Reduced padding to bring text closer to the image */
         }
 
         .close {
             position: absolute;
             right: 5px;
-            /* Adjust to move close to the edge of the modal content box */
-            top: 5px;
-            /* Adjust to position vertically */
+            /* Giữ nguyên hoặc điều chỉnh nếu cần */
+            top: -10px;
+            /* Điều chỉnh giá trị này để nút di chuyển lên trên */
             z-index: 2;
-            /* Make sure it's above other elements */
-            /* Other styles remain unchanged */
+            font-size: 28px;
+            /* Giảm nếu muốn nút nhỏ hơn */
         }
 
         .modal-content p {
@@ -194,8 +191,6 @@
             margin-bottom: 0.5em;
             /* Adjust space between paragraphs */
             font-size: 18px;
-            /* Keep font size or adjust as needed */
-            /* Other styles remain unchanged */
         }
     </style>
 </head>
@@ -218,14 +213,29 @@
                         <div class="userlogoImages">
                             <img src="{{ asset('images/logo.jpg') }}" alt="Logo" width="20%">
                         </div>
-                        <div>
-                            <p>ユーザーID: <span id="userName"></span></p>
-                            <p>氏名: <span id="userFullName"></span></p>
+                        <div class="flex flex-col space-y-2">
+                            <p class="flex justify-between items-center">
+                                <span>ユーザーID: <input type="text" id="userName" class="text-sm py-1 px-2"
+                                        value=""></span>
+                                <button
+                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1.5 px-2.5 text-sm rounded">更新</button>
+                                <!-- Tăng padding và font-size một chút -->
+                            </p>
+                            <p class="flex justify-between items-center">
+                                <span>氏名: <input id="userFullName" type="text" class="text-sm py-1 px-2"></span>
+                                <button
+                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1.5 px-2.5 text-sm rounded">更新</button>
+                                <!-- Tăng padding và font-size một chút -->
+                            </p>
                             <p>レベル: <span id="level"></span></p>
-                            <p>メールアドレス: <span id="email"></span></p>
-                            <p><a href="#" style="color: red; border:1px solid #000; padding: 3px;">ユーザー情報変更へ</a>
+                            <p class="flex justify-between items-center">
+                                <span>メールアドレス: <input id="email" type="text" class="text-sm py-1 px-2"></span>
+                                <button
+                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1.5 px-2.5 text-sm rounded">更新</button>
+                                <!-- Tăng padding và font-size một chút -->
                             </p>
                         </div>
+
                     </div>
                 </div>
                 <div>
@@ -286,8 +296,8 @@
     <form action="{{ route('post-jisho-search') }}" method="POST">
         <div class="search">
             <div class="search-box">
-                <input type="text" name="value" value="{{ $tangoValue = isset($tangoValue) ? $tangoValue : '' }}"
-                    placeholder="検索キーワード">
+                <input type="text" name="value"
+                    value="{{ $tangoValue = isset($tangoValue) ? $tangoValue : '' }}" placeholder="検索キーワード">
             </div>
             <div class="bt_search">
                 {{-- <button id="recordButton" class="bt_s" title="ボイスで検索"><span>🎤Ghi âm</span></button> --}}
@@ -586,14 +596,14 @@
                 .then(data => {
                     // Điền thông tin vào modal
                     console.log(data);
-                    document.getElementById('userName').innerText = data.user;
-                    document.getElementById('userFullName').innerText = data.fullnameUser;
+                    document.getElementById('userName').value = data.user;
+                    document.getElementById('userFullName').value = data.fullnameUser;
                     if (data.level != null) {
                         document.getElementById('level').innerText = data.level;
                     } else {
                         document.getElementById('level').innerText = "bạn chưa có level";
                     }
-                    document.getElementById('email').innerText = data.email;
+                    document.getElementById('email').value = data.email;
                     // Hiển thị modal
                     document.getElementById('userModal').style.display = 'block';
                 });

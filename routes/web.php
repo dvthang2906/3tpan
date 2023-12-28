@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\contact\contactController;
@@ -143,3 +144,11 @@ Route::get('/logout', [loginController::class, 'loguot'])->name('logout');
 
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+
+//ADMIN
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/', [AdminController::class, 'index'])->name('admin');
+    Route::get('/user', [AdminController::class, 'user'])->name('ad_userCtl');
+    Route::get('/data', [AdminController::class, 'data'])->name('ad_dataCtl');
+});

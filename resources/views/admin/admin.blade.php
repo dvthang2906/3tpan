@@ -15,11 +15,11 @@
         <h1 class="ad">Login at:<span></span></h1>
     </div>
     <div class="cta_btn09">
-        <a href="{{route('ad_userCtl')}}" class="cta_btn09-contact">
+        <a href="{{ route('ad_userCtl') }}" class="cta_btn09-contact">
             ユーザー管理<br>
             <span class="copy_txt">登録・アクセス権へ</span>
         </a>
-        <a href="{{route('ad_dataCtl')}}" class="cta_btn09-tel">
+        <a href="{{ route('ad_dataCtl') }}" class="cta_btn09-tel">
             データ管理<br>
             <span class="copy_txt">各データの登録・更新へ</span>
         </a>
