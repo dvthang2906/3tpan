@@ -88,19 +88,24 @@
 
         /* Phong cách cho nội dung modal */
         .modal-content {
+            display: flex;
+            /* Aligns children vertically */
+            justify-content: start;
+            /* Starts children at the beginning of the content box */
+            padding: 20px;
+            /* Padding inside the modal content box */
+            position: relative;
             background-color: #fefefe;
             margin: 15% auto;
-            /* Căn giữa và cách trên */
+            /* Centering the modal-content vertically */
             padding: 20px;
             border-radius: 5px;
-            /* Bo góc */
             border: 1px solid #888;
             width: 50%;
-            /* Chiều rộng */
+            /* Width of the modal-content */
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            /* Đổ bóng */
             animation: slideIn 0.5s;
-            /* Hiệu ứng trượt vào */
+
         }
 
         /* Hiệu ứng slide in cho nội dung modal */
@@ -142,6 +147,56 @@
         .modal-content span {
             font-weight: bold;
         }
+
+        .userlogoImages {
+            /* display: flex;
+            justify-content: flex-end; */
+            margin-right: 30px;
+        }
+
+        .modal-content>div:not(.userlogoImages) p {
+            margin-top: 0;
+            margin-bottom: 0.5em;
+            /* Adjust as needed */
+        }
+
+
+
+        .modal-content>div:not(.userlogoImages) {
+            display: flex;
+            flex-direction: column;
+            /* Stack the paragraphs vertically */
+            justify-content: center;
+            /* Center the text vertically relative to the image */
+            padding-left: 20px;
+        }
+
+        .userlogoImages img {
+            width: auto;
+            height: 150px;
+            margin-right: 30px;
+            margin-top: 10px;
+        }
+
+        .close {
+            position: absolute;
+            right: 5px;
+            /* Adjust to move close to the edge of the modal content box */
+            top: 5px;
+            /* Adjust to position vertically */
+            z-index: 2;
+            /* Make sure it's above other elements */
+            /* Other styles remain unchanged */
+        }
+
+        .modal-content p {
+            margin-top: 0;
+            margin-bottom: 0.5em;
+            /* Adjust space between paragraphs */
+            font-size: 18px;
+            /* Keep font size or adjust as needed */
+            /* Other styles remain unchanged */
+        }
     </style>
 </head>
 
@@ -157,13 +212,20 @@
                 <a href="{{ route('contact') }}" class="hd_text" title="お問い合わせ">Contact</a>
                 <!-- Modal -->
                 <div id="myModal" class="modal">
-                    <!-- Nội dung Modal -->
+                    <!-- Modal content -->
                     <div class="modal-content">
                         <span class="close">&times;</span>
-                        <p>ユーザーID: <span id="userName"></span></p>
-                        <p>氏名: <span id="userFullName"></span></p>
-                        <p>レベル: <span id="level"></span></p>
-                        <p>メールアドレス: <span id="email"></span></p>
+                        <div class="userlogoImages">
+                            <img src="{{ asset('images/logo.jpg') }}" alt="Logo" width="20%">
+                        </div>
+                        <div>
+                            <p>ユーザーID: <span id="userName"></span></p>
+                            <p>氏名: <span id="userFullName"></span></p>
+                            <p>レベル: <span id="level"></span></p>
+                            <p>メールアドレス: <span id="email"></span></p>
+                            <p><a href="#" style="color: red; border:1px solid #000; padding: 3px;">ユーザー情報変更へ</a>
+                            </p>
+                        </div>
                     </div>
                 </div>
                 <div>
