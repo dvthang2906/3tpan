@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\Users\UpdateUserDataController;
 use App\Http\Controllers\contact\contactController;
 use App\Http\Controllers\home\FlashCardController;
 use App\Http\Controllers\home\ListenController;
@@ -144,6 +145,9 @@ Route::get('/logout', [loginController::class, 'loguot'])->name('logout');
 
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+// Update data User
+Route::post('/updateUsers', [UpdateUserDataController::class, 'updateUserID']);
 
 
 //ADMIN

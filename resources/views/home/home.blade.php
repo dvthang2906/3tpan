@@ -143,7 +143,8 @@
 
 
         .modal-content span {
-            font-weight: bold;
+            font-size: 0.875rem;
+            line-height: 1.25rem;
         }
 
         .userlogoImages {
@@ -186,6 +187,11 @@
             /* Giảm nếu muốn nút nhỏ hơn */
         }
 
+        .modal-content b {
+            font-weight: bold;
+            color: red;
+        }
+
         .modal-content p {
             margin-top: 0;
             margin-bottom: 0.5em;
@@ -209,41 +215,39 @@
                 <div id="myModal" class="modal">
                     <!-- Modal content -->
                     <div class="modal-content">
-                        <span class="close">&times;</span>
+                        <b class="close" id="close">&times;</b>
                         <div class="userlogoImages">
                             <img src="{{ asset('images/logo.jpg') }}" alt="Logo" width="20%">
                         </div>
                         <div class="flex flex-col space-y-2">
                             <p class="flex justify-between items-center">
                                 <span>ユーザーID: <input type="text" id="userName" class="text-sm py-1 px-2"
-                                        value=""></span>
-                                <button
+                                        style="border-bottom: 1px solid #000"></span>
+                                <button id="updateUserID"
                                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1.5 px-2.5 text-sm rounded">更新</button>
-                                <!-- Tăng padding và font-size một chút -->
                             </p>
                             <p class="flex justify-between items-center">
-                                <span>氏名: <input id="userFullName" type="text" class="text-sm py-1 px-2"></span>
-                                <button
+                                <span>氏名: <input id="userFullName" type="text" class="text-sm py-1 px-2"
+                                        style="border-bottom: 1px solid #000"></span>
+                                <button id="updateUserName"
                                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1.5 px-2.5 text-sm rounded">更新</button>
-                                <!-- Tăng padding và font-size một chút -->
                             </p>
-                            <p>レベル: <span id="level"></span></p>
+                            <p><span>レベル: </span><span id="level"></span></p>
                             <p class="flex justify-between items-center">
-                                <span>メールアドレス: <input id="email" type="text" class="text-sm py-1 px-2"></span>
-                                <button
+                                <span>メールアドレス: <input id="email" type="text" class="text-sm py-1 px-2"
+                                        style="border-bottom: 1px solid #000"></span>
+                                <button id="updateEmail"
                                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1.5 px-2.5 text-sm rounded">更新</button>
-                                <!-- Tăng padding và font-size một chút -->
                             </p>
                         </div>
-
                     </div>
                 </div>
                 <div>
                     @if (Session::has('username'))
                         ユーザー:
                         &nbsp;&nbsp;
-                        <a href="#" style="color: red" id="userLink"
-                            data-userName="{{ session('username') }}">{{ session('username') }}</a>
+                        <a href="#" style="color: red" id="userLink" data-userName="{{ session('username') }}"
+                            data-id="{{ session('user_id') }}">{{ session('username') }}</a>
                     @endif
                 </div>
                 <a href="{{ route('logout') }}" class="log_text">
@@ -412,6 +416,61 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
+        //Update User ID
+        var userID = document.getElementById('userLink').getAttribute('data-id');
+        document.getElementById('updateUserID').addEventListener('click', function() {
+            var NewUserName = document.getElementById('userName').value;
+            updateUserData('user', userID, NewUserName);
+        });
+
+        //Update User Name
+        document.getElementById('updateUserName').addEventListener('click', function() {
+            var userFullName = document.getElementById('userFullName').value;
+            updateUserData('fullnameUser', userID, userFullName);
+        });
+
+        //Update Email
+        document.getElementById('updateEmail').addEventListener('click', function() {
+            var email = document.getElementById('email').value;
+            updateUserData('email', userID, email);
+        });
+
+        function updateUserData(field, userID, NewValue) {
+            if (NewValue.trim() === "") {
+                switch (field) {
+                    case 'user':
+                        alert('ユーザーIDを入力してください!!!!');
+                        break;
+                    case 'fullnameUser':
+                        alert('氏名を入力してください!!!!');
+                        break;
+                    case 'email':
+                        alert('メールアドレスを入力してください!!!!');
+                        break;
+                }
+                return;
+            }
+            var data = {
+                field: field,
+                userID: userID,
+                NewValue: NewValue
+            };
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/updateUsers", true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute(
+                'content')); // Cập nhật CSRF token
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    alert('Cập nhật thành công');
+                    // Thêm code xử lý response tại đây
+                }
+            };
+            xhr.send(JSON.stringify(data));
+        }
+
+
         // Lắng nghe sự kiện click trên nút "COMMENT"
         var commentButton = document.getElementById("comment-button");
         var commentText = document.getElementById("comment-text");
@@ -421,7 +480,7 @@
 
         commentButton.addEventListener("click", function() {
             // Kiểm tra xem người dùng đã đăng nhập hay chưa
-            console.log('loginStatus: ', loginStatus);
+            // console.log('loginStatus: ', loginStatus);
             if (commentText.value == '') {
 
                 if (commentText.value == '') {
@@ -578,9 +637,6 @@
 
             var userName = this.getAttribute('data-userName');
 
-            console.log(userName);
-
-            // Gửi yêu cầu AJAX đến máy chủ để lấy thông tin
             fetch('/user-information', {
                     method: 'POST',
                     headers: {
