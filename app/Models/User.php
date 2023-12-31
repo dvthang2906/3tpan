@@ -13,6 +13,11 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
     // Chỉ định tên bảng cơ sở dữ liệu
     protected $table = 'login_infomation';
+    // Sử dụng tên cột tùy chỉnh cho timestamp
+    const CREATED_AT = 'created_time';
+
+    // Tắt tính năng cập nhật tự động cho cột updated_at
+    const UPDATED_AT = null;
 
     /**
      * The attributes that are mass assignable.
@@ -21,8 +26,10 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'user',
-        'email',
+        'fullnameUser',
         'password',
+        'email',
+        'images',
     ];
 
     /**

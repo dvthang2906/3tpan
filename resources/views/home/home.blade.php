@@ -211,43 +211,16 @@
                 <a href="{{ route('about') }}" class="hd_text" title="3T-Panについて">About</a>
                 <a href="#" class="hd_text" title="3T-Panについて">3Tpan Premium</a>
                 <a href="{{ route('contact') }}" class="hd_text" title="お問い合わせ">Contact</a>
-                <!-- Modal -->
-                <div id="myModal" class="modal">
-                    <!-- Modal content -->
-                    <div class="modal-content">
-                        <b class="close" id="close">&times;</b>
-                        <div class="userlogoImages">
-                            <img src="{{ asset('images/logo.jpg') }}" alt="Logo" width="20%">
-                        </div>
-                        <div class="flex flex-col space-y-2">
-                            <p class="flex justify-between items-center">
-                                <span>ユーザーID: <input type="text" id="userName" class="text-sm py-1 px-2"
-                                        style="border-bottom: 1px solid #000"></span>
-                                <button id="updateUserID"
-                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1.5 px-2.5 text-sm rounded">更新</button>
-                            </p>
-                            <p class="flex justify-between items-center">
-                                <span>氏名: <input id="userFullName" type="text" class="text-sm py-1 px-2"
-                                        style="border-bottom: 1px solid #000"></span>
-                                <button id="updateUserName"
-                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1.5 px-2.5 text-sm rounded">更新</button>
-                            </p>
-                            <p><span>レベル: </span><span id="level"></span></p>
-                            <p class="flex justify-between items-center">
-                                <span>メールアドレス: <input id="email" type="text" class="text-sm py-1 px-2"
-                                        style="border-bottom: 1px solid #000"></span>
-                                <button id="updateEmail"
-                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1.5 px-2.5 text-sm rounded">更新</button>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div>
+                <div class="hd_text">
                     @if (Session::has('username'))
-                        ユーザー:
-                        &nbsp;&nbsp;
-                        <a href="#" style="color: red" id="userLink" data-userName="{{ session('username') }}"
-                            data-id="{{ session('user_id') }}">{{ session('username') }}</a>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-gray-700">ユーザー:</span>
+                            <img src="{{ asset('storage/' . (session('images') ?? 'images/logo.jpg')) }}"
+                                alt="User Image" class="rounded-full w-10 h-10 object-cover">
+                            <a href="#" class="text-red-600 hd_text" id="userLink"
+                                data-userName="{{ session('username') }}"
+                                data-id="{{ session('user_id') }}">{{ session('fullname') }}</a>
+                        </div>
                     @endif
                 </div>
                 <a href="{{ route('logout') }}" class="log_text">
@@ -260,6 +233,52 @@
                     @endphp
                     <span aria-hidden="true">{{ $login }}&rarr;</span>
                 </a>
+                <!-- Modal -->
+                <div id="myModal" class="modal">
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <b class="close" id="close">&times;</b>
+                        <div class="userlogoImages" style="text-align: center;">
+                            <img id="imagePreview"
+                                src="{{ asset('storage/' . (session('images') ?? 'storage/images/logo.jpg')) }}"
+                                alt="Logo" style="width: 180px; height: 100px; object-fit: contain;">
+
+                            <!-- Form cập nhật ảnh -->
+                            <form id="updateForm" action="/uploadImageUser" method="post" enctype="multipart/form-data"
+                                style="text-align: center; padding-left:-10px;">
+                                @csrf
+                                <input type="file" id="imageInput" name="image" required style="font-size: 10px;">
+                                <br>
+                                <button type="submit"
+                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 text-sm rounded">Update</button>
+                            </form>
+
+                        </div>
+
+                        <div class="flex flex-col space-y-2">
+                            <p class="flex justify-between items-center">
+                                <span>ユーザーID:<input type="text" id="userName" class="text-sm py-1 px-2"
+                                        style="border-bottom: 1px solid #000"></span>
+                                <button id="updateUserID"
+                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1.5 px-2.5 text-sm rounded">更新</button>
+                            </p>
+                            <p class="flex justify-between items-center">
+                                <span>氏名:<input id="userFullName" type="text" class="text-sm py-1 px-2"
+                                        style="border-bottom: 1px solid #000"></span>
+                                <button id="updateUserName"
+                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1.5 px-2.5 text-sm rounded">更新</button>
+                            </p>
+                            <p><span>レベル: </span><span id="level"></span></p>
+                            <p class="flex justify-between items-center">
+                                <span>メール:<input id="email" type="text" class="text-sm py-1 px-2"
+                                        style="border-bottom: 1px solid #000; width: 200px"></span>
+                                <button id="updateEmail"
+                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1.5 px-2.5 text-sm rounded">更新</button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </nav>
     </header>
@@ -416,6 +435,61 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
+        // update IMAGE
+        var isValidImage = true;
+        document.getElementById('imageInput').addEventListener('change', function(event) {
+            var file = event.target.files[0];
+            isValidImage = true;
+
+            if (file) {
+                // Kiểm tra xem file có phải là ảnh không
+                if (!file.type.startsWith('image/')) {
+                    alert('画像ファイルを選択してください。');
+                    isValidImage = false;
+                    event.target.value = "";
+                    return;
+                } else {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById('imagePreview').src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        });
+
+        document.getElementById('updateForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Ngăn chặn hành vi mặc định của form
+
+            var formData = new FormData(this); // Lấy dữ liệu từ form
+            sendUpdateImages(formData); // Gửi yêu cầu cập nhật
+        });
+
+
+        // Thông báo trạng thái sau khi xử lý ảnh
+        function sendUpdateImages(formData) {
+            // Lấy CSRF token
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            fetch('/uploadImageUser', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Hiển thị thông điệp từ phản hồi
+                    alert(data.message);
+                })
+                .catch(error => {
+                    // Xử lý lỗi (nếu có)
+                    console.error('There was an error!', error);
+                });
+        }
+
+
         //Update User ID
         var userID = document.getElementById('userLink').getAttribute('data-id');
         document.getElementById('updateUserID').addEventListener('click', function() {
@@ -434,6 +508,7 @@
             var email = document.getElementById('email').value;
             updateUserData('email', userID, email);
         });
+
 
         function updateUserData(field, userID, NewValue) {
             if (NewValue.trim() === "") {
@@ -456,6 +531,25 @@
                 NewValue: NewValue
             };
 
+            // Gọi hàm kiểm tra tồn tại
+            checkDataExistence(field, NewValue, function(exists) {
+                if (exists) {
+                    switch (field) {
+                        case 'user':
+                            alert('ユーザーIDが既に存在しています!!!!!');
+                            break;
+                        case ('email'):
+                            alert('メールアドレスが既に存在しています!!!!!');
+                            break;
+                    }
+                } else {
+                    sendUpdateRequest(data);
+                }
+            });
+
+        }
+
+        function sendUpdateRequest(data) {
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/updateUsers", true);
             xhr.setRequestHeader('Content-Type', 'application/json');
@@ -468,6 +562,19 @@
                 }
             };
             xhr.send(JSON.stringify(data));
+        }
+
+
+        function checkDataExistence(field, value, callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/checkDataExistence?field=" + field + "&value=" + encodeURIComponent(value), true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    callback(response.exists);
+                }
+            };
+            xhr.send();
         }
 
 

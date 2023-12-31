@@ -21,29 +21,34 @@ class loginController extends Controller
 
 
         $userName = $request->userName;
-
         $pass = $request->password;
 
 
         $user_login = DB::select('SELECT * FROM login_infomation WHERE user = ?', [$userName]);
+        if ($user_login === null) {
+            redirect()->route('login');
+        }
 
         if (count($user_login) === 0) {
             // Không có dữ liệu trả về từ cơ sở dữ liệu
             $request->session()->flash('msg', 'bạn đã nhập sai tài khoản');
-            // $request->session()->flash('userName', $userName);
-            // dd(session('userName'));
+
             return redirect()->back()->withInput();
         } else {
             // Có dữ liệu trả về từ cơ sở dữ liệu
             if ($user_login[0]->user == $userName && Hash::check($pass, $user_login[0]->password)) {
                 // Mật khẩu đúng
                 $user_id = $user_login[0]->id;
+                $fullName = $user_login[0]->fullnameUser;
+                $imagePath = $user_login[0]->images;
                 session()->put('username', $userName);
                 session()->put('user_id', $user_id);
+                session()->put('fullname', $fullName);
+                session()->put('images', $imagePath);
                 session()->put('login_status', 'logined');
 
                 $recommendWord = $homeRecommendation->Recommendation();
-                return view('home.home', compact('user_login', 'recommendWord'));
+                return view('home.home', compact('user_login', 'fullName', 'recommendWord', 'imagePath'));
             } else {
                 // Mật khẩu sai
                 $request->session()->flash('msg', 'bạn đã nhập sai mật khẩu!');

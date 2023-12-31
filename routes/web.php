@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SpeechController;
 use App\Http\Controllers\testABCXYZ\balinhtinhController;
 use App\Http\Controllers\TranslationController;
+use App\Http\Controllers\Users\CheckUserController;
+use App\Models\Users\UpdateDataUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -148,6 +150,13 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // Update data User
 Route::post('/updateUsers', [UpdateUserDataController::class, 'updateUserID']);
+
+//Update images user table login_infomation
+Route::post('/uploadImageUser', [UpdateUserDataController::class, 'updateImages']);
+
+//check data
+Route::get('/checkDataExistence', [CheckUserController::class, 'checkDataExistence']);
+
 
 
 //ADMIN
