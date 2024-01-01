@@ -34,6 +34,7 @@
                 Up</label>
             <div class="login-form">
                 <form action="{{ route('post-login') }}" method="POST" class="sign-in-htm">
+                    @csrf
                     @if (session('msgSingup'))
                         <div class="alert alert-success">{{ session('msgSingup') }}</div>
                     @endif
@@ -62,7 +63,7 @@
                     <div class="foot-lnk">
                         <a href="{{ route('forgot-password') }}">Forgot Password?</a>
                     </div>
-                    @csrf
+
                 </form>
 
 

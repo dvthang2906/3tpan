@@ -240,8 +240,8 @@
                         <b class="close" id="close">&times;</b>
                         <div class="userlogoImages" style="text-align: center;">
                             <img id="imagePreview"
-                                src="{{ asset('storage/' . (session('images') ?? 'storage/images/logo.jpg')) }}"
-                                alt="Logo" style="width: 180px; height: 100px; object-fit: contain;">
+                                src="{{ asset('storage/' . (session('images') ?? 'images/logo.jpg')) }}" alt="Logo"
+                                style="width: 180px; height: 100px; object-fit: contain;">
 
                             <!-- Form cập nhật ảnh -->
                             <form id="updateForm" action="/uploadImageUser" method="post" enctype="multipart/form-data"

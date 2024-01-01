@@ -98,7 +98,7 @@ Route::prefix('/home')->group(function () {
     Route::get('/jisho-search', [JishoController::class, 'jishoSearch'])->name('jisho-search');
     Route::post('/jisho-search', [JishoController::class, 'postJishoSearch'])->name('post-jisho-search');
 
-    Route::get('/add-comment', [JishoController::class, 'postAddComment'])->name('post-Add-Comment');
+    Route::get('/add-comment', [JishoController::class, 'postAddComment'])->name('Add-Comment');
     Route::post('/add-comment', [JishoController::class, 'postAddComment'])->name('post-Add-Comment');
 
     //flashCard
@@ -160,7 +160,7 @@ Route::get('/checkDataExistence', [CheckUserController::class, 'checkDataExisten
 
 
 //ADMIN
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin');
     Route::get('/user', [AdminController::class, 'user'])->name('ad_userCtl');
     Route::get('/data', [AdminController::class, 'data'])->name('ad_dataCtl');

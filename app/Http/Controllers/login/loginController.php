@@ -5,6 +5,7 @@ namespace App\Http\Controllers\login;
 use App\Http\Controllers\Controller;
 use App\Models\HomeRecommendation;
 use App\Models\SingupUser;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,45 +16,86 @@ use Illuminate\Support\Str;
 
 class loginController extends Controller
 {
+    //BAN GOC KHI KHONG SU DUNG AUTH
 
+    // public function index(Request $request, HomeRecommendation $homeRecommendation)
+    // {
+
+
+    //     $userName = $request->userName;
+    //     $pass = $request->password;
+
+
+    //     $user_login = DB::select('SELECT * FROM login_infomation WHERE user = ?', [$userName]);
+    //     if ($user_login === null) {
+    //         redirect()->route('login');
+    //     }
+
+    //     if (count($user_login) === 0) {
+    //         // Không có dữ liệu trả về từ cơ sở dữ liệu
+    //         $request->session()->flash('msg', 'bạn đã nhập sai tài khoản');
+
+    //         return redirect()->back()->withInput();
+    //     } else {
+    //         // Có dữ liệu trả về từ cơ sở dữ liệu
+    //         if ($user_login[0]->user == $userName && Hash::check($pass, $user_login[0]->password)) {
+    //             // Mật khẩu đúng
+    //             $CheckAdmin = $user_login[0]->admin;
+
+    //             if ($CheckAdmin === 1) {
+    //                 // return view('admin.admin');
+    //                 return redirect()->route('admin');
+    //             } else {
+    //                 $user_id = $user_login[0]->id;
+    //                 $fullName = $user_login[0]->fullnameUser;
+    //                 $imagePath = $user_login[0]->images;
+    //                 session()->put('username', $userName);
+    //                 session()->put('user_id', $user_id);
+    //                 session()->put('fullname', $fullName);
+    //                 session()->put('images', $imagePath);
+    //                 session()->put('login_status', 'logined');
+
+    //                 $recommendWord = $homeRecommendation->Recommendation();
+    //                 return view('home.home', compact('user_login', 'fullName', 'recommendWord', 'imagePath'));
+    //             }
+    //         } else {
+    //             // Mật khẩu sai
+    //             $request->session()->flash('msg', 'bạn đã nhập sai mật khẩu!');
+    //             return redirect()->back()->withInput(['userName' => $userName]);
+    //         }
+    //     }
+    // }
+
+    // SU DUNG Auth
     public function index(Request $request, HomeRecommendation $homeRecommendation)
     {
+        $userName = $request->input('userName');
+        $password = $request->input('password');
 
+        $credentials = ['user' => $userName, 'password' => $password];
 
-        $userName = $request->userName;
-        $pass = $request->password;
+        if (Auth::attempt($credentials)) {
 
-
-        $user_login = DB::select('SELECT * FROM login_infomation WHERE user = ?', [$userName]);
-        if ($user_login === null) {
-            redirect()->route('login');
-        }
-
-        if (count($user_login) === 0) {
-            // Không có dữ liệu trả về từ cơ sở dữ liệu
-            $request->session()->flash('msg', 'bạn đã nhập sai tài khoản');
-
-            return redirect()->back()->withInput();
-        } else {
-            // Có dữ liệu trả về từ cơ sở dữ liệu
-            if ($user_login[0]->user == $userName && Hash::check($pass, $user_login[0]->password)) {
-                // Mật khẩu đúng
-                $user_id = $user_login[0]->id;
-                $fullName = $user_login[0]->fullnameUser;
-                $imagePath = $user_login[0]->images;
-                session()->put('username', $userName);
-                session()->put('user_id', $user_id);
-                session()->put('fullname', $fullName);
-                session()->put('images', $imagePath);
+            // Đăng nhập thành công
+            $user = Auth::user();
+            if ($user->isAdministrator()) {
+                // Là admin
+                return redirect()->route('admin');
+            } else {
+                // Không phải admin
+                session()->put('username', $user->user);
+                session()->put('user_id', $user->id);
+                session()->put('fullname', $user->fullnameUser);
+                session()->put('images', $user->images);
                 session()->put('login_status', 'logined');
 
                 $recommendWord = $homeRecommendation->Recommendation();
-                return view('home.home', compact('user_login', 'fullName', 'recommendWord', 'imagePath'));
-            } else {
-                // Mật khẩu sai
-                $request->session()->flash('msg', 'bạn đã nhập sai mật khẩu!');
-                return redirect()->back()->withInput(['userName' => $userName]);
+                return view('home.home', compact('recommendWord', 'user'));
             }
+        } else {
+            // Đăng nhập thất bại
+            $request->session()->flash('msg', 'Tên đăng nhập hoặc mật khẩu không đúng!');
+            return redirect()->back()->withInput(['userName' => $request->userName]);
         }
     }
 

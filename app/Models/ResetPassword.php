@@ -14,9 +14,25 @@ class ResetPassword extends Authenticatable
     protected $table = 'login_infomation'; // Đặt tên bảng cụ thể
 
     // Các thuộc tính cần thiết
+    // protected $fillable = [
+    //     'email',
+    //     'token',
+
+    // ];
+
     protected $fillable = [
-        'email', 'token',
+        'user',
+        'fullnameUser',
+        'password',
+        'email',
+        'images',
+        'admin',
+        'token',
     ];
 
-    // Bạn có thể loại bỏ thuộc tính $hidden nếu không cần thiết
+
+    public function isAdmin()
+    {
+        return $this->admin == 1; // Giả sử 1 là giá trị cho admin
+    }
 }

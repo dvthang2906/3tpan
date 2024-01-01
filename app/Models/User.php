@@ -19,6 +19,16 @@ class User extends Authenticatable
     // Tắt tính năng cập nhật tự động cho cột updated_at
     const UPDATED_AT = null;
 
+    // /**
+    //  * Override phương thức username để sử dụng cột 'user'.
+    //  *
+    //  * @return string
+    //  */
+    // public function username()
+    // {
+    //     return 'user';
+    // }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -30,6 +40,7 @@ class User extends Authenticatable
         'password',
         'email',
         'images',
+        'admin',
     ];
 
     /**
@@ -50,4 +61,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isAdministrator()
+    {
+        return $this->admin == 1; // Giả sử 1 là giá trị cho admin
+    }
 }

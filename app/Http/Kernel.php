@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
             // ...
             \App\Http\Middleware\VerifyCsrfToken::class,
         ],
+        'admin' => \App\Http\Middleware\AdminCheck::class,
     ];
 }
