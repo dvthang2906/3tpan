@@ -140,7 +140,7 @@
         <div class="modal-flex-container">
             <span class="close">&times;</span>
             <div class="modal-content" id="svg-container">
-
+                <!-- VÙNG HIỂN THỊ CHỮ KANJI -->
             </div>
             <div class="modal-sidebar">
                 <p id="kanji-title">
@@ -170,7 +170,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Lấy tất cả các thẻ <a> và gắn sự kiện click cho mỗi thẻ
             document.querySelectorAll('a').forEach(function(link) {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -179,11 +178,16 @@
 
                     var text = link.getAttribute('data-value');
 
+                    // Hiển thị thông báo loading
+                    const svgContainer = document.getElementById('svg-container');
+                    svgContainer.innerHTML = '<p>Loading...</p>';
+
                     // LẤY DỮ LIỆU TỪ API
                     fetch('http://127.0.0.1:8002/svg-file/' + text)
                         .then(response => response.json())
                         .then(responseData => {
-
+                            // Xóa thông báo loading
+                            svgContainer.innerHTML = '';
 
                             // Xử lý dữ liệu từ database
                             const databaseData = responseData.data;
@@ -198,40 +202,35 @@
                             onyomi.innerHTML = databaseData[0].onyomi;
                             mean.innerHTML = databaseData[0].mean;
 
+                            // Giải mã nội dung SVG từ Base64 và hiển thị
+                            let svgContent = atob(responseData.svg);
+                            svgContent = svgContent.replace(/<!--.*?-->\s*/g, '');
+                            svgContainer.innerHTML = svgContent;
 
-                            const svgContainer = document.getElementById('svg-container');
-                            if (svgContainer) {
-                                // Giải mã nội dung SVG từ Base64
-                                let svgContent = atob(responseData.svg);
-
-                                // Loại bỏ các comments XML và DTD không mong muốn từ chuỗi SVG
-                                svgContent = svgContent.replace(/<!--.*?-->\s*/g, '');
-
-                                svgContainer.innerHTML = svgContent;
-
-                                // Cập nhật SVG nếu cần
-                                const svgElement = svgContainer.querySelector('svg');
-                                if (svgElement) {
-                                    // Thay đổi kích thước của SVG
-                                    svgElement.setAttribute('width', '217px');
-                                    svgElement.setAttribute('height', '217px');
-
-                                    updateSVG(svgElement);
-                                }
+                            // Cập nhật SVG nếu cần
+                            const svgElement = svgContainer.querySelector('svg');
+                            if (svgElement) {
+                                svgElement.setAttribute('width', '217px');
+                                svgElement.setAttribute('height', '217px');
+                                updateSVG(svgElement);
                             }
 
                             // Hiển thị modal
                             const modal = document.getElementById('myModal');
                             modal.style.display = 'block';
-
-                            // Đóng modal khi click vào nút đóng
-                            const closeButton = document.querySelector('.close');
-                            closeButton.addEventListener('click', function() {
-                                closeModal();
-                                modal.style.display = 'none';
-                            });
                         })
-                        .catch(error => console.error('Lỗi khi tải SVG:', error));
+                        .catch(error => {
+                            console.error('Lỗi khi tải SVG:', error);
+                            svgContainer.innerHTML = '<p>Lỗi khi tải dữ liệu.</p>';
+                        });
+
+                    // Đóng modal khi click vào nút đóng
+                    const closeButton = document.querySelector('.close');
+                    closeButton.addEventListener('click', function() {
+                        closeModal();
+                        const modal = document.getElementById('myModal');
+                        modal.style.display = 'none';
+                    });
                 });
             });
 

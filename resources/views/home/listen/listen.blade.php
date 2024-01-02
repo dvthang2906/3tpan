@@ -255,9 +255,9 @@
 
 
                 // Di chuyển biểu tượng loa và thanh điều chỉnh âm lượng
-                var volumePanel = controlBar.volumePanel.el();
-                var progressControl = controlBar.progressControl.el();
-                controlBar.el().insertBefore(volumePanel, progressControl.nextSibling);
+                // var volumePanel = controlBar.volumePanel.el();
+                // var progressControl = controlBar.progressControl.el();
+                // controlBar.el().insertBefore(volumePanel, progressControl.nextSibling);
             });
 
 
