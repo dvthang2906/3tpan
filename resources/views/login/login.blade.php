@@ -16,13 +16,26 @@
             <div class="progress-bar" id="progress-bar"></div>
         </div>
     @endif
+    @if (session('msg-singup'))
+        <div class="notification success">
+            {{ session('msg-singup') }}
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+    @endif
     @if (session('status'))
         <div class="notification success">
             {{ session('status') }}
             <div class="progress-bar" id="progress-bar"></div>
         </div>
     @endif
-
+    @if ($errors->any())
+        <div class="notification success">
+            @foreach ($errors->all() as $error)
+                {{ $error }}
+            @endforeach
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+    @endif
 
 
     <div class="login-wrap">
@@ -38,6 +51,7 @@
                     @if (session('msgSingup'))
                         <div class="alert alert-success">{{ session('msgSingup') }}</div>
                     @endif
+
 
                     @if (session('msg'))
                         <p style="color: red; margin-top:px;">{{ session('msg') }}</p>
@@ -66,8 +80,6 @@
 
                 </form>
 
-
-
                 <form class="sign-up-htm" action="{{ route('post-Signup') }}" method="POST">
                     @if (session('msg-singup'))
                         <p style="color: red; margin-top:px;">{{ session('msg') }}</p>
@@ -77,16 +89,16 @@
                         <input id="user" type="text" name="fullname" class="input" value="{{ old('fullname') }}"
                             required>
                         @error('fullname')
-                            <div class="error">{{ $message }}</div>
+                            <div class="error" style="color: red">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="group">
                         <label for="user" class="label">Username<span>*</span></label>
-                        <input id="user" type="text" name="UserName" class="input" value="{{ old('UserName') }}"
+                        <input id="user" type="text" name="userName" class="input" value="{{ old('userName') }}"
                             required>
-                        @error('UserName')
-                            <div class="error">{{ $message }}</div>
+                        @error('userName')
+                            <div class="error" style="color: red">{{ $message }}</div>
                         @enderror
                     </div>
 
@@ -95,7 +107,7 @@
                         <input id="pass" type="password" name="password" class="input" data-type="password"
                             value="{{ old('password') }}" required>
                         @error('password')
-                            <div class="error">{{ $message }}</div>
+                            <div class="error" style="color: red">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="group">
@@ -108,7 +120,7 @@
                         <input id="pass" type="text" name="email" value="{{ old('email') }}" class="input"
                             required>
                         @error('email')
-                            <div class="error">{{ $message }}</div>
+                            <div class="error" style="color: red">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="group">

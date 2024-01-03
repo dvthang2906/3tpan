@@ -105,7 +105,7 @@ class loginController extends Controller
     {
 
         $fullname = $request->fullname;
-        $userName = $request->UserName;
+        $userName = $request->userName;
         $pass = $request->password;
         $pass1 = $request->password1;
         $email = $request->email;
@@ -121,7 +121,7 @@ class loginController extends Controller
 
         $relus = [
             'fullname' => 'required',
-            'UserName' => 'required|unique:login_infomation,user',
+            'userName' => 'required|unique:login_infomation,user',
             'password' => 'required|min:6',
             'email' => 'required|email'
         ];
@@ -129,8 +129,8 @@ class loginController extends Controller
         $message = [
             'fullname.required' => '入力が必要',
             // 'fullname.regex' => '半角英数字で入力してください',
-            'UserName.required' => '入力が必要',
-            'UserName.unique' => '名前はすでに存在します。',
+            'userName.required' => '入力が必要',
+            'userName.unique' => '名前はすでに存在します。',
             'password.required' => '入力が必要',
             'password.min' => '最低６文字入力してください。',
             'email.required' => '入力が必要',
@@ -149,8 +149,6 @@ class loginController extends Controller
             now()->format('Y-m-d H:i:s'),
             $rememberToken,
         ];
-
-
 
         $singup = new SingupUser();
 

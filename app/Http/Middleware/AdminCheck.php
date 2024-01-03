@@ -26,6 +26,6 @@ class AdminCheck
         }
 
         // Nếu không phải admin, chuyển hướng người dùng
-        return redirect('home')->with('error', 'Bạn không có quyền truy cập vào trang này');
+        return redirect('login');
     }
 }

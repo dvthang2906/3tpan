@@ -164,4 +164,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin');
     Route::get('/user', [AdminController::class, 'user'])->name('ad_userCtl');
     Route::get('/data', [AdminController::class, 'data'])->name('ad_dataCtl');
+
+    Route::post('/deleteUsers', [AdminController::class, 'deleteUsers'])->name('delete-user');
 });
