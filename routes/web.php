@@ -166,4 +166,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/data', [AdminController::class, 'data'])->name('ad_dataCtl');
 
     Route::post('/deleteUsers', [AdminController::class, 'deleteUsers'])->name('delete-user');
+    Route::post('/addUsers', [AdminController::class, 'addUser'])->name('admin-post-add-users');
 });

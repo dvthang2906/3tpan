@@ -557,7 +557,7 @@
                 'content')); // Cập nhật CSRF token
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
-                    alert('Cập nhật thành công');
+                    alert('更新できました。');
                     // Thêm code xử lý response tại đây
                 }
             };
