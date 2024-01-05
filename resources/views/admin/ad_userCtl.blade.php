@@ -264,7 +264,9 @@
     </div>
 
     <div>
-        <h1 class="ad">Admin: <span></span></h1>
+        <h1 class="ad">
+            <b>ROLE: </b><span style="color: red">{{ $StatusRole ? $StatusRole : '' }}</span>
+        </h1>
         <h1 class="ad">Login at:<span></span></h1>
     </div>
     {{-- <table class="my_table">
@@ -333,11 +335,26 @@
                         {{ $data->id }}
                     </td>
                     <td class="px-5 py-4 whitespace-nowrap text-sm text-gray-900 UserId">
-                        @if ($data->admin == 1)
-                            admin
-                        @else
-                            User Account
-                        @endif
+                        @switch($data->admin)
+                            @case('1')
+                                admin
+                            @break
+
+                            @case('2')
+                                Super User
+                            @break
+
+                            @case('3')
+                                Editor
+                            @break
+
+                            @case('4')
+                                Manager
+                            @break
+
+                            @default
+                                User Account
+                        @endswitch
                     </td>
                     <td class="px-5 py-4 whitespace-nowrap text-sm text-gray-900">
                         {{ $data->user }}

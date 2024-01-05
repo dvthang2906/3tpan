@@ -80,6 +80,7 @@ class loginController extends Controller
             $user = Auth::user();
             if ($user->isAdministrator()) {
                 // Là admin
+                session()->put('StatusRole', $user->admin);
                 return redirect()->route('admin');
             } else {
                 // Không phải admin

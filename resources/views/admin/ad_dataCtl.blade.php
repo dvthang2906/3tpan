@@ -7,12 +7,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ 'css/data.css' }}">
     <title>Data CTL</title>
+    <style>
+        a {
+            padding: 10px;
+        }
+    </style>
 </head>
 
 <body>
-    <h1 class="ad">Admin: <span></span></h1>
+    <h1 class="ad">
+        <b>ROLE: </b><span style="color: red">{{ $StatusRole ? $StatusRole : '' }}</span>
+    </h1>
     <h1 class="ad">Login at:<span></span></h1>
-    <div class="dt_preview">
+    {{-- <div class="dt_preview">
         Hiển thị bản xem trước!
     </div>
     <div class="flex">
@@ -54,7 +61,18 @@
         <button class="bt_save bt_data">Save</button>
         <button class="bt_update bt_data">Update</button>
         <button class="bt_delete bt_data">Delete</button>
+    </div> --}}
+
+    <div style="padding: 20px;">
+        <a href="{{ route('kanji') }}">kanji</a>
+        <a href="#">news</a>
+        <a href="#">test_answer</a>
+        <a href="#">test_mondai</a>
+        <a href="#">test_question</a>
+        <a href="#">videos</a>
+        <a href="#">vocabulary</a>
     </div>
+
 </body>
 
 </html>

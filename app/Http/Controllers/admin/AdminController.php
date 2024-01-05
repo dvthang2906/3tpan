@@ -10,6 +10,7 @@ use App\Models\admin\UserDeletionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use App\Models\kanji\kanji;
 
 class AdminController extends Controller
 {
@@ -23,13 +24,12 @@ class AdminController extends Controller
     {
         $data = new getDataUsers();
         $dataUsers = $data->getDataUsers();
+        $StatusRole = '';
+        if (session()->has('StatusRole') && session('StatusRole') == '1') {
+            $StatusRole = "Admin";
+        }
 
-        return view('admin.ad_userCtl', compact('dataUsers'));
-    }
-
-    public function data()
-    {
-        return view('admin.ad_dataCtl');
+        return view('admin.ad_userCtl', compact('dataUsers', 'StatusRole'));
     }
 
     public function deleteUsers(Request $request, UserDeletionService $userDeletionService)
@@ -110,5 +110,26 @@ class AdminController extends Controller
         }
 
         return null; // Trả về null nếu không có ảnh
+    }
+
+
+
+    //ADMIN CTL DATA
+
+    public function data()
+    {
+        $StatusRole = '';
+        if (session()->has('StatusRole') && session('StatusRole') == '1') {
+            $StatusRole = "Admin";
+        }
+
+        return view('admin.ad_dataCtl', compact('StatusRole'));
+    }
+
+    public function kanji(kanji $kanji)
+    {
+        $dataKanji = $kanji->getDataKanji();
+
+        return view('admin.data.kanji', compact('dataKanji'));
     }
 }

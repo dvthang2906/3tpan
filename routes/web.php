@@ -167,4 +167,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
     Route::post('/deleteUsers', [AdminController::class, 'deleteUsers'])->name('delete-user');
     Route::post('/addUsers', [AdminController::class, 'addUser'])->name('admin-post-add-users');
+    Route::prefix('/data')->group(function () {
+        Route::get('/kanji', [AdminController::class, 'kanji'])->name('kanji');
+    });
 });
