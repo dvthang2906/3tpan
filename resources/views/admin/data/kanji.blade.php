@@ -7,6 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Admin-Kanji</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+
     <style>
         /* CSS from Buttom*/
         .button {
@@ -172,6 +175,7 @@
                 <p id="kanji-title">
                     <span id="kanji-label">Kanji:</span>
                     <span id="kanji-value">kanji</span>
+                    <input type="hidden" id="id-value" value="">
                 </p>
                 <p id="mean">
                     <span>意味：</span>
@@ -185,7 +189,8 @@
                     <span>Onyomi:</span>
                     <input type="text" id="onyomi-value">
                 </p>
-                <div style="text-align: center;"><button type="submit" class="button button1">更新</button></div>
+                <div style="text-align: center;"><button type="submit" class="button button1"
+                        id="kanjiUpdateData">更新</button></div>
             </div>
 
         </div>
@@ -197,6 +202,59 @@
     @endforeach
 
     <script>
+        //更新
+        document.getElementById('kanjiUpdateData').addEventListener('click', function(e) {
+            e.preventDefault();
+
+            //trim() dùng để loại bỏ hết các khoảng trắng ở đầu và cuối của chuỗi kí tự nhập vào
+            let kunyomiUpdate = document.getElementById('kunyomi-value').value.trim();
+            let onyomiUpdate = document.getElementById('onyomi-value').value.trim();
+            let meanUpdate = document.getElementById('mean-value').value.trim();
+            let kanjiId = document.getElementById('id-value').value.trim();
+
+            if (!kunyomiUpdate || !onyomiUpdate || !meanUpdate || !kanjiId) {
+                // console.error('Error: All fields are required.');
+                alert('エラー：すべてのフィールドを入力してください。');
+                return;
+            }
+
+            let updateData = {
+                kunyomi: kunyomiUpdate,
+                onyomi: onyomiUpdate,
+                mean: meanUpdate,
+            };
+
+            let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            fetch('/admin/update-kanji', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    body: JSON.stringify({
+                        id: kanjiId,
+                        data: updateData
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Network response was not ok (${response.status})`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // console.log('Success:', data);
+                    // Xử lý thành công tại đây
+                    alert('漢字が正常に更新されました。');
+                })
+                .catch((error) => {
+                    console.error('Error during fetch operation:', error.message);
+                    // Xử lý lỗi tại đây
+                });
+        });
+
+
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('a').forEach(function(link) {
                 link.addEventListener('click', function(e) {
@@ -207,7 +265,8 @@
                     var text = link.getAttribute('data-value');
 
                     // Hiển thị thông báo loading
-                    const svgContainer = document.getElementById('svg-container');
+                    const svgContainer = document.getElementById(
+                        'svg-container');
                     svgContainer.innerHTML = '<p>Loading...</p>';
 
                     // LẤY DỮ LIỆU TỪ API
@@ -220,23 +279,31 @@
                             // Xử lý dữ liệu từ database
                             const databaseData = responseData.data;
 
-                            let kanjiValue = document.getElementById('kanji-value');
-                            let kunyomi = document.getElementById('kunyomi-value');
-                            let onyomi = document.getElementById('onyomi-value');
-                            let mean = document.getElementById('mean-value');
+                            let kanjiValue = document.getElementById(
+                                'kanji-value');
+                            let kunyomi = document.getElementById(
+                                'kunyomi-value');
+                            let onyomi = document.getElementById(
+                                'onyomi-value');
+                            let mean = document.getElementById(
+                                'mean-value');
+                            let id = document.getElementById('id-value');
 
                             kanjiValue.innerHTML = databaseData[0].kanji;
                             kunyomi.value = databaseData[0].kunyomi;
                             onyomi.value = databaseData[0].onyomi;
                             mean.value = databaseData[0].mean;
+                            id.value = databaseData[0].id;
 
                             // Giải mã nội dung SVG từ Base64 và hiển thị
                             let svgContent = atob(responseData.svg);
-                            svgContent = svgContent.replace(/<!--.*?-->\s*/g, '');
+                            svgContent = svgContent.replace(
+                                /<!--.*?-->\s*/g, '');
                             svgContainer.innerHTML = svgContent;
 
                             // Cập nhật SVG nếu cần
-                            const svgElement = svgContainer.querySelector('svg');
+                            const svgElement = svgContainer.querySelector(
+                                'svg');
                             if (svgElement) {
                                 svgElement.setAttribute('width', '217px');
                                 svgElement.setAttribute('height', '217px');
@@ -244,19 +311,22 @@
                             }
 
                             // Hiển thị modal
-                            const modal = document.getElementById('myModal');
+                            const modal = document.getElementById(
+                                'myModal');
                             modal.style.display = 'block';
                         })
                         .catch(error => {
                             console.error('Lỗi khi tải SVG:', error);
-                            svgContainer.innerHTML = '<p>Lỗi khi tải dữ liệu.</p>';
+                            svgContainer.innerHTML =
+                                '<p>Lỗi khi tải dữ liệu.</p>';
                         });
 
                     // Đóng modal khi click vào nút đóng
                     const closeButton = document.querySelector('.close');
                     closeButton.addEventListener('click', function() {
                         closeModal();
-                        const modal = document.getElementById('myModal');
+                        const modal = document.getElementById(
+                            'myModal');
                         modal.style.display = 'none';
                     });
                 });
@@ -277,8 +347,10 @@
 
                     // Xác định animation delay dựa vào ID của path
                     const pathId = path.id;
-                    const order = parseInt(pathId.match(/\d+$/)[0], 10); // Lấy số cuối cùng trong ID
-                    const delay = (order - 1) * 2; // Giả sử mỗi nét cần 2 giây để hoàn tất
+                    const order = parseInt(pathId.match(/\d+$/)[0],
+                        10); // Lấy số cuối cùng trong ID
+                    const delay = (order - 1) *
+                        2; // Giả sử mỗi nét cần 2 giây để hoàn tất
                     path.style.animation = `drawStroke 2s ${delay}s forwards`;
                 });
             }

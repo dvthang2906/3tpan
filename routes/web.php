@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\updateKanjiController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\Users\UpdateUserDataController;
@@ -170,4 +171,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::prefix('/data')->group(function () {
         Route::get('/kanji', [AdminController::class, 'kanji'])->name('kanji');
     });
+
+    Route::post('/update-kanji', [updateKanjiController::class, 'update']);
 });
