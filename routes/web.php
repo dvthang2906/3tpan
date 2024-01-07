@@ -48,9 +48,6 @@ Route::get('/translate', [TranslationController::class, 'translate']);
 
 
 
-
-
-
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/login', [HomeController::class, 'login'])->name('login');
 
@@ -170,6 +167,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::post('/addUsers', [AdminController::class, 'addUser'])->name('admin-post-add-users');
     Route::prefix('/data')->group(function () {
         Route::get('/kanji', [AdminController::class, 'kanji'])->name('kanji');
+        Route::get('/search-kanji', [AdminController::class, 'searchKanji'])->name('search-kanji');
     });
 
     Route::post('/update-kanji', [updateKanjiController::class, 'update']);

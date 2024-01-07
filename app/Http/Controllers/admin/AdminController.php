@@ -6,11 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\admin\AddUserService;
 use App\Models\admin\deleteUsers;
 use App\Models\admin\getDataUsers;
+use App\Models\admin\searchKanji;
 use App\Models\admin\UserDeletionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use App\Models\kanji\kanji;
+
+use function PHPUnit\Framework\isEmpty;
 
 class AdminController extends Controller
 {
@@ -131,5 +134,20 @@ class AdminController extends Controller
         $dataKanji = $kanji->getDataKanji();
 
         return view('admin.data.kanji', compact('dataKanji'));
+    }
+
+    public function searchKanji(Request $request, SearchKanji $searchKanji)
+    {
+        $kanji = $request->query('kanji');
+        $kanji = $kanji ?? '';
+
+        $dataKanji = $searchKanji->searchByKanji($kanji);
+
+        if ($dataKanji->isEmpty()) {
+            session()->flash('thongbao', 'データに妥当しません。');
+        }
+
+
+        return view('admin.data.kanji', compact('dataKanji', 'kanji'));
     }
 }

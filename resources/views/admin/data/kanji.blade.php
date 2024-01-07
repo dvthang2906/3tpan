@@ -196,10 +196,24 @@
         </div>
     </div>
 
+    <form action="{{ route('search-kanji') }}" method="GET">
+        <input type="search" name="kanji" class="search-kanji" id="search-kanji" value="{{ $kanji ?? '' }}">
+        <button type="submit" class="search-kanji">検索</button>
+    </form>
+    <br>
+    @if (session('thongbao'))
+        <div style="border: #888 1px solid; width: max-content; padding: 10px;">
+            <span style="color: red;">{{ session('thongbao') }}</span>
+        </div>
+    @else
+        <div style="border: #888 1px solid; width: max-content; padding: 10px;">
+            @foreach ($dataKanji as $data)
+                <a href="#" data-value="{{ $data->kanji_svg }}">{{ $data->kanji }}</a>
+            @endforeach
+        </div>
+    @endif
 
-    @foreach ($dataKanji as $data)
-        <a href="#" data-value="{{ $data->kanji_svg }}">{{ $data->kanji }}</a>
-    @endforeach
+
 
     <script>
         //更新
