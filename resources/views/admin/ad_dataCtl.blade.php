@@ -65,7 +65,7 @@
 
     <div style="padding: 20px;">
         <a href="{{ route('kanji') }}">kanji</a>
-        <a href="#">news</a>
+        <a href="{{ route('show-news') }}">news</a>
         <a href="#">test_answer</a>
         <a href="#">test_mondai</a>
         <a href="#">test_question</a>

@@ -223,11 +223,23 @@
             const input = document.getElementById('search-kanji');
 
             form.addEventListener('submit', function(event) {
-                event.preventDefault(); // Ngăn không cho form submit ngay lập tức
-                const convertedValue = wanakana.toHiragana(input.value);
+                event.preventDefault(); // Prevent immediate form submission
+
+                const originalValue = input.value;
+                let convertedValue = originalValue;
+
+                // Check if the input contains Katakana
+                const katakanaRegex = /[\u30A0-\u30FF]/;
+                if (!katakanaRegex.test(originalValue)) {
+                    // Convert to Hiragana only if there is no Katakana
+                    convertedValue = wanakana.toHiragana(originalValue);
+                }
+
+                // Update the input value only if it doesn't contain both Romaji and Hiragana
                 if (!containsBothRomajiAndHiragana(convertedValue)) {
                     input.value = convertedValue;
                 }
+
                 form.submit(); // Submit form
             });
         });
@@ -236,6 +248,7 @@
         function containsBothRomajiAndHiragana(str) {
             const romajiRegex = /[a-zA-Z]/;
             const hiraganaRegex = /[\u3040-\u309F]/;
+
             return romajiRegex.test(str) && hiraganaRegex.test(str);
         }
 
