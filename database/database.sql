@@ -469,7 +469,7 @@ VALUES
 ('零', '0f9b2', 'ぜろ、 こぼ.す、 こぼ.れる', 'レイ', 'zero, spill, overflow, nothing, cipher'),
 ('領', '0f9b4', 'えり', 'リョウ', 'jurisdiction, dominion, territory, fief, reign'),
 ('冷', '0f92e', 'つめ.たい、 ひ.える、 ひ.や、 ひ.ややか、 ひ.やす、 ひ.やかす、 さ.める、 さ.ます', 'レイ', 'cool, cold (beer, person), chill'),
-('万', '04e07', ' よろず', 'マン、 バン', 'ten thousand, 10,000');
+('万', '04e07', ' よろず', 'マン、 バン', 'ten thousand');
 
 
 // Update images desc login_infomation

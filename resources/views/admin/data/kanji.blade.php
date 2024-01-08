@@ -196,15 +196,16 @@
         </div>
     </div>
 
-    <form action="{{ route('search-kanji') }}" method="GET">
+    <form action="{{ route('search-kanji') }}" method="GET" id="kanji-search-form">
         <input type="search" name="kanji" class="search-kanji" id="search-kanji" value="{{ $kanji ?? '' }}">
-        <button type="submit" class="search-kanji">検索</button>
+        <button type="submit" id="btn-search-kanji" class="search-kanji">検索</button>
     </form>
     <br>
     @if (session('thongbao'))
         <div style="border: #888 1px solid; width: max-content; padding: 10px;">
             <span style="color: red;">{{ session('thongbao') }}</span>
         </div>
+        <?php session()->forget('thongbao'); ?>
     @else
         <div style="border: #888 1px solid; width: max-content; padding: 10px;">
             @foreach ($dataKanji as $data)
@@ -214,8 +215,31 @@
     @endif
 
 
-
+    <script src="https://unpkg.com/wanakana"></script>
     <script>
+        // tự động chuyển romaji sang hiragana
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('kanji-search-form');
+            const input = document.getElementById('search-kanji');
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Ngăn không cho form submit ngay lập tức
+                const convertedValue = wanakana.toHiragana(input.value);
+                if (!containsBothRomajiAndHiragana(convertedValue)) {
+                    input.value = convertedValue;
+                }
+                form.submit(); // Submit form
+            });
+        });
+
+
+        function containsBothRomajiAndHiragana(str) {
+            const romajiRegex = /[a-zA-Z]/;
+            const hiraganaRegex = /[\u3040-\u309F]/;
+            return romajiRegex.test(str) && hiraganaRegex.test(str);
+        }
+
+
         //更新
         document.getElementById('kanjiUpdateData').addEventListener('click', function(e) {
             e.preventDefault();

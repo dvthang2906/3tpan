@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\DB;
 class searchKanji extends Model
 {
     use HasFactory;
-    public function searchByKanji($criteria)
+    public function searchByKanji($criteria, $type)
     {
         // Logic tìm kiếm ở đây
         $result = DB::table('kanji')
             ->select()
-            ->where('kanji', 'like', '%' . $criteria . '%')
+            ->where($type, 'like', '%' . $criteria . '%')
             ->get();
         return $result;
     }

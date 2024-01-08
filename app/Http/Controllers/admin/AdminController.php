@@ -138,10 +138,17 @@ class AdminController extends Controller
 
     public function searchKanji(Request $request, SearchKanji $searchKanji)
     {
-        $kanji = $request->query('kanji');
+        //str_replace(' ', '', $request->input('kanji')); //loại bỏ tất cả khoảng trống trong chuỗi.
+
+        //trim loại bỏ khoảng trắng 2 đầu
+        $kanji = trim($request->query('kanji'));
         $kanji = $kanji ?? '';
 
-        $dataKanji = $searchKanji->searchByKanji($kanji);
+        $type = $this->detectInputType($kanji);
+        // dd($type);
+
+        $dataKanji = $searchKanji->searchByKanji($kanji, $type);
+        // dd($dataKanji);
 
         if ($dataKanji->isEmpty()) {
             session()->flash('thongbao', 'データに妥当しません。');
@@ -149,5 +156,20 @@ class AdminController extends Controller
 
 
         return view('admin.data.kanji', compact('dataKanji', 'kanji'));
+    }
+
+    private function detectInputType($input)
+    {
+        if (preg_match("/[\x{30A0}-\x{30FF}]/u", $input)) {
+            return 'onyomi';
+        } elseif (preg_match("/[\x{3040}-\x{309F}]/u", $input)) {
+            return 'kunyomi';
+        } elseif (preg_match("/[\x{4E00}-\x{9FBF}]/u", $input)) {
+            return 'kanji';
+        } elseif (preg_match("/[A-Za-z]/", $input)) {
+            return 'mean';
+        } else {
+            return 'id';
+        }
     }
 }
