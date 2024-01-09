@@ -24,7 +24,8 @@ class searchNews extends Model
     {
         $data = DB::table('news')
             ->select()
-            ->whereDate('created_at', '=', $startDate)
+            ->whereDate('created_at', '>=', $startDate)
+            ->orderBy('created_at', 'asc')
             ->get();
 
         return $data;
@@ -34,7 +35,8 @@ class searchNews extends Model
     {
         $data = DB::table('news')
             ->select()
-            ->whereDate('created_at', '=', $endDate)
+            ->whereDate('created_at', '<=', $endDate)
+            ->orderBy('created_at', 'desc')
             ->get();
 
         return $data;

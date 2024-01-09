@@ -43,11 +43,19 @@
                         <td>{{ $new->title }}</td>
                         <td>{{ $new->created_at }}</td>
                         <td>
-                            <form action="" method="POST">
-                                <input type="hidden" value="{{ $new->id }}">
-                                <button type="submit">views</button>
-                                <button>delete</button>
+                            <!-- View Button -->
+                            <form action="{{ route('news.details.view', ['id' => $new->id]) }}" method="GET">
+                                @csrf
+                                <button type="submit">View</button>
                             </form>
+
+                            <!-- Delete Button -->
+                            {{-- <form action="{{ route('news.delete', $new->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    onclick="return confirm('Are you sure you want to delete this?')">Delete</button>
+                            </form> --}}
                         </td>
                     </tr>
                 @endforeach
