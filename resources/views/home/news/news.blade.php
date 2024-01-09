@@ -15,6 +15,7 @@
 
 <body>
 
+
     @include('layouts.head')
 
     @section('content')

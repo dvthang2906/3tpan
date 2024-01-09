@@ -23,7 +23,7 @@ body {
 
 .log_text:hover {
     color: red;
-    font-size: 1.2em;
+    /* font-size: 1.2em; */
     transform: rotate(5deg);
 }
 
@@ -306,4 +306,19 @@ nav ul li {
 .center {
     align-items: center !important;
     margin: auto !important;
+}
+
+.user_logo {
+    display: flex;
+    position: absolute;
+    right: 30px;
+    top: 30px;
+}
+
+.user_logo_con {
+    display: flex;
+}
+
+.uname {
+    margin-left: 10px;
 }
