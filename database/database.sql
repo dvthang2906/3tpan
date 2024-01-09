@@ -290,7 +290,7 @@ INSERT INTO news_hiragana (kanji, hiragana) VALUES
     ('超', 'ちょう');
 
 
-INSERT INTO news_hiragana (kanji, hiragana) VALUES 
+INSERT INTO news_hiragana (kanji, hiragana) VALUES
 ('氏', 'し'),
 ('年', 'ねん'),
 ('２４年', 'ねん'),
@@ -463,7 +463,7 @@ CREATE TABLE IF NOT EXISTS kanji (
 	mean VARCHAR(255)
 );
 
-INSERT INTO kanji (kanji, kanji_svg, kunyomi, onyomi, mean) 
+INSERT INTO kanji (kanji, kanji_svg, kunyomi, onyomi, mean)
 VALUES
 ('鈴', '0f9b1', 'すず', 'レイ、 リン', 'small bell, buzzer'),
 ('零', '0f9b2', 'ぜろ、 こぼ.す、 こぼ.れる', 'レイ', 'zero, spill, overflow, nothing, cipher'),

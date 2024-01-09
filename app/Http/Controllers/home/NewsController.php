@@ -12,6 +12,7 @@ class NewsController extends Controller
     {
         $data = $news->getDataNews();
 
+
         return view('home.news.news', compact('data'));
     }
 }

@@ -21,7 +21,9 @@
 </head>
 
 <body>
-    <header class="flex">
+    @include('clients.client')
+
+    {{-- <header class="flex">
         <a href="{{ route('home') }}"><img class="logo" src="{{ asset('images/logo3.png') }}" alt="logo"></a>
         <nav class=" mx-auto flex  items-center justify-between " aria-label="Global">
             <div class="hder hidden lg:flex lg:gap-x-12">
@@ -61,7 +63,7 @@
                 <li class="nav-item"><a href="#"><span>書く</span></a></li>
             </ul>
         </nav>
-    </div>
+    </div> --}}
     <ul class="menu">
         <li class="menu__mega">
             <a href="#" class="init-bottom">ライブラリ</a>

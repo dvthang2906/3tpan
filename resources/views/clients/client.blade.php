@@ -28,11 +28,13 @@
 </head>
 
 <body>
-    {{-- @include('layouts.head') --}}
+    @include('layouts.head')
 
     <main>
         @yield('content')
     </main>
+
+
     {{--
     <script src="{{ asset('assets/clients/js/bootstrap.min.js') }}"></script> --}}
     @yield('js')
