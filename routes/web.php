@@ -171,7 +171,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::get('/search-kanji', [AdminController::class, 'searchKanji'])->name('search-kanji');
         Route::get('/news', [AdminNewsController::class, 'show'])->name('show-news');
         Route::post('/news/edit', [AdminNewsController::class, 'edit'])->name('edit-News');
-        // Route::post('/news/search-news', [AdminNewsController::class, '']);
+        Route::post('/news/search-news', [AdminNewsController::class, 'searchNews'])->name('search-News');
     });
 
     Route::post('/update-kanji', [updateKanjiController::class, 'update']);

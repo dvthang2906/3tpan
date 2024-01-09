@@ -17,11 +17,12 @@
 </head>
 
 <body>
-    <form action="" method="POST">
+    <form action="{{ route('search-News') }}" method="POST">
+        @csrf
         <label for="start-date">Ngày bắt đầu:</label>
-        <input type="date" id="start-date" name="start-date">
+        <input type="date" id="start-date" name="start-date" value="{{ $startDate ?? '' }}">
         <label for="end-date">Ngày kết thúc:</label>
-        <input type="date" id="end-date" name="end-date">
+        <input type="date" id="end-date" name="end-date" value="{{ $endDate ?? '' }}">
         <input type="submit" value="検索">
     </form>
 
