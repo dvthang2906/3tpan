@@ -14,7 +14,13 @@ class AdminNewsController extends Controller
         $news = $getNews->getDataNews();
         // dd($news);
 
-        return view('admin.data.news', compact('news'));
+        return view('admin.data.newsList', compact('news'));
+    }
+
+    public function searchNews(Request $request)
+    {
+        $time = $request->all();
+        dd($time);
     }
 
     public function edit(Request $request)
