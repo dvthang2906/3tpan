@@ -89,26 +89,6 @@
                 success: function(response) {
                     // Lưu tên file vào một biến hoặc phần tử HTML
                     // document.getElementById('filename').value = response.filename;
-                    var updatedData = $('#' + object + '-' + id).val();
-                    $.ajax({
-                        url: '{{ route('edit-News') }}',
-                        method: 'POST',
-                        data: {
-                            id: id,
-                            object: object,
-                            dataNews: updatedData,
-                            _token: '{{ csrf_token() }}'
-                        },
-                        success: function(response) {
-                            $('#update-button-' + id).hide(); // Ẩn nút sau khi cập nhật thành công
-                            alert(object + ' updated successfully');
-                            $('#update-button-' + object).hide();
-                        },
-                        error: function(error) {
-                            // Xử lý lỗi
-                            alert('Error updating title');
-                        }
-                    });
                 },
                 error: function() {
                     alert('Đã xảy ra lỗi trong quá trình tải lên.');
@@ -117,7 +97,7 @@
         }
 
         function updateData(id, object) {
-            var updatedData = $('#imageInput').text();
+            var updatedData = $('#update-button-' + object).text();
 
             $.ajax({
                 url: '{{ route('edit-News') }}',
