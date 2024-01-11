@@ -13,10 +13,19 @@
             margin: 10px;
             padding: 10px;
         }
+
+        .add-News {
+            margin: 10px;
+        }
     </style>
 </head>
 
 <body>
+    <div class="msg" id="msg">
+        @if (Session::has('msg'))
+            {{ Session::get('msg') }}
+        @endif
+    </div>
     <form action="{{ route('search-News') }}" method="POST">
         @csrf
         <label for="start-date">Ngày bắt đầu:</label>
@@ -25,6 +34,8 @@
         <input type="date" id="end-date" name="end-date" value="{{ $endDate ?? '' }}">
         <input type="submit" value="検索">
     </form>
+
+    <a href="{{ route('add-News') }}" class="add-News">新しいNewsを作成</a>
 
     @if (count($news) > 0)
         <table>
@@ -62,7 +73,6 @@
             </tbody>
         </table>
     @endif
-
 </body>
 
 </html>

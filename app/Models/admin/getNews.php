@@ -26,4 +26,15 @@ class getNews extends Model
 
         return $data;
     }
+
+
+    public function insertdata($data)
+    {
+        try {
+            DB::table($this->table)
+                ->insert($data);
+        } catch (\Exception $e) {
+            return $e;
+        }
+    }
 }

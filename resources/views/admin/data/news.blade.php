@@ -72,9 +72,14 @@
         function uploadFile(id, object) {
             var fileInput = document.getElementById('imageInput');
             var file = fileInput.files[0];
+
             // console.log(file);
             var formData = new FormData();
             formData.append('file', file);
+            formData.append('id', id);
+            formData.append('object', object);
+            formData.append('_token', '{{ csrf_token() }}');
+
 
             // Sử dụng AJAX để gửi file đến server
             $.ajax({
@@ -83,12 +88,8 @@
                 data: formData,
                 processData: false,
                 contentType: false,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
                 success: function(response) {
-                    // Lưu tên file vào một biến hoặc phần tử HTML
-                    // document.getElementById('filename').value = response.filename;
+                    alert(response.message);
                 },
                 error: function() {
                     alert('Đã xảy ra lỗi trong quá trình tải lên.');
@@ -97,7 +98,7 @@
         }
 
         function updateData(id, object) {
-            var updatedData = $('#update-button-' + object).text();
+            var updatedData = $('#' + object + '-' + id).text();
 
             $.ajax({
                 url: '{{ route('edit-News') }}',
