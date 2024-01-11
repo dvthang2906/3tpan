@@ -31,7 +31,6 @@
 
 @extends('clients.client')
 @section('css')
-    <link rel="stylesheet" href="{{ asset('build/tailwind.css') }}">
     <title>HomePage</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
@@ -234,11 +233,7 @@
             </div>
         </div>
     </div>
-
-    </div>
-    </nav>
-    </header>
-    <div class="nav_head">
+    {{-- <div class="nav_head">
         <div class="nomal">
             <a href="#" class="bt_nav" title="辞書"><span>辞書</span></a>
             <a href="{{ route('flashcards') }}" class="bt_nav" title="フラッシュカード"><span>フラッシュカード</span></a>
@@ -252,7 +247,7 @@
                 <li class="nav-item"><a href="{{ route('write-kanji') }}"><span>書く</span></a></li>
             </ul>
         </nav>
-    </div>
+    </div> --}}
 
 
     <div class="balloon2">
