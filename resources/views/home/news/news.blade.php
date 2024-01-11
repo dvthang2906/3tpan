@@ -23,6 +23,8 @@
     @endsection --}}
     @livewire('news-livewire')
 
+    <h1>testststs</h1>
+
     <div>fotte</div>
     <div>fotte</div>
     <div>fotte</div>
