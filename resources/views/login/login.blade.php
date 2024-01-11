@@ -3,6 +3,8 @@
         $login_status = 'ログイン';
     }
 @endphp
+
+@extends('clients.client')
 @section('css')
     <link rel="stylesheet" href="{{ 'css/login.css' }}">
 @endsection
