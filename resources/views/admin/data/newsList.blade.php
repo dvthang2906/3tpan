@@ -25,6 +25,9 @@
         @if (Session::has('msg'))
             {{ Session::get('msg') }}
         @endif
+        @if (Session::has('success'))
+            {{ Session::get('success') }}
+        @endif
     </div>
     <form action="{{ route('search-News') }}" method="POST">
         @csrf
@@ -55,18 +58,20 @@
                         <td>{{ $new->created_at }}</td>
                         <td>
                             <!-- View Button -->
-                            <form action="{{ route('news.details.view', ['id' => $new->id]) }}" method="GET">
+                            <form action="{{ route('news.details.view', ['id' => $new->id]) }}" method="GET"
+                                style="display: inline-block;">
                                 @csrf
                                 <button type="submit">View</button>
                             </form>
 
                             <!-- Delete Button -->
-                            {{-- <form action="{{ route('news.delete', $new->id) }}" method="POST">
+                            <form action="{{ route('news.delete') }}" method="POST" style="display: inline-block;">
                                 @csrf
                                 @method('DELETE')
+                                <input type="hidden" name="id" value="{{ $new->id }}">
                                 <button type="submit"
                                     onclick="return confirm('Are you sure you want to delete this?')">Delete</button>
-                            </form> --}}
+                            </form>
                         </td>
                     </tr>
                 @endforeach

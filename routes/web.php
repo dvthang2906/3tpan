@@ -173,6 +173,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::post('/news/edit', [AdminNewsController::class, 'edit'])->name('edit-News');
         Route::post('/news/search-news', [AdminNewsController::class, 'searchNews'])->name('search-News');
         Route::get('/news/views/{id}', [AdminNewsController::class, 'detailsNews'])->name('news.details.view');
+        Route::delete('/news/delete', [AdminNewsController::class, 'deleteNews'])->name('news.delete');
         Route::post('/news/uploadImage', [AdminNewsController::class, 'updateImages'])->name('news.update.images');
         Route::get('/news/addNews', [AdminNewsController::class, 'addNews'])->name('add-News');
         Route::post('news/addNews', [AdminNewsController::class, 'postAddNews'])->name('news.store');

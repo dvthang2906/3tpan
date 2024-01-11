@@ -94,6 +94,21 @@ class AdminNewsController extends Controller
         return response()->json(['message' => $object . ' updated successfully']);
     }
 
+    public function deleteNews(Request $request)
+    {
+        $Data = getNews::find($request->id);
+
+        if (!$Data) {
+            return redirect()->back()->with('error', 'News item not found.');
+        }
+
+        // Delete the news item
+        $Data->delete();
+
+        // Redirect back with a success message
+        return redirect()->route('show-news')->with('success', 'News item deleted successfully.');
+    }
+
     public function updateImages(Request $request)
     {
         if ($request->hasFile('file') && $request->has('id') && $request->has('object')) {

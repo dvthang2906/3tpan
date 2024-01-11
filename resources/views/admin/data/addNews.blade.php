@@ -37,7 +37,7 @@
             <div class="form-group">
                 <label for="images">Ảnh</label>
                 <img id="imagePreview" alt="Image"><br>
-                <input type="file" class="form-control-file" id="imageInput" name="images">
+                <input type="file" class="form-control-file" id="imageInput" name="images" required>
             </div>
 
             {{-- Trường tải lên audio --}}
@@ -45,7 +45,7 @@
                 <label for="audio">Audio</label>
                 <!-- Thẻ audio để hiển thị preview -->
                 <audio id="audioPreview" controls style="display: none;"></audio>
-                <input type="file" class="form-control-file" id="audio" name="audio">
+                <input type="file" class="form-control-file" id="audio" name="audio" required>
 
             </div>
 
