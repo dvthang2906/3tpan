@@ -30,10 +30,7 @@
 <body>
     @include('layouts.head')
 
-    <main>
-        @yield('content')
-    </main>
-
+    @yield('content')
 
     {{--
     <script src="{{ asset('assets/clients/js/bootstrap.min.js') }}"></script> --}}
