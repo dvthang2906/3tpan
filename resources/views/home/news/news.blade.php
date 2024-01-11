@@ -25,6 +25,7 @@
     @livewire('news-livewire')
     <h1>testststs</h1>
     <h1>aaaaaaaaaaaaa</h1>
+    <h1>bbbbbbbbbbbb</h1>
 
     <div>fotte</div>
     <div>fotte</div>
