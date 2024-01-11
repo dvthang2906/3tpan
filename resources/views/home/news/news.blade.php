@@ -7,7 +7,7 @@
     <title>News</title>
 
     @section('css')
-    <link rel="stylesheet" href="{{ asset('css/news/news.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/news/news.css') }}">
     @endsection
 
 
@@ -18,10 +18,10 @@
 
     @include('layouts.head')
 
-    @section('content')
+    {{-- @section('content')
     @livewire('news-livewire')
-    @endsection
-
+    @endsection --}}
+    @livewire('news-livewire')
 
     <div>fotte</div>
     <div>fotte</div>
