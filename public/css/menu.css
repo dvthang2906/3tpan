@@ -322,3 +322,9 @@ nav ul li {
 .uname {
     margin-left: 10px;
 }
+
+#imagePreview {
+    width: 180px;
+    height: 100px;
+    object-fit: contain;
+}
