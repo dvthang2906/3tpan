@@ -5,10 +5,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ asset('css/data.css') }}">
     <title>Add-News</title>
     <style>
         #imagePreview {
             display: none;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Style the form */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Style form labels */
+        label {
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        /* Style form inputs and textarea */
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* Style file input */
+        .form-control-file {
+            display: none;
+            /* Hide the default file input */
+        }
+
+        /* Style file input label and icon */
+        .file-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .file-icon {
+            margin-right: 8px;
+            font-size: 20px;
+            /* Tùy chỉnh kích thước biểu tượng */
+        }
+
+        /* Style the image preview */
+        #imagePreview {
+            max-width: 100%;
+            max-height: 200px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+
+        /* Style the audio preview */
+        #audioPreview {
+            max-width: 100%;
+            margin-bottom: 15px;
+        }
+
+        /* Style the submit button */
+        .btn-primary {
+            background-color: #4D9BC1;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .btn-primary:hover {
+            background-color: #3888A3;
         }
     </style>
 </head>
@@ -34,19 +115,25 @@
             </div>
 
             {{-- Trường tải lên ảnh --}}
+            <!-- Trường tải lên ảnh -->
             <div class="form-group">
-                <label for="images">Ảnh</label>
+                <label for="imageInput" class="file-label">
+                    <span class="file-icon">📷</span> <!-- Thêm biểu tượng ảnh -->
+                    Ảnh
+                </label>
                 <img id="imagePreview" alt="Image"><br>
                 <input type="file" class="form-control-file" id="imageInput" name="images" required>
             </div>
 
-            {{-- Trường tải lên audio --}}
+            <!-- Trường tải lên audio -->
             <div class="form-group">
-                <label for="audio">Audio</label>
+                <label for="audio" class="file-label">
+                    <span class="file-icon">🔊</span> <!-- Thêm biểu tượng âm thanh -->
+                    Audio
+                </label>
                 <!-- Thẻ audio để hiển thị preview -->
                 <audio id="audioPreview" controls style="display: none;"></audio>
                 <input type="file" class="form-control-file" id="audio" name="audio" required>
-
             </div>
 
             {{-- Nút submit --}}

@@ -7,11 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ 'css/data.css' }}">
     <title>Data CTL</title>
-    <style>
-        a {
-            padding: 10px;
-        }
-    </style>
 </head>
 
 <body>
@@ -63,7 +58,7 @@
         <button class="bt_delete bt_data">Delete</button>
     </div> --}}
 
-    <div style="padding: 20px;">
+    <div class="data" style="padding: 20px;">
         <a href="{{ route('kanji') }}">kanji</a>
         <a href="{{ route('show-news') }}">news</a>
         <a href="{{ route('shows.test') }}">Test</a>

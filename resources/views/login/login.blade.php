@@ -3,63 +3,48 @@
         $login_status = 'ログイン';
     }
 @endphp
-
-@extends('clients.client')
-@section('css')
-    <link rel="stylesheet" href="{{ 'css/login.css' }}">
-@endsection
-
-@section('content')
-    @if (session('msgSingup'))
-        <div class="notification success">
-            {{ session('msgSingup') }}
-            <div class="progress-bar" id="progress-bar"></div>
-        </div>
-    @endif
-    @if (session('msg-singup'))
-        <div class="notification success">
-            {{ session('msg-singup') }}
-            <div class="progress-bar" id="progress-bar"></div>
-        </div>
-    @endif
-    @if (session('status'))
-        <div class="notification success">
-            {{ session('status') }}
-            <div class="progress-bar" id="progress-bar"></div>
-        </div>
-    @endif
-    @if ($errors->any())
-        <div class="notification success">
-            @foreach ($errors->all() as $error)
-                {{ $error }}
-            @endforeach
-            <div class="progress-bar" id="progress-bar"></div>
-        </div>
-    @endif
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            let totalTime = 5;
-            let intervalTime = 100; // 100ms cho mỗi cập nhật
-            let elapsed = 0;
-
-            const progressBar = document.getElementById('progress-bar');
-            const interval = setInterval(() => {
-                elapsed += intervalTime;
-                let progress = (elapsed / (totalTime * 1000)) * 100;
-                progressBar.style.width = progress + '%';
-
-                if (elapsed >= totalTime * 1000) {
-                    clearInterval(interval);
-                    setTimeout(() => {
-                        document.querySelector('.notification').style.display = 'none';
-                    }, 500); // Thêm một chút thời gian trước khi ẩn thông báo
-                }
-            }, intervalTime);
-        });
-    </script>
-@endsection
 <!DOCTYPE html>
 <html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LOGIN</title>
+
+
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/tailwind.css') }}">
+</head>
+<body>
+    @if (session('msgSingup'))
+    <div class="notification success">
+        {{ session('msgSingup') }}
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+@endif
+@if (session('msg-singup'))
+    <div class="notification success">
+        {{ session('msg-singup') }}
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+@endif
+@if (session('status'))
+    <div class="notification success">
+        {{ session('status') }}
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+@endif
+@if ($errors->any())
+    <div class="notification success">
+        @foreach ($errors->all() as $error)
+            {{ $error }}
+        @endforeach
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+@endif
+
 
 <div class="login-wrap">
     <div class="login-html">
@@ -160,4 +145,27 @@
     </div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        let totalTime = 5;
+        let intervalTime = 100; // 100ms cho mỗi cập nhật
+        let elapsed = 0;
+
+        const progressBar = document.getElementById('progress-bar');
+        const interval = setInterval(() => {
+            elapsed += intervalTime;
+            let progress = (elapsed / (totalTime * 1000)) * 100;
+            progressBar.style.width = progress + '%';
+
+            if (elapsed >= totalTime * 1000) {
+                clearInterval(interval);
+                setTimeout(() => {
+                    document.querySelector('.notification').style.display = 'none';
+                }, 500); // Thêm một chút thời gian trước khi ẩn thông báo
+            }
+        }, intervalTime);
+    });
+</script>
+
+</body>
 </html>
