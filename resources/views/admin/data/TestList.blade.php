@@ -10,7 +10,7 @@
 
 <body>
     <h1>INSERT-Test</h1>
-    <form action="{{ route('') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('post.data.test') }}" method="POST" enctype="multipart/form-data">
         <label for="sheet_name">sheet_name</label>
         <input type="text" name="sheet_name" id="sheet_name" required>
         <p>
