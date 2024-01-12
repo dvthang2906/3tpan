@@ -183,8 +183,29 @@ class AdminNewsController extends Controller
 
     public function postInsetDataTest(Request $request)
     {
-        // $test= new TestModel();
+        $request->validate([
+            'sheet_name' => 'required',
+            'fileupload' => 'required|file|mimes:xlsx,xls'
+        ]);
 
-        dd($request->all());
+
+        $pythonPath = "C:\Users\2210314\Documents\3tpan\python\test_mondai.py";
+
+        $sheetName = $request->input('sheet_name');
+        $file = $request->file('fileupload');
+        $temporaryPath = $file->store('temp');
+
+        $temporaryPath = storage_path('app/temp/' . $file->hashName());
+        $output = shell_exec("python " . $pythonPath . " " . escapeshellarg($temporaryPath) . " " . escapeshellarg($sheetName));
+
+
+
+
+        $scriptPath = 'C:\Users\2210314\Documents\3tpan\python\test_mondai.py';
+        if (file_exists($scriptPath)) {
+            // Gọi script Python
+            $output = shell_exec("python " . $scriptPath . " " . escapeshellarg($temporaryPath) . " " . escapeshellarg($sheetName));
+            dd($output);
+        }
     }
 }
