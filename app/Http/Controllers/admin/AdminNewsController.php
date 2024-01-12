@@ -172,4 +172,19 @@ class AdminNewsController extends Controller
 
         return null; // Nếu không có file được cung cấp
     }
+
+
+
+    //TEST
+    public function getListTest()
+    {
+        return view('admin.data.TestList');
+    }
+
+    public function postInsetDataTest(Request $request)
+    {
+        // $test= new TestModel();
+
+        dd($request->all());
+    }
 }

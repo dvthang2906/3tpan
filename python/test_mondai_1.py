@@ -25,13 +25,6 @@ engine = create_engine(
 # Đọc dữ liệu từ tệp Excel vào DataFrame
 df = pd.read_excel(excel_file, sheet_name=sheet_name)
 
-# # Loại bỏ các hàng có giá trị NA trong cột 'stt'
-# df = df.dropna(subset=["stt"])
-
-# # Ép kiểu cho cột 'stt' thành int
-# if "stt" in df.columns:
-#     df["stt"] = df["stt"].astype(int)
-
 
 # Lưu DataFrame vào MySQL
 df.to_sql(name="test_mondai", con=engine, if_exists="append", index=False)
