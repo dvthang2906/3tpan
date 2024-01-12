@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="ja">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -152,7 +149,7 @@
 <body>
     @include('layouts.head')
 
-    <div class="nav_head">
+    {{-- <div class="nav_head">
         <div class="nomal">
             <a href="#" class="bt_nav" title="辞書"><span>辞書</span></a>
             <a href="{{ route('flashcards') }}" class="bt_nav" title="フラッシュカード"><span>フラッシュカード</span></a>
@@ -166,7 +163,7 @@
                 <li class="nav-item"><a href="#"><span>書く</span></a></li>
             </ul>
         </nav>
-    </div>
+    </div> --}}
     {{-- GỌI LIVEWIRE ĐỂ LẤY DỮ LIỆU Ở DƯỚI --}}
     @livewire('test-livewire')
 
@@ -361,5 +358,3 @@
 
 {{-- cần thiết để có thể chạy được  --}}
 @livewireScripts
-
-</html>
