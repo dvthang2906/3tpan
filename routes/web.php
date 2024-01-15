@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\AdminNewsController;
+use App\Http\Controllers\admin\ExcelController;
 use App\Http\Controllers\admin\updateKanjiController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
@@ -179,6 +180,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::post('news/addNews', [AdminNewsController::class, 'postAddNews'])->name('news.store');
         Route::get('/news/insertTest', [AdminNewsController::class, 'getListTest'])->name('shows.test');
         Route::post('/news/insertTest', [AdminNewsController::class, 'postInsetDataTest'])->name('post.data.test');
+        Route::post('/upload-excel', [ExcelController::class, 'uploadExcel'])->name('upload.excel');
     });
 
     Route::post('/update-kanji', [updateKanjiController::class, 'update']);

@@ -7,6 +7,7 @@ use App\Models\admin\getNews;
 use App\Models\admin\searchNews;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -185,27 +186,37 @@ class AdminNewsController extends Controller
     {
         $request->validate([
             'sheet_name' => 'required',
-            'fileupload' => 'required|file|mimes:xlsx,xls'
+            'fileupload' => 'required|file|mimes:xlsx,xls',
+            'table_name' => 'required',
         ]);
 
+        $scriptPath = "C:\\Users\\2210314\\Documents\\3tpan\\python\\test_mondai.py";
 
-        $pythonPath = "C:\Users\2210314\Documents\3tpan\python\test_mondai.py";
+        if (!file_exists($scriptPath)) {
+            return response()->json(['error' => 'Script không tìm thấy'], 404);
+        }
 
         $sheetName = $request->input('sheet_name');
+        $tableName = $request->input('table_name');
         $file = $request->file('fileupload');
         $temporaryPath = $file->store('temp');
+        $temporaryFilePath = storage_path('app/' . $temporaryPath);
 
-        $temporaryPath = storage_path('app/temp/' . $file->hashName());
-        $output = shell_exec("python " . $pythonPath . " " . escapeshellarg($temporaryPath) . " " . escapeshellarg($sheetName));
+        $output = shell_exec("python " . escapeshellarg($scriptPath) . " " . escapeshellarg($temporaryFilePath) . " " . escapeshellarg($sheetName) . " " . escapeshellarg($tableName));
+        // Chuyển đổi encoding nếu cần
+        $output = mb_convert_encoding($output, 'UTF-8', 'UTF-8');
+        // dd($output);
 
-
-
-
-        $scriptPath = 'C:\Users\2210314\Documents\3tpan\python\test_mondai.py';
-        if (file_exists($scriptPath)) {
-            // Gọi script Python
-            $output = shell_exec("python " . $scriptPath . " " . escapeshellarg($temporaryPath) . " " . escapeshellarg($sheetName));
-            dd($output);
+        // Xóa file tạm thời sau khi xử lý
+        if (file_exists($temporaryFilePath)) {
+            unlink($temporaryFilePath);
         }
+
+        if ($output === null) {
+            return view('admin.data.TestList')->with(['msg' => 'Lỗi khi chạy script Python']);
+        }
+
+
+        return view('admin.data.TestList')->with(['msg' => 'Xử lý thành công', 'data' => $output]);
     }
 }
