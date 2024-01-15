@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\AdminNewsController;
 use App\Http\Controllers\admin\ExcelController;
 use App\Http\Controllers\admin\updateKanjiController;
+use App\Http\Controllers\admin\VocabularyController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\Users\UpdateUserDataController;
@@ -179,10 +180,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::get('/news/addNews', [AdminNewsController::class, 'addNews'])->name('add-News');
         Route::post('news/addNews', [AdminNewsController::class, 'postAddNews'])->name('news.store');
         Route::get('/test', [AdminNewsController::class, 'getDataTest'])->name('get.data.Test');
-        Route::post('/test', [AdminNewsController::class, 'postDataTest'])->name('post.data.Test');
+        // Route::post('/test', [AdminNewsController::class, 'postDataTest'])->name('post.data.Test');
         Route::get('/test/insertTest', [AdminNewsController::class, 'getListTest'])->name('shows.test');
         Route::post('/test/insertTest', [AdminNewsController::class, 'postInsetDataTest'])->name('post.data.test');
         Route::post('/upload-excel', [ExcelController::class, 'uploadExcel'])->name('upload.excel');
+
+        //VOCABULARY
+        Route::get('vocabulary', [VocabularyController::class, 'showVocabulary'])->name('show.vocabulary');
+        // Route::get('vocabulary', [VocabularyController::class, 'showVocabulary'])->name('search.vocabulary');
+        Route::post('vocabulary/create', [VocabularyController::class, 'createVocabulary'])->name('create.vocabulary');
+        Route::post('vocabulary/update', [VocabularyController::class, 'updateVocabulary'])->name('update.vocabulary');
+        Route::post('vocabulary/delete', [VocabularyController::class, 'deleteVocabulary'])->name('delete.vocabulary');
     });
 
     Route::post('/update-kanji', [updateKanjiController::class, 'update']);

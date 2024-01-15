@@ -10,13 +10,19 @@
 
 <body>
     <h1>Test</h1>
-    <h2>
-        <select name="level" id="level-test">
-            @for ($i = 1; $i < 5; $i++)
-                <option value="N{{ $i }}">N{{ $i }}</option>
-            @endfor
-        </select>
-    </h2>
+    <div>
+        <form action="{{ route('get.data.Test') }}" method="GET">
+            @csrf
+            <label for="level">LEVEL: </label>
+            <select name="level" id="level-test">
+                @for ($i = 1; $i <= 5; $i++)
+                    <option value="N{{ $i }}">N{{ $i }}</option>
+                @endfor
+            </select>
+
+            <button type="submit">submit</button>
+        </form>
+    </div>
 </body>
 
 </html>

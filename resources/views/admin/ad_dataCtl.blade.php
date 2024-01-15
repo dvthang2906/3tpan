@@ -64,8 +64,8 @@
         {{-- <a href="#">test_answer</a>
         <a href="#">test_mondai</a>
         <a href="#">test_question</a> --}}
-        <a href="#">videos</a>
-        <a href="#">vocabulary</a>
+        {{-- <a href="#">videos</a> --}}
+        <a href="{{ route('show.vocabulary') }}">vocabulary</a>
     </div>
 
 </body>

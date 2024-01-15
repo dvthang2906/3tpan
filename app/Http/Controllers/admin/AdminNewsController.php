@@ -178,15 +178,16 @@ class AdminNewsController extends Controller
 
     //TEST
 
-    public function getDataTest()
+    public function getDataTest(Request $request)
     {
+        dd($request->all());
         return view('admin.data.showTest');
     }
 
-    public function postDataTest(Request $request)
-    {
-        dd($request->all());
-    }
+    // public function postDataTest(Request $request)
+    // {
+    //     dd($request->all());
+    // }
 
     public function getListTest()
     {
