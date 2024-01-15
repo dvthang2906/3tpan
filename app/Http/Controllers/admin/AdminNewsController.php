@@ -177,6 +177,17 @@ class AdminNewsController extends Controller
 
 
     //TEST
+
+    public function getDataTest()
+    {
+        return view('admin.data.showTest');
+    }
+
+    public function postDataTest(Request $request)
+    {
+        dd($request->all());
+    }
+
     public function getListTest()
     {
         return view('admin.data.TestList');
@@ -214,10 +225,11 @@ class AdminNewsController extends Controller
         }
 
         if ($output === null) {
-            return view('admin.data.TestList')->with(['msg' => 'Lỗi khi chạy script Python']);
+            session()->flash('msg', 'Lỗi khi chạy script Python');
+            return view('admin.data.TestList');
         }
 
-
-        return view('admin.data.TestList')->with(['msg' => 'Xử lý thành công', 'data' => $output]);
+        session()->flash('msg', 'Xử lý thành công');
+        return view('admin.data.TestList');
     }
 }

@@ -178,8 +178,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::post('/news/uploadImage', [AdminNewsController::class, 'updateImages'])->name('news.update.images');
         Route::get('/news/addNews', [AdminNewsController::class, 'addNews'])->name('add-News');
         Route::post('news/addNews', [AdminNewsController::class, 'postAddNews'])->name('news.store');
-        Route::get('/news/insertTest', [AdminNewsController::class, 'getListTest'])->name('shows.test');
-        Route::post('/news/insertTest', [AdminNewsController::class, 'postInsetDataTest'])->name('post.data.test');
+        Route::get('/test', [AdminNewsController::class, 'getDataTest'])->name('get.data.Test');
+        Route::post('/test', [AdminNewsController::class, 'postDataTest'])->name('post.data.Test');
+        Route::get('/test/insertTest', [AdminNewsController::class, 'getListTest'])->name('shows.test');
+        Route::post('/test/insertTest', [AdminNewsController::class, 'postInsetDataTest'])->name('post.data.test');
         Route::post('/upload-excel', [ExcelController::class, 'uploadExcel'])->name('upload.excel');
     });
 
