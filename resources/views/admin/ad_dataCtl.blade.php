@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ 'css/data.css' }}">
+    <link rel="stylesheet" href="{{ asset('css/data.css') }}">
     <title>Data CTL</title>
 </head>
 
@@ -13,7 +13,6 @@
     <h1 class="ad">
         <b>ROLE: </b><span style="color: red">{{ $StatusRole ? $StatusRole : '' }}</span>
     </h1>
-    <h1 class="ad">Login at:<span></span></h1>
     {{-- <div class="dt_preview">
         Hiển thị bản xem trước!
     </div>
