@@ -190,7 +190,6 @@ class AdminNewsController extends Controller
             'table_name' => 'required',
         ]);
 
-        // $scriptPath = "C:\\Users\\2210314\\Documents\\3tpan\\python\\test_mondai.py";
         $scriptPath = storage_path('app/python/test_mondai.py');
 
 
