@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Vocabulary</title>
     <link rel="stylesheet" href="{{ asset('build/tailwind.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body class="bg-gray-100">
@@ -51,14 +53,49 @@
                         <tr class="bg-white border-b hover:bg-gray-50">
                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                                 {{ $item->stt }}</th>
-                            <td class="py-4 px-6">{{ $item->lever }}</td>
-                            <td class="py-4 px-6">{{ $item->tango }}</td>
-                            <td class="py-4 px-6">{{ $item->romaji }}</td>
-                            <td class="py-4 px-6">{{ $item->hiragana }}</td>
-                            <td class="py-4 px-6">{{ $item->type }}</td>
-                            <td class="py-4 px-6">{{ $item->mean }}</td>
+                            <td class="py-4 px-6" id="update-button-level" contenteditable="true">
+                                {{ $item->lever }}</td>
+                            <td class="py-4 px-6" id="update-button-tango" contenteditable="true">
+                                {{ $item->tango }}</td>
+                            <td class="py-4 px-6" id="update-button-romaji" contenteditable="true">
+                                {{ $item->romaji }}</td>
+                            <td class="py-4 px-6" id="update-button-hiragana" contenteditable="true">
+                                {{ $item->hiragana }}</td>
+                            <td class="py-4 px-6" id="update-button-type" contenteditable="true">
+                                {{ $item->type }}</td>
+                            <td class="py-4 px-6" id="update-button-mean" contenteditable="true">
+                                {{ $item->mean }}</td>
+                            <td class="py-3 px-6">
+                                {{-- <a href="/path-to-update/{{ $item->id }}" --}}
+                                <form action="#" method="POST" id="myForm">
+                                    @csrf
+                                    <button type="submit" class="text-blue-600 hover:text-blue-900"
+                                        onclick="updateDataVocabulary({{ $item->stt }})">Update</button>
+                                </form>
+                            </td>
+                            <td class="py-3 px-6">
+                                <form action="#" method="POST" id="myForm">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="id" value="{{ $item->stt }}">
+                                    <button type="submit" class="text-red-600 hover:text-red-900"
+                                        onclick="return confirm('Are you sure you want to delete this?')">Delete</button>
+
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
+                    {{-- error 通知 --}}
+                    <tr>
+                        <td>
+                            @if (session('msg'))
+                                <div>{{ session('msg') }}</div>
+                            @endif
+                            @php
+                                session()->forget('msg');
+                            @endphp
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -66,6 +103,53 @@
             {{ $data->appends(request()->query())->links('pagination::tailwind-pagination') }}
         </div>
     </div>
+
+    <script>
+        document.getElementById('myForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+        });
+
+        function updateDataVocabulary(stt) {
+            var newLevel = $('#update-button-level').text();
+            var newTango = $('#update-button-tango').text();
+            var newRomaji = $('#update-button-romaji').text();
+            var newHiragana = $('#update-button-hiragana').text();
+            var newType = $('#update-button-type').text();
+            var newMean = $('#update-button-mean').text();
+
+            let formData = new FormData();
+            formData.append("newLevel", stt);
+            formData.append("newLevel", newLevel);
+            formData.append("newTango", newTango);
+            formData.append("newRomaji", newRomaji);
+            formData.append("newHiragana", newHiragana);
+            formData.append("newType", newType);
+            formData.append("newMean", newMean);
+            formData.append("_token", "{{ csrf_token() }}");
+
+            console.log('stt: ' + stt);
+            for (let [key, value] of formData.entries()) {
+                console.log(key, value);
+            }
+
+            // Sử dụng AJAX để gửi file đến server
+            $.ajax({
+                url: '{{ route('update.vocabulary') }}',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    alert(response.message);
+                },
+                error: function() {
+                    alert('error');
+                }
+            });
+
+        }
+    </script>
 </body>
 
 </html>

@@ -36,9 +36,13 @@ class VocabularyController extends Controller
         }
 
 
+        if ($data->isEmpty()) {
+            session()->flash('msg', '妥当データが無い。');
 
+            return view('admin.data.showVocabulary', compact('data'));
+        }
 
-
+        // dd($data);
         return view('admin.data.showVocabulary', compact('data'));
     }
 
@@ -46,8 +50,9 @@ class VocabularyController extends Controller
     {
     }
 
-    public function updateVocabulary()
+    public function updateVocabulary(Request $request)
     {
+        dd($request->all());
     }
 
     public function deleteVocabulary()
