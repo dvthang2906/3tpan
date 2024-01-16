@@ -23,6 +23,11 @@ class VocabularyController extends Controller
         return view('admin.data.showVocabulary', compact('data'));
     }
 
+    public function findByLevel(Request $request)
+    {
+        dd($request->all());
+    }
+
     public function createVocabulary()
     {
     }

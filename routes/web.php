@@ -186,11 +186,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::post('/upload-excel', [ExcelController::class, 'uploadExcel'])->name('upload.excel');
 
         //VOCABULARY
-        Route::get('vocabulary', [VocabularyController::class, 'showVocabulary'])->name('show.vocabulary');
-        // Route::get('vocabulary', [VocabularyController::class, 'showVocabulary'])->name('search.vocabulary');
-        Route::post('vocabulary/create', [VocabularyController::class, 'createVocabulary'])->name('create.vocabulary');
-        Route::post('vocabulary/update', [VocabularyController::class, 'updateVocabulary'])->name('update.vocabulary');
-        Route::post('vocabulary/delete', [VocabularyController::class, 'deleteVocabulary'])->name('delete.vocabulary');
+        Route::get('/vocabulary', [VocabularyController::class, 'showVocabulary'])->name('show.vocabulary');
+        Route::get('/SearchByLevel', [VocabularyController::class, 'findByLevel'])->name('search.level.vocabulary');
+        Route::post('/vocabulary/create', [VocabularyController::class, 'createVocabulary'])->name('create.vocabulary');
+        Route::post('/vocabulary/update', [VocabularyController::class, 'updateVocabulary'])->name('update.vocabulary');
+        Route::post('/vocabulary/delete', [VocabularyController::class, 'deleteVocabulary'])->name('delete.vocabulary');
     });
 
     Route::post('/update-kanji', [updateKanjiController::class, 'update']);

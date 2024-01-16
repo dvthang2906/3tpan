@@ -20,7 +20,7 @@ class Vocabulary extends Model
     public function getListVocabulary()
     {
         $data = DB::table('vocabulary')
-            ->orderBy('stt', 'desc')
+            ->orderBy('stt', 'ASC')
             ->paginate(20);
 
         return $data;
