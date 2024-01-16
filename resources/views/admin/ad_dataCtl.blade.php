@@ -14,18 +14,12 @@
         <b>ROLE: </b><span style="color: red">{{ Session::has('StatusRole') ? 'Admin' : '' }}</span>
     </h1>
     <div class="data" style="padding: 20px;">
-        <a href="{{ route('kanji') }}">kanji</a>
-        <a href="{{ route('show-news') }}">news</a>
+        <a href="{{ route('kanji') }}">Kanji</a>
+        <a href="{{ route('show-news') }}">News</a>
         <a href="{{ route('shows.test') }}">Test</a>
-        {{-- <a href="#">test_answer</a>
-        <a href="#">test_mondai</a>
-        <a href="#">test_question</a> --}}
-        {{-- <a href="#">videos</a> --}}
-        <a href="{{ route('show.vocabulary') }}">vocabulary</a>
-
-        <a href="{{ route('shows.test') }}">test</a>
-        <a href="#">vocabulary</a>
+        <a href="{{ route('show.vocabulary') }}">Vocabulary</a>
     </div>
 
 </body>
+
 </html>
