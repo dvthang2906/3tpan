@@ -7,26 +7,83 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TEST</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="{{ asset('css/data.css') }}">
+    <style>
+        #excel_upload_form {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
+        /* Định dạng cho các nhãn và ô nhập liệu */
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="file"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Định dạng cho nút submit */
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Định dạng cho nút lấy sheets */
+        #get_sheets {
+            background-color: #007bff;
+            color: #fff;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Định dạng cho select có nhiều options */
+        select[multiple] {
+            height: auto;
+        }
+    </style>
 </head>
 
 <body>
+    <h1 class="ad">
+        <b>ROLE: </b><span style="color: red">{{ Session::has('StatusRole') ? 'Admin' : '' }}</span>
+    </h1>
+    <div class="data" style="padding: 20px;">
+        <a href="{{ route('kanji') }}">kanji</a>
+        <a href="{{ route('show-news') }}">news</a>
+        <a href="{{ route('shows.test') }}">test</a>
+        <a href="#">vocabulary</a>
+    </div>
     <div>
         @if (Session::has('msg'))
             {{ session('msg') }}
         @endif
     </div>
-    <h1>INSERT-Test</h1>
     <form id="excel_upload_form" action="{{ route('post.data.test') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <p>
-            <label for="fileupload">Upload file:</label>
             <input type="file" id="fileupload" name="fileupload" accept=".xlsx,.xls">
             <br>
             <input type="button" id="get_sheets" value="シート取得">
         </p>
 
-        <label for="sheet_name">シート名:</label>
         <select name="sheet_name" id="sheet_name">
             <option value=""></option>
         </select>

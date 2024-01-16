@@ -8,8 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Admin-Kanji</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-
+    <link rel="stylesheet" href="{{ asset('css/data.css') }}">
     <style>
         /* CSS from Buttom*/
         .button {
@@ -158,11 +157,92 @@
             /* Ví dụ, gấp đôi kích thước ban đầu */
             height: 327px;
         }
+
+        /* Định dạng cho container của các ký tự Kanji */
+        .kanji {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-items: center;
+            margin-top: 30px;
+            font-family: Arial, Helvetica, sans-serif;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 2em;
+        }
+
+        /* Định dạng cho mỗi ký tự Kanji */
+        .kanji span {
+            background-color: wheat;
+            /* color: #fff; */
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+
+        /* Hover effect khi di chuột vào ký tự Kanji */
+        .kanji span:hover {
+            background-color: #4D9BC1;
+        }
+
+        /* Định dạng cho nội dung trong mỗi ký tự Kanji */
+        .kanji span a {
+            text-decoration: none;
+        }
+
+        /* Định dạng cho container của biểu mẫu tìm kiếm Kanji */
+        #kanji-search-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        /* Định dạng cho ô nhập liệu tìm kiếm */
+        .search-kanji {
+            /* width: ; */
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        #btn-search-kanji {
+            background-color: #3498db;
+            color: #ffffff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #btn-search-kanji:hover {
+            background-color: #2980b9;
+            /* Màu nền khi di chuột vào nút */
+        }
     </style>
 </head>
 
 <body>
-    <h1>Kanji</h1>
+    <h1 class="ad">
+        <b>ROLE: </b><span style="color: red">{{ Session::has('StatusRole') ? 'Admin' : '' }}</span>
+    </h1>
+    <header>
+        <nav class="data" style="padding: 20px;">
+            <a href="{{ route('kanji') }}">kanji</a>
+            <a href="{{ route('show-news') }}">news</a>
+            <a href="{{ route('shows.test') }}">test</a>
+            <a href="#">vocabulary</a>
+        </nav>
+    </header>
     <div class="modal-overlay"></div>
     <!-- Khung chứa SVG -->
     <div id="myModal" class="modal">
@@ -198,18 +278,17 @@
 
     <form action="{{ route('search-kanji') }}" method="GET" id="kanji-search-form">
         <input type="search" name="kanji" class="search-kanji" id="search-kanji" value="{{ $kanji ?? '' }}">
-        <button type="submit" id="btn-search-kanji" class="search-kanji">検索</button>
+        <button type="submit" id="btn-search-kanji" class="search-kanji" style="margin-top:10px;">検索</button>
     </form>
-    <br>
     @if (session('thongbao'))
         <div style="border: #888 1px solid; width: max-content; padding: 10px;">
             <span style="color: red;">{{ session('thongbao') }}</span>
         </div>
         <?php session()->forget('thongbao'); ?>
     @else
-        <div style="border: #888 1px solid; width: max-content; padding: 10px;">
+        <div class="kanji">
             @foreach ($dataKanji as $data)
-                <a href="#" data-value="{{ $data->kanji_svg }}">{{ $data->kanji }}</a>
+                <span><a href="#" data-value="{{ $data->kanji_svg }}">{{ $data->kanji }}</a></span>
             @endforeach
         </div>
     @endif
@@ -307,7 +386,7 @@
 
 
         document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('a').forEach(function(link) {
+            document.querySelectorAll('.kanji a').forEach(function(link) {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
 
