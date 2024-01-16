@@ -16,17 +16,15 @@
     <div class="data" style="padding: 20px;">
         <a href="{{ route('kanji') }}">kanji</a>
         <a href="{{ route('show-news') }}">news</a>
-<<<<<<< HEAD
         <a href="{{ route('shows.test') }}">Test</a>
         {{-- <a href="#">test_answer</a>
         <a href="#">test_mondai</a>
         <a href="#">test_question</a> --}}
         {{-- <a href="#">videos</a> --}}
         <a href="{{ route('show.vocabulary') }}">vocabulary</a>
-=======
+
         <a href="{{ route('shows.test') }}">test</a>
         <a href="#">vocabulary</a>
->>>>>>> f97e330 (cooooooooooooooooooo)
     </div>
 
 </body>
