@@ -96,7 +96,7 @@
 
 <body>
     <div class="container">
-        <h2>Thêm Tin Tức Mới</h2>
+        <h2>ADD NEWS</h2>
 
         {{-- Form để thêm tin tức mới --}}
         <form action="{{ route('news.store') }}" method="POST" enctype="multipart/form-data">
@@ -104,13 +104,13 @@
 
             {{-- Trường nhập tiêu đề --}}
             <div class="form-group">
-                <label for="title">Tiêu Đề</label>
+                <label for="title">Title</label>
                 <input type="text" class="form-control" id="title" name="title" required>
             </div>
 
             {{-- Trường nhập nội dung --}}
             <div class="form-group">
-                <label for="content">Nội Dung</label>
+                <label for="content">Content</label>
                 <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
             </div>
 
@@ -118,8 +118,7 @@
             <!-- Trường tải lên ảnh -->
             <div class="form-group">
                 <label for="imageInput" class="file-label">
-                    <span class="file-icon">📷</span> <!-- Thêm biểu tượng ảnh -->
-                    Ảnh
+                    <span class="file-icon">📷</span> Image
                 </label>
                 <img id="imagePreview" alt="Image"><br>
                 <input type="file" class="form-control-file" id="imageInput" name="images" required>
@@ -137,7 +136,7 @@
             </div>
 
             {{-- Nút submit --}}
-            <button type="submit" class="btn btn-primary">Thêm Tin Tức</button>
+            <button type="submit" class="btn btn-primary">ADD</button>
         </form>
     </div>
 

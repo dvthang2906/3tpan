@@ -25,7 +25,6 @@
     <h1 class="ad">
         <b>ROLE: </b><span style="color: red">{{ Session::has('StatusRole') ? 'Admin' : '' }}</span>
     </h1>
-    <h1 class="ad">Login at:<span></span></h1>
     <div class="data" style="padding: 20px;">
         <a href="{{ route('kanji') }}">kanji</a>
         <a href="{{ route('show-news') }}">news</a>
