@@ -25,4 +25,14 @@ class Vocabulary extends Model
 
         return $data;
     }
+
+    public function findByLevel($level)
+    {
+        $data = DB::table('vocabulary')
+            ->where('lever', $level)
+            ->orderBy('stt', 'ASC')
+            ->paginate(20);
+
+        return $data;
+    }
 }

@@ -12,7 +12,6 @@ class VocabularyController extends Controller
     public function showVocabulary(Request $request, Vocabulary $vocabulary)
     {
         $data = $vocabulary->getListVocabulary();
-        // dd($data->links());
 
         // if ($request->has('searchTerm')) {
         //     $searchTerm = $request->searchTerm;
@@ -23,9 +22,14 @@ class VocabularyController extends Controller
         return view('admin.data.showVocabulary', compact('data'));
     }
 
-    public function findByLevel(Request $request)
+    public function findByLevel(Request $request, Vocabulary $vocabulary)
     {
-        dd($request->all());
+        $level = $request->level;
+
+        $data = $vocabulary->findByLevel($level);
+
+
+        return view('admin.data.showVocabulary', compact('data'))->withInput();
     }
 
     public function createVocabulary()
