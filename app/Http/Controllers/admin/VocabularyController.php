@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\admin\Vocabulary;
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\isEmpty;
+
 class VocabularyController extends Controller
 {
     //
@@ -25,11 +27,19 @@ class VocabularyController extends Controller
     public function findByLevel(Request $request, Vocabulary $vocabulary)
     {
         $level = $request->level;
+        session()->flashInput($request->input());
 
-        $data = $vocabulary->findByLevel($level);
+        if ($level == null) {
+            $data = $vocabulary->getListVocabulary();
+        } else {
+            $data = $vocabulary->findByLevel($level);
+        }
 
 
-        return view('admin.data.showVocabulary', compact('data'))->withInput();
+
+
+
+        return view('admin.data.showVocabulary', compact('data'));
     }
 
     public function createVocabulary()
