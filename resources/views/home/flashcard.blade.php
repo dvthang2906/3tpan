@@ -22,48 +22,6 @@
 
 <body>
     @include('clients.client')
-
-    {{-- <header class="flex">
-        <a href="{{ route('home') }}"><img class="logo" src="{{ asset('images/logo3.png') }}" alt="logo"></a>
-        <nav class=" mx-auto flex  items-center justify-between " aria-label="Global">
-            <div class="hder hidden lg:flex lg:gap-x-12">
-                <a href="{{ route('home') }}" class="hd_text" title="ホームページ">Home</a>
-                <a href="{{ route('about') }}" class="hd_text" title="3T-Panについて">About</a>
-                <a href="#" class="hd_text" title="3T-Panについて">3Tpan Premium</a>
-                <a href="{{ route('contact') }}" class="hd_text" title="お問い合わせ">Contact</a>
-                @if (Session::has('username'))
-                    ユーザー:
-                    &nbsp;&nbsp;
-                    {{ session('username') }}
-                @endif
-                <a href="{{ route('logout') }}" class="log_text">
-                    @php
-                        if (Session::has('login_status')) {
-                            $login = 'ログアウト';
-                        } else {
-                            $login = 'ログイン';
-                        }
-                    @endphp
-                    <span aria-hidden="true">{{ $login }}&rarr;</span>
-                </a>
-            </div>
-        </nav>
-    </header>
-    <div class="nav_head">
-        <div class="nomal">
-            <a href="#" class="bt_nav" title="辞書"><span>辞書</span></a>
-            <a href="{{ route('flashcards') }}" class="bt_nav" title="フラッシュカード"><span>フラッシュカード</span></a>
-            <a href="{{ route('test') }}" class="bt_nav" title="テストしてみよう！"><span>テスト</span></a>
-        </div>
-        <nav class="navbar">
-            <ul class="nav">
-                <li class="nav-item"><a href="{{ route('pronunciation') }}"><span>話す</span></a></li>
-                <li class="nav-item"><a href="#"><span>読む</span></a></li>
-                <li class="nav-item"><a href="#"><span>聴く</span></a></li>
-                <li class="nav-item"><a href="#"><span>書く</span></a></li>
-            </ul>
-        </nav>
-    </div> --}}
     <ul class="menu">
         <li class="menu__mega">
             <a href="#" class="init-bottom">ライブラリ</a>
@@ -84,23 +42,23 @@
             </ul>
         </li>
     </ul>
-    <h3 class="lib_title">食べ物</h3>
-    <nav class="mx-all mx-auto flex  items-center justify-between " aria-label="Global">
+    {{-- <h3 class="lib_title">食べ物</h3> --}}
+    {{-- <nav class="mx-all mx-auto flex  items-center justify-between " aria-label="Global">
         <div class="hder hidden lg:flex lg:gap-x-12">
             <a href="#" class="hd_text" title="ホームページ">マイカード</a>
             <a href="#" class="hd_text" title="3T-Panについて">勉強しよう！</a>
             <a href="#" class="hd_text" title="お問い合わせ">テストしてみよう</a>
             <a href="#" class="hd_text" title="お問い合わせ">楽しもう</a>
         </div>
-    </nav>
+    </nav> --}}
     <div class="word_card">
-        <div class="txt_word">
+        {{-- <div class="txt_word">
             <div class="hder hidden lg:flex lg:gap-x-12">
                 <a href="#" class="hd_text1" title="">ヒント</a>
                 <a href="#" class="hd_text1" title="">じどうさいせい</a>
                 <a href="#" class="hd_text1" title="">スキップ</a>
             </div>
-        </div>
+        </div> --}}
         <div id="progressContainer">
             <div id="progressBar"></div>
         </div>

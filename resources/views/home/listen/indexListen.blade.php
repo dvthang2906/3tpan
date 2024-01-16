@@ -1,21 +1,5 @@
-<!DOCTYPE html>
-<html lang="ja">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>ListenView</title>
-    <style>
-        p {
-            margin-top: 10px;
-        }
-    </style>
-</head>
-
 <body>
-    <h1><a href="{{ route('home') }}">HOME</a>&nbsp;video List</h1>
-
+    @include('clients.client')
     {{-- dữ liệu lấy ra từ database --}}
     <div class="videos-container" style="display: flex; flex-wrap: wrap; justify-content: center;">
         @foreach ($Videolist as $videos)
@@ -49,6 +33,5 @@
             </div>
         @endforeach
     </div>
-</body>
 
-</html>
+</body>
