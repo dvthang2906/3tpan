@@ -30,7 +30,6 @@
                 <li><a href="#">動物</a></li>
                 <li><a href="#">銀行</a></li>
                 <li><a href="#">日常生活</a></li>
-                <!-- 他メニュー省略 -->
             </ul>
         </li>
         <li class="menu__single">
