@@ -129,11 +129,53 @@
             /* Ví dụ, gấp đôi kích thước ban đầu */
             height: 327px;
         }
+
+        a {
+            text-decoration: none;
+            font-size: 2em;
+            margin: 10px;
+            background-color: #FFF;
+            box-shadow: #888;
+            color: #4D9BC1;
+        }.kanji {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-items: center;
+            margin-top: 30px;
+            font-family: Arial, Helvetica, sans-serif;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 2.5em;
+        }
+
+        /* Định dạng cho mỗi ký tự Kanji */
+        .kanji span {
+            background-color: wheat;
+            /* color: #fff; */
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+
+        /* Hover effect khi di chuột vào ký tự Kanji */
+        .kanji span:hover {
+            background-color: #4D9BC1;
+        }
+
+        /* Định dạng cho nội dung trong mỗi ký tự Kanji */
+        .kanji span a {
+            text-decoration: none;
+        }
     </style>
 </head>
 
 <body>
-    <h1>Write-Kanji</h1>
     <div class="modal-overlay"></div>
     <!-- Khung chứa SVG -->
     <div id="myModal" class="modal">
@@ -163,11 +205,11 @@
         </div>
     </div>
 
-
-    @foreach ($dataKanji as $data)
-        <a href="#" data-value="{{ $data->kanji_svg }}">{{ $data->kanji }}</a>
-    @endforeach
-
+    <div class="kanji">
+        @foreach ($dataKanji as $data)
+            <span><a href="#" data-value="{{ $data->kanji_svg }}">{{ $data->kanji }}</a></span>
+        @endforeach
+    </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('a').forEach(function(link) {
