@@ -103,7 +103,7 @@
                     <p>IT開発研究コース</p>
                     <p>mike@example.com</p>
                     <p>
-                        <a href="https://www.facebook.com/connhanguota.102" target="_blank">
+                        <a href="https://www.instagram.com/hotaru11022/" target="_blank">
                             <button class="button" type="button">Contact</button>
                         </a>
                     </p>
@@ -137,7 +137,7 @@
                     <p>IT開発研究コース</p>
                     <p>liontuan1102@gmail.com</p>
                     <p>
-                        <a href="https://www.facebook.com/hem0su" target="_blank">
+                        <a href="https://www.instagram.com/hemosuu/" target="_blank">
                             <button class="button" type="button">Contact</button>
                         </a>
                     </p>
