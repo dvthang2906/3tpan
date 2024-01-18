@@ -472,13 +472,28 @@ VALUES
 ('冷', '0f92e', 'つめ.たい、 ひ.える、 ひ.や、 ひ.ややか、 ひ.やす、 ひ.やかす、 さ.める、 さ.ます', 'レイ', 'cool, cold (beer, person), chill'),
 ('万', '04e07', ' よろず', 'マン、 バン', 'ten thousand'),
 ('香', '09999', ' か、 かおり、 かおる', ' コウ、 キョウ', 'incense, smell, perfume'),
-
 ('下', '04e0b', ' した、 しも、 もと、 さ.げる、 さ.がる、 くだ.る、 くだ.り、 くだ.す、 -くだ.す、 くだ.さる、 お.ろす、 お.りる', '  カ、 ゲ', 'below, down, descend, give, low, inferior '),
 ('不', '04e0d', ' NULL', ' フ、 ブ ','negative, non-, bad, ugly, clumsy'),
-
 ('与', '04e0e', 'あた.える、 あずか.る、 くみ.する、 ともに', 'ヨ', 'bestow, participate in, give, award, impart, provide, cause, gift, godsend'),
-
-();
+('丁', '04e01', 'ひのと', 'チョウ、 テイ、 チン、 トウ、 チ', 'street, ward, town, counter for guns, tools, leaves or cakes of something, even number, 4th calendar sign'),
+('丞', '04e1e', 'ひのと', 'チョウ、 テイ、 チン、 トウ、 チ', 'street, ward, town, counter for guns, tools, leaves or cakes of something, even number, 4th calendar sign'),
+('中', '04e2d', 'なか、 うち、 あた.る', 'チュウ', 'in, inside, middle, mean, center'),
+('七', '04e03', ' なな、 なな.つ、 なの', 'シチ', 'seven'),
+('主', '04e3b-VtLst', 'ぬし、 おも、 あるじ', 'シュ、 ス、 シュウ', 'lord, chief, master, main thing, principal'),
+('丼', '04e3c', 'どんぶり', ' トン、 タン、 ショウ、 セイ', 'bowl, bowl of food'),
+('乾', '04e7e-Kaisho', 'かわ.く、 かわ.かす、 ほ.す、 ひ.る、 いぬい', 'カン、 ケン', 'drought, dry, dessicate, drink up, heaven, emperor'),
+('事', '04e8b', 'こと、 つか.う、 つか.える', 'ジ、 ズ', 'matter, thing, fact, business, reason, possibly'),
+('世', '04e16', 'よ', 'セイ、 セ、 ソウ', 'generation, world, society, public'),
+('両', '04e21', 'てる、 ふたつ', 'リョウ', 'both, old Japanese coin, counter for carriages (e.g., in a train), two'),
+('並', '04e26', ' な.み、 なみ、 なら.べる、 なら.ぶ、 なら.びに', 'ヘイ、 ホウ', 'row, and, besides, as well as, line up, rank with, rival, equal'),
+('串', '04e32', 'くし、 つらぬ.く', 'カン、 ケン、 セン', 'spit, skewer'),
+('丸', '04e38', 'まる、 まる.める、 まる.い', 'ガン', 'round, full (month), perfection, -ship, pills, make round, roll up, curl up, seduce, explain away'),
+('乗', '04e57', 'の.る、 -の.り、 の.せる', ' ジョウ、 ショウ', 'ride, power, multiplication, record, counter for vehicles, board, mount, join'),
+('乱', '04e71', 'みだ.れる、 みだ.る、 みだ.す、 みだ、 おさ.める、 わた.る', ' ラン、 ロン', 'riot, war, disorder, disturb'),
+('乳', '04e73', ' ちち、 ち', 'ニュウ', 'milk, breasts'),
+('亀', '04e80', 'かめ', 'キ、 キュウ、 キン', 'tortoise, turtle'),
+('予', '04e88', 'あらかじ.め', 'ヨ、 シャ', 'beforehand, previous, myself, I'),
+('互', '04e92', 'たが.い、 かたみ.に', 'ゴ', 'mutually, reciprocally, together');
 
 
 // Update images desc login_infomation
