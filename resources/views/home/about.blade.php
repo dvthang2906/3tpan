@@ -75,7 +75,6 @@
                 display: block;
             }
         }
-
     </style>
 </head>
 
@@ -96,14 +95,18 @@
     <div class="row">
         <div class="column">
             <div class="card">
-                <img src="{{ asset('images/thuc.png') }}" alt="John" style="width:100%;height:500px;">
+                <img src="{{ asset('images/thuc.png') }}" alt="John" style="width:100%;height:520px;">
                 <div class="container">
                     <h2>TA VAN THUC</h2>
                     <p class="title">CEO & Art Director</p>
                     <p>ECCコンピュータ専門学校</p>
                     <p>IT開発研究コース</p>
                     <p>mike@example.com</p>
-                    <p><button class="button">Contact</button></p>
+                    <p>
+                        <a href="https://www.facebook.com/connhanguota.102" target="_blank">
+                            <button class="button" type="button">Contact</button>
+                        </a>
+                    </p>
                 </div>
             </div>
         </div>
@@ -141,10 +144,7 @@
                 </div>
             </div>
         </div>
-
-
     </div>
-
 </body>
 
 </html>
