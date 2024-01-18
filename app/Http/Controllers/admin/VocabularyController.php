@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\admin\Vocabulary;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -50,12 +51,19 @@ class VocabularyController extends Controller
     {
     }
 
-    public function updateVocabulary(Request $request)
+    public function updateVocabulary(Request $request, Vocabulary $vocabulary)
     {
-        dd($request->all());
+        // Log::info();
+        $stt = $request->stt;
+        $data = $request->data;
+        Log::info($data);
+        $vocabulary->updateVocabulary($stt, $data);
+
+        return response()->json(['message' => 'updated successfully', 'data' => $vocabulary]);
     }
 
-    public function deleteVocabulary()
+    public function deleteVocabulary(Request $request, Vocabulary $vocabulary)
     {
+        Log::info($request->all());
     }
 }

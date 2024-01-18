@@ -53,28 +53,29 @@
                         <tr class="bg-white border-b hover:bg-gray-50">
                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                                 {{ $item->stt }}</th>
-                            <td class="py-4 px-6" id="update-button-level" contenteditable="true">
+                            <td class="py-4 px-6" id="update-button-level-{{ $item->stt }}" contenteditable="true">
                                 {{ $item->lever }}</td>
-                            <td class="py-4 px-6" id="update-button-tango" contenteditable="true">
+                            <td class="py-4 px-6" id="update-button-tango-{{ $item->stt }}" contenteditable="true">
                                 {{ $item->tango }}</td>
-                            <td class="py-4 px-6" id="update-button-romaji" contenteditable="true">
+                            <td class="py-4 px-6" id="update-button-romaji-{{ $item->stt }}" contenteditable="true">
                                 {{ $item->romaji }}</td>
-                            <td class="py-4 px-6" id="update-button-hiragana" contenteditable="true">
+                            <td class="py-4 px-6" id="update-button-hiragana-{{ $item->stt }}"
+                                contenteditable="true">
                                 {{ $item->hiragana }}</td>
-                            <td class="py-4 px-6" id="update-button-type" contenteditable="true">
+                            <td class="py-4 px-6" id="update-button-type-{{ $item->stt }}" contenteditable="true">
                                 {{ $item->type }}</td>
-                            <td class="py-4 px-6" id="update-button-mean" contenteditable="true">
+                            <td class="py-4 px-6" id="update-button-mean-{{ $item->stt }}" contenteditable="true">
                                 {{ $item->mean }}</td>
                             <td class="py-3 px-6">
                                 {{-- <a href="/path-to-update/{{ $item->id }}" --}}
-                                <form action="#" method="POST" id="myForm">
+                                <form class="updateVocabulary">
                                     @csrf
                                     <button type="submit" class="text-blue-600 hover:text-blue-900"
                                         onclick="updateDataVocabulary({{ $item->stt }})">Update</button>
                                 </form>
                             </td>
                             <td class="py-3 px-6">
-                                <form action="#" method="POST" id="myForm">
+                                <form class="deleteVocabulary">
                                     @csrf
                                     @method('DELETE')
                                     <input type="hidden" name="id" value="{{ $item->stt }}">
@@ -105,50 +106,92 @@
     </div>
 
     <script>
-        document.getElementById('myForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
         });
 
+
+
         function updateDataVocabulary(stt) {
-            var newLevel = $('#update-button-level').text();
-            var newTango = $('#update-button-tango').text();
-            var newRomaji = $('#update-button-romaji').text();
-            var newHiragana = $('#update-button-hiragana').text();
-            var newType = $('#update-button-type').text();
-            var newMean = $('#update-button-mean').text();
 
-            let formData = new FormData();
-            formData.append("newLevel", stt);
-            formData.append("newLevel", newLevel);
-            formData.append("newTango", newTango);
-            formData.append("newRomaji", newRomaji);
-            formData.append("newHiragana", newHiragana);
-            formData.append("newType", newType);
-            formData.append("newMean", newMean);
-            formData.append("_token", "{{ csrf_token() }}");
+            var newLevel = $('#update-button-level-' + stt).text();
+            var newTango = $('#update-button-tango-' + stt).text();
+            var newRomaji = $('#update-button-romaji-' + stt).text();
+            var newHiragana = $('#update-button-hiragana-' + stt).text();
+            var newType = $('#update-button-type-' + stt).text();
+            var newMean = $('#update-button-mean-' + stt).text();
 
-            console.log('stt: ' + stt);
-            for (let [key, value] of formData.entries()) {
-                console.log(key, value);
-            }
+            var data = {
+                lever: newLevel,
+                tango: newTango,
+                romaji: newRomaji,
+                hiragana: newHiragana,
+                type: newType,
+                mean: newMean,
+            };
+
+
+            var payload = {
+                stt: stt,
+                data: data
+            };
+
+            // console.log(payload);
+
+
 
             // Sử dụng AJAX để gửi file đến server
             $.ajax({
                 url: '{{ route('update.vocabulary') }}',
                 type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
+                data: JSON.stringify(payload), // Chuyển đối tượng thành chuỗi JSON
+                contentType: 'application/json', // Đặt kiểu nội dung là JSON
                 success: function(response) {
                     alert(response.message);
+                    console.log(response.data);
                 },
                 error: function() {
-                    alert('error');
+                    alert('Error');
                 }
             });
 
         }
+
+        document.querySelectorAll('.updateVocabulary').forEach(form => {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                // Xử lý form tại đây
+
+            });
+        });
+
+        // document.querySelectorAll('.deleteVocabulary').forEach(form => {
+        //     form.addEventListener('submit', function(event) {
+        //         event.preventDefault();
+        //         // Xử lý form tại đây
+
+        //     });
+        // });
+
+
+        // function deleteByStt(stt) {
+        //     $.ajax({
+        //         url: '{{ route('delete.vocabulary') }}',
+        //         type: 'DELETE',
+        //         data: JSON.stringify(stt),
+        //         dataType: 'application/json',
+        //         success: function(response) {
+        //             alert(response.message);
+
+        //         },
+        //         error: function() {
+        //             alert('error');
+        //         }
+
+        //     });
+        // }
     </script>
 </body>
 
