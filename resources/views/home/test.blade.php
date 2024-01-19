@@ -1,26 +1,24 @@
-
 @extends('clients.client')
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/test.css') }}">
 @endsection
 
 @section('title')
-    TEST PAGE
+    <title>TEST PAGE</title>
 @endsection
 
 @section('content')
     {{-- GỌI LIVEWIRE ĐỂ LẤY DỮ LIỆU Ở DƯỚI --}}
     @livewire('test-livewire')
     <!-- Thêm các phần khác như Vocabulary, Đọc Hiểu, Viết ở đây -->
-        {{-- cần thiết để có thể chạy được  --}}
-        @livewireScripts
+    {{-- cần thiết để có thể chạy được  --}}
+    @livewireScripts
 @endsection
 
 
 
 
 @section('js')
-
     <script>
         let hoverHistory = [];
 
