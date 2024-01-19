@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="ja">
 
 <head>
     <meta charset="UTF-8">
@@ -130,14 +128,16 @@
             height: 327px;
         }
 
-        a {
+        .a {
             text-decoration: none;
             font-size: 2em;
             margin: 10px;
             background-color: #FFF;
             box-shadow: #888;
             color: #4D9BC1;
-        }.kanji {
+        }
+
+        .kanji {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -176,6 +176,7 @@
 </head>
 
 <body>
+    @include('clients.client')
     <div class="modal-overlay"></div>
     <!-- Khung chứa SVG -->
     <div id="myModal" class="modal">
@@ -207,12 +208,12 @@
 
     <div class="kanji">
         @foreach ($dataKanji as $data)
-            <span><a href="#" data-value="{{ $data->kanji_svg }}">{{ $data->kanji }}</a></span>
+            <span><a class="a" href="#" data-value="{{ $data->kanji_svg }}">{{ $data->kanji }}</a></span>
         @endforeach
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('a').forEach(function(link) {
+            document.querySelectorAll('.kanji a').forEach(function(link) {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
 
@@ -308,7 +309,3 @@
             document.querySelector('.modal').style.display = 'none';
         }
     </script>
-
-</body>
-
-</html>
