@@ -11,12 +11,21 @@
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
     <link rel="stylesheet" href="{{ asset('build/tailwind.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @yield('css')
 
-    <title>3Tpan</title>
+    <title>@yield('title')</title>
+    <style>
+        body{
+
+            font-family: Arial, Helvetica, sans-serif !important;
+
+        }
+    </style>
 </head>
 
 <body>
+
     @include('layouts.head')
 
     @yield('content')

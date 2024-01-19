@@ -112,7 +112,7 @@
         </div>
         <div class="column">
             <div class="card">
-                <img src="{{ asset('images/thang.jpg') }}" alt="John" style="width:100%">
+                <img src="{{ asset('images/thang.jpg') }}" alt="John" style="width:100%;height:520px;">
                 <div class="container">
                     <h2>DO VAN THANG</h2>
                     <p class="title">Backend Developer & Database Administrator</p>
@@ -120,7 +120,7 @@
                     <p>IT開発研究コース</p>
                     <p>dvthang2906@gmail.com</p>
                     <p>
-                        <a href="https://www.facebook.com/Thangchik2906" target="_blank">
+                        <a href="https://www.instagram.com/thag29" target="_blank">
                             <button class="button" type="button">Contact</button>
                         </a>
                     </p>
@@ -129,7 +129,7 @@
         </div>
         <div class="column">
             <div class="card">
-                <img src="{{ asset('images/tuan.jpg') }}" alt="John" style="width:100%">
+                <img src="{{ asset('images/tuan.jpg') }}" alt="John" style="width:100%;height:520px;">
                 <div class="container">
                     <h2>TRAN ANH TUAN</h2>
                     <p class="title">Designer & Data Analyst</p>

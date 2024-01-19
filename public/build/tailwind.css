@@ -515,16 +515,6 @@ table {
     border-collapse: collapse;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-size: inherit;
-    font-weight: inherit;
-}
-
 
 /**
  * Reset links to optimize for opt-in styling instead of
@@ -85767,7 +85757,7 @@ video {
     .lg\:list-inside {
         list-style-position: inside;
     }
-    .lg\:list-outside {;
+    .lg\:list-outside {
         list-style-position: outside;
     }
     .lg\:list-none {
@@ -149308,4 +149298,3 @@ video {
     .\32xl\:ease-in-out {
         transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     }
-}
