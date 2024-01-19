@@ -6,15 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="https://ngocthang.net/wp-content/uploads/2020/04/sticker-facebook.gif" type="image/x-icon">
-
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     {{-- TUAN --}}
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
     <link rel="stylesheet" href="{{ asset('build/tailwind.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/modalUser.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @yield('css')
 
-    <title>@yield('title')</title>
+    @yield('title')
     <style>
         body {
 
@@ -76,7 +77,7 @@
 
     @yield('content')
 
-    <script script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <script>
         // lấy API thông tin người dùng
         document.getElementById('userLink').addEventListener('click', function(e) {

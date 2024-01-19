@@ -495,3 +495,7 @@ li.menu__mega ul.menu__second-level>li:nth-child(3n+2) {
     transform: translate(4px, 4px);
     transition: all 0.3s ease-in-out;
 }
+
+.red-placeholder::placeholder {
+    color: red;
+}

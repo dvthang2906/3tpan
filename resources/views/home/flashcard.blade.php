@@ -1,24 +1,22 @@
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flashcard</title>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
-    <link href="{{ asset('build/tailwind.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/flashCard.css') }}">
+@extends('clients.client')
+
+
+@section('title')
     <title>FLASH CARD</title>
+@endsection
+
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/flashCard.css') }}">
     <style>
         path {
-    stroke-dasharray: 0;
-    stroke-dashoffset: 0;
-    transition: stroke-dasharray 0.5s ease-in-out, stroke-dashoffset 0.5s ease-in-out;
-}
+            stroke-dasharray: 0;
+            stroke-dashoffset: 0;
+            transition: stroke-dasharray 0.5s ease-in-out, stroke-dashoffset 0.5s ease-in-out;
+        }
     </style>
-</head>
+@endsection
 
-<body>
-    @include('clients.client')
+@section('content')
     <ul class="menu">
         <li class="menu__mega">
             <a href="#" class="init-bottom">ライブラリ</a>
@@ -38,23 +36,8 @@
             </ul>
         </li>
     </ul>
-    {{-- <h3 class="lib_title">食べ物</h3> --}}
-    {{-- <nav class="mx-all mx-auto flex  items-center justify-between " aria-label="Global">
-        <div class="hder hidden lg:flex lg:gap-x-12">
-            <a href="#" class="hd_text" title="ホームページ">マイカード</a>
-            <a href="#" class="hd_text" title="3T-Panについて">勉強しよう！</a>
-            <a href="#" class="hd_text" title="お問い合わせ">テストしてみよう</a>
-            <a href="#" class="hd_text" title="お問い合わせ">楽しもう</a>
-        </div>
-    </nav> --}}
+
     <div class="word_card">
-        {{-- <div class="txt_word">
-            <div class="hder hidden lg:flex lg:gap-x-12">
-                <a href="#" class="hd_text1" title="">ヒント</a>
-                <a href="#" class="hd_text1" title="">じどうさいせい</a>
-                <a href="#" class="hd_text1" title="">スキップ</a>
-            </div>
-        </div> --}}
         <div id="progressContainer">
             <div id="progressBar"></div>
         </div>
@@ -93,7 +76,10 @@
             @endif
         </div>
     </div>
+@endsection
 
+
+@section('js')
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             let totalLearnedCount = {{ isset($totalLearnedCount) ? $totalLearnedCount : 0 }}
@@ -204,6 +190,4 @@
             updateProgress(totalLearnedCount, total);
         });
     </script>
-
-
-</body>
+@endsection

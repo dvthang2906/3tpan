@@ -1,0 +1,154 @@
+/* CSS của おすすめ単語 */
+
+.centered-item {
+    text-align: center;
+    /* Các quy tắc CSS khác ở đây nếu cần */
+}
+
+.today_list li .item-word {
+    color: black;
+}
+
+
+/* Phong cách chung cho modal */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 110%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    /* Màu nền mờ với độ trong suốt */
+    animation: fadeIn 0.5s;
+    /* Hiệu ứng xuất hiện */
+}
+
+
+/* Hiệu ứng fade in cho modal */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* Phong cách cho nội dung modal */
+
+.modal-content {
+    display: flex;
+    /* Aligns children vertically */
+    justify-content: start;
+    /* Starts children at the beginning of the content box */
+    padding: 20px;
+    /* Padding inside the modal content box */
+    position: relative;
+    background-color: #fefefe;
+    margin: 15% auto;
+    border-radius: 5px;
+    border: 1px solid #888;
+    width: 50%;
+    /* Width of the modal-content */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.5s;
+}
+
+
+/* Hiệu ứng slide in cho nội dung modal */
+
+@keyframes slideIn {
+    from {
+        margin-top: -50%;
+    }
+    to {
+        margin-top: 15%;
+    }
+}
+
+
+/* Phong cách cho nút đóng */
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+/* Phong cách cho thông tin chi tiết */
+
+.modal-content p {
+    font-size: 18px;
+    /* Tăng kích thước font chữ */
+    color: #333;
+    line-height: 1.8;
+}
+
+.modal-content span {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}
+
+.userlogoImages {
+    margin-right: 30px;
+}
+
+.modal-content>div:not(.userlogoImages) p {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    /* Adjust as needed */
+}
+
+.userlogoImages img {
+    width: auto;
+    height: 150px;
+    margin-right: 0;
+    /* Reduced margin between the image and the text */
+    margin-top: 10px;
+}
+
+.modal-content>div:not(.userlogoImages) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 0;
+    /* Reduced padding to bring text closer to the image */
+}
+
+.close {
+    position: absolute;
+    right: 5px;
+    /* Giữ nguyên hoặc điều chỉnh nếu cần */
+    top: -10px;
+    /* Điều chỉnh giá trị này để nút di chuyển lên trên */
+    z-index: 2;
+    font-size: 28px;
+    /* Giảm nếu muốn nút nhỏ hơn */
+}
+
+.modal-content b {
+    font-weight: bold;
+    color: red;
+}
+
+.modal-content p {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    /* Adjust space between paragraphs */
+    font-size: 18px;
+}
