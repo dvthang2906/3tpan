@@ -12,7 +12,7 @@
                         <span class="text-gray-700"></span>
                         <img src="{{ asset('storage/' . (session('images') ?? 'images/logo.jpg')) }}" alt="User Image"
                             class="rounded-full w-10 h-10 object-cover">
-                        <a href="uname" class="text-red-600 hd_text" id="userLink"
+                        <a href="#" class="text-red-600 hd_text" id="userLink"
                             data-userName="{{ session('username') }}"
                             data-id="{{ session('user_id') }}">{{ session('fullname') }}</a>
                     </div>
