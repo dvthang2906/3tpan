@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="ja">
+@section('title')
+    Contact Form
+@endsection
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="{{ 'build/tailwind.css' }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
+@section('css')
     <link rel="stylesheet" href="{{ asset('css/contact.css') }}">
-    <title>Contact Form</title>
     <style>
         /* Ẩn mũi tên mặc định của trình duyệt cho phần tử select */
         select {
@@ -26,25 +21,9 @@
             transform: translateY(-50%);
         }
     </style>
-
-</head>
-
-<body>
-    <div class="nav_head">
-        <div class="nomal">
-            <a href="#" class="bt_nav" title="辞書"><span>辞書</span></a>
-            <a href="#" class="bt_nav" title="フラッシュカード"><span>フラッシュカード</span></a>
-            <a href="{{ route('test') }}" class="bt_nav" title="テストしてみよう！"><span>テスト</span></a>
-        </div>
-        <nav>
-            <ul class="nav">
-                <li class="nav-item"><a href="#"><span>話す</span></a></li>
-                <li class="nav-item"><a href="#"><span>読む</span></a></li>
-                <li class="nav-item"><a href="#"><span>聴く</span></a></li>
-                <li class="nav-item"><a href="#"><span>書く</span></a></li>
-            </ul>
-        </nav>
-    </div>
+@endsection
+@extends('clients.client')
+@section('content')
     <div class="center">
         <div class="isolate bg-white px-6">
             <div class="text-center">
@@ -77,8 +56,7 @@
                         </div>
                     </div>
                     <div class="sm:col-span-2">
-                        <label for="phone-number"
-                            class="block text-sm font-semibold leading-6 text-gray-900">電話番号</label>
+                        <label for="phone-number" class="block text-sm font-semibold leading-6 text-gray-900">電話番号</label>
                         <div class="relative mt-2.5">
                             <div class="absolute inset-y-0 left-0 flex items-center">
                                 <label for="country" class="sr-only">Country</label>
@@ -100,8 +78,7 @@
                         </div>
                     </div>
                     <div class="sm:col-span-2">
-                        <label for="message"
-                            class="block text-sm font-semibold leading-6 text-gray-900">Message</label>
+                        <label for="message" class="block text-sm font-semibold leading-6 text-gray-900">Message</label>
                         <div class="mt-2.5">
                             <textarea name="message" id="message" rows="4"
                                 class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
@@ -117,6 +94,4 @@
             </form>
         </div>
     </div>
-</body>
-
-</html>
+@endsection
