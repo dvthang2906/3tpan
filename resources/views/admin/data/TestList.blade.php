@@ -90,6 +90,7 @@
         <br>
         <label for="table_name">テーブル名：</label>
         <select name="table_name" id="table_name">
+            <option value="">Choose a table</option>
             <option value="test_answer">test_answer</option>
             <option value="test_mondai">test_mondai</option>
             <option value="test_question">test_question</option>

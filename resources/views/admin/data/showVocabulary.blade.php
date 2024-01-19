@@ -13,7 +13,7 @@
 </head>
 
 <body class="bg-gray-100">
-    <h1 class="ad">
+    <h1 class="ad" style="margin-left: 10px;">
         <b>ROLE: </b><span style="color: red">{{ Session::has('StatusRole') ? 'Admin' : '' }}</span>
     </h1>
     <nav class="data" style="padding: 20px;">
@@ -23,7 +23,7 @@
         <a href="{{ route('show.vocabulary') }}">Vocabulary</a>
     </nav>
     <div class="container mx-auto p-4">
-        <h1 class="text-2xl font-bold text-gray-700 mb-4">Vocabulary</h1>
+        {{-- <h1 class="text-2xl font-bold text-gray-700 mb-4">Vocabulary</h1> --}}
 
         <form action="{{ route('search.level.vocabulary') }}" method="GET" class="mb-4">
             @csrf
@@ -39,7 +39,7 @@
                     @endfor
                 </select>
             </div>
-            <input type="text" name="searchTerm" placeholder="Tìm kiếm..." value="{{ request('searchTerm') }}"
+            <input type="text" name="searchTerm" placeholder="検索キーワード" value="{{ request('searchTerm') }}"
                 class="border p-2 rounded">
             <button type="submit"
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">検索</button>
