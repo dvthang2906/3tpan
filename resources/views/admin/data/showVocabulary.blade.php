@@ -6,12 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Vocabulary</title>
+    <link rel="stylesheet" href="{{ asset('css/data.css') }}">
     <link rel="stylesheet" href="{{ asset('build/tailwind.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body class="bg-gray-100">
+    <h1 class="ad">
+        <b>ROLE: </b><span style="color: red">{{ Session::has('StatusRole') ? 'Admin' : '' }}</span>
+    </h1>
+    <nav class="data" style="padding: 20px;">
+        <a href="{{ route('kanji') }}">Kanji</a>
+        <a href="{{ route('show-news') }}">News</a>
+        <a href="{{ route('shows.test') }}">Test</a>
+        <a href="{{ route('show.vocabulary') }}">Vocabulary</a>
+    </nav>
     <div class="container mx-auto p-4">
         <h1 class="text-2xl font-bold text-gray-700 mb-4">Vocabulary</h1>
 
@@ -33,10 +43,14 @@
                 class="border p-2 rounded">
             <button type="submit"
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">検索</button>
+
+            {{-- <button type="submit"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">語彙追加</button> --}}
         </form>
 
-        <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left text-gray-500">
+        <div class="overflow-x-auto relative shadow-md sm:rounded-lg"
+            style="display: flex; justify-content: center; width:100%">
+            <table class="w-full text-sm text-left text-gray-500" style="width: 30%;width:100%">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
                         <th scope="col" class="py-3 px-6">STT</th>
@@ -48,7 +62,7 @@
                         <th scope="col" class="py-3 px-6">Meaning</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody style="width:100%">
                     @foreach ($data as $item)
                         <tr class="bg-white border-b hover:bg-gray-50">
                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">

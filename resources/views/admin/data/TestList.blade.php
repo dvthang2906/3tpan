@@ -65,12 +65,12 @@
     <h1 class="ad">
         <b>ROLE: </b><span style="color: red">{{ Session::has('StatusRole') ? 'Admin' : '' }}</span>
     </h1>
-    <div class="data" style="padding: 20px;">
-        <a href="{{ route('kanji') }}">kanji</a>
-        <a href="{{ route('show-news') }}">news</a>
-        <a href="{{ route('shows.test') }}">test</a>
-        <a href="#">vocabulary</a>
-    </div>
+    <nav class="data" style="padding: 20px;">
+        <a href="{{ route('kanji') }}">Kanji</a>
+        <a href="{{ route('show-news') }}">News</a>
+        <a href="{{ route('shows.test') }}">Test</a>
+        <a href="{{ route('show.vocabulary') }}">Vocabulary</a>
+    </nav>
     <div>
         @if (Session::has('msg'))
             {{ session('msg') }}

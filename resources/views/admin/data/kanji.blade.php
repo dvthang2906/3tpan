@@ -237,10 +237,10 @@
     </h1>
     <header>
         <nav class="data" style="padding: 20px;">
-            <a href="{{ route('kanji') }}">kanji</a>
-            <a href="{{ route('show-news') }}">news</a>
-            <a href="{{ route('shows.test') }}">test</a>
-            <a href="#">vocabulary</a>
+            <a href="{{ route('kanji') }}">Kanji</a>
+            <a href="{{ route('show-news') }}">News</a>
+            <a href="{{ route('shows.test') }}">Test</a>
+            <a href="{{ route('show.vocabulary') }}">Vocabulary</a>
         </nav>
     </header>
     <div class="modal-overlay"></div>

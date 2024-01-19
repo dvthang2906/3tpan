@@ -33,11 +33,9 @@ class VocabularyController extends Controller
 
         if ($level == null) {
             $data = $vocabulary->getListVocabulary($searchTerm);
-            // dd($data);
         } else {
-            // dd($searchTerm);
+
             $data = $vocabulary->findByLevel($level, $searchTerm);
-            // dd($data);
         }
 
 

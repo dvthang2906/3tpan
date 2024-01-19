@@ -44,7 +44,6 @@ class Vocabulary extends Model
             })
             ->orderBy('stt', 'ASC')
             ->paginate(20);
-        // ->getBindings();
 
         return $data;
     }
