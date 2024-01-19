@@ -1,5 +1,5 @@
 @section('title')
-    Contact Form
+    <title>Contact Form</title>
 @endsection
 
 @section('css')
