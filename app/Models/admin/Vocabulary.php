@@ -19,24 +19,36 @@ class Vocabulary extends Model
     // Nếu bạn không muốn Laravel tự động quản lý các cột timestamps
     public $timestamps = false;
 
-    public function getListVocabulary()
+    public function getListVocabulary($searchTerm)
     {
         $data = DB::table('vocabulary')
+            ->where('hiragana', 'like', '%' . $searchTerm . '%')
             ->orderBy('stt', 'ASC')
             ->paginate(20);
 
         return $data;
     }
 
-    public function findByLevel($level)
+    public function findByLevel($level, $searchTerm)
     {
         $data = DB::table('vocabulary')
             ->where('lever', $level)
+            // ->where('tango', 'like', '%' . $searchTerm . '%')
+            ->where(function ($query) use ($searchTerm) {
+                $query->where('lever', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('tango', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('romaji', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('hiragana', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('type', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('mean', 'like', '%' . $searchTerm . '%');
+            })
             ->orderBy('stt', 'ASC')
             ->paginate(20);
+        // ->getBindings();
 
         return $data;
     }
+
 
     public function updateVocabulary($stt, $data)
     {
@@ -60,5 +72,15 @@ class Vocabulary extends Model
             // Xử lý lỗi tại đây, có thể ghi log lỗi
             throw $e;
         }
+    }
+
+
+    public function deleteVocabulary($stt)
+    {
+        DB::table('vocabulary')
+            ->where('stt', $stt)
+            ->delete();
+
+        return true;
     }
 }

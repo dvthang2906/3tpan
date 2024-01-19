@@ -78,8 +78,9 @@
                                 <form class="deleteVocabulary">
                                     @csrf
                                     @method('DELETE')
-                                    <input type="hidden" name="id" value="{{ $item->stt }}">
+                                    <input type="hidden" name="id-stt-Vocabulary" value="{{ $item->stt }}">
                                     <button type="submit" class="text-red-600 hover:text-red-900"
+                                        id="deleteVocabulary-btn-"{{ $item->stt }}
                                         onclick="return confirm('Are you sure you want to delete this?')">Delete</button>
 
                                 </form>
@@ -167,31 +168,36 @@
             });
         });
 
-        // document.querySelectorAll('.deleteVocabulary').forEach(form => {
-        //     form.addEventListener('submit', function(event) {
-        //         event.preventDefault();
-        //         // Xử lý form tại đây
+        document.querySelectorAll('.deleteVocabulary').forEach(form => {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                // Xử lý form tại đây
+                let stt = form.querySelector('input[name="id-stt-Vocabulary"]').value;
+                data = {
+                    stt: stt,
+                }
+                deleteByStt(data);
+            });
+        });
 
-        //     });
-        // });
 
-
-        // function deleteByStt(stt) {
-        //     $.ajax({
-        //         url: '{{ route('delete.vocabulary') }}',
-        //         type: 'DELETE',
-        //         data: JSON.stringify(stt),
-        //         dataType: 'application/json',
-        //         success: function(response) {
-        //             alert(response.message);
-
-        //         },
-        //         error: function() {
-        //             alert('error');
-        //         }
-
-        //     });
-        // }
+        function deleteByStt(data) {
+            $.ajax({
+                url: '{{ route('delete.vocabulary') }}',
+                type: 'DELETE',
+                data: data,
+                dataType: 'json',
+                success: function(response) {
+                    console.log("Success response:", response);
+                    alert(response.message);
+                    window.location.reload()
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log("Lỗi AJAX:", textStatus, errorThrown);
+                    alert('Đã xảy ra lỗi: ' + errorThrown);
+                }
+            });
+        }
     </script>
 </body>
 

@@ -14,13 +14,8 @@ class VocabularyController extends Controller
     //
     public function showVocabulary(Request $request, Vocabulary $vocabulary)
     {
-        $data = $vocabulary->getListVocabulary();
-
-        // if ($request->has('searchTerm')) {
-        //     $searchTerm = $request->searchTerm;
-        //     $query->where('tango', 'like', '%' . $searchTerm . '%');
-        //     // Bạn có thể thêm nhiều điều kiện tìm kiếm khác nếu muốn
-        // }
+        $searchTerm = '';
+        $data = $vocabulary->getListVocabulary($searchTerm);
 
         return view('admin.data.showVocabulary', compact('data'));
     }
@@ -28,12 +23,21 @@ class VocabularyController extends Controller
     public function findByLevel(Request $request, Vocabulary $vocabulary)
     {
         $level = $request->level;
+        $searchTerm = $request->searchTerm;
         session()->flashInput($request->input());
 
+
+        if ($searchTerm == null) {
+            $searchTerm = '';
+        }
+
         if ($level == null) {
-            $data = $vocabulary->getListVocabulary();
+            $data = $vocabulary->getListVocabulary($searchTerm);
+            // dd($data);
         } else {
-            $data = $vocabulary->findByLevel($level);
+            // dd($searchTerm);
+            $data = $vocabulary->findByLevel($level, $searchTerm);
+            // dd($data);
         }
 
 
@@ -64,6 +68,13 @@ class VocabularyController extends Controller
 
     public function deleteVocabulary(Request $request, Vocabulary $vocabulary)
     {
-        Log::info($request->all());
+        Log::info($request->stt);
+        $stt = $request->stt;
+
+        if ($vocabulary->deleteVocabulary($stt)) {
+            return response()->json(['message' => 'deleted successfully']);
+        }
+
+        return response()->json(['message' => 'deleted failed']);
     }
 }

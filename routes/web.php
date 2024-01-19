@@ -190,7 +190,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::get('/SearchByLevel', [VocabularyController::class, 'findByLevel'])->name('search.level.vocabulary');
         Route::post('/vocabulary/create', [VocabularyController::class, 'createVocabulary'])->name('create.vocabulary');
         Route::post('/vocabulary/update', [VocabularyController::class, 'updateVocabulary'])->name('update.vocabulary');
-        Route::post('/vocabulary/delete', [VocabularyController::class, 'deleteVocabulary'])->name('delete.vocabulary');
+        Route::delete('/vocabulary/delete', [VocabularyController::class, 'deleteVocabulary'])->name('delete.vocabulary');
     });
 
     Route::post('/update-kanji', [updateKanjiController::class, 'update']);
