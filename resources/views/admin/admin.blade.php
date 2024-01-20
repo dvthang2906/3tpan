@@ -23,6 +23,10 @@
             データ管理<br>
             <span class="copy_txt">各データの登録・更新へ</span>
         </a>
+        <a href="{{ route('show.list.contact') }}" class="cta_btn09-tel">
+            MESSAGE管理<br>
+            <span class="copy_txt">CONTACT</span>
+        </a>
     </div>
 </body>
 

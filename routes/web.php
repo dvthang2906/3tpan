@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\AdminContactController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\AdminNewsController;
 use App\Http\Controllers\admin\ExcelController;
@@ -191,6 +192,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::post('/vocabulary/create', [VocabularyController::class, 'createVocabulary'])->name('create.vocabulary');
         Route::post('/vocabulary/update', [VocabularyController::class, 'updateVocabulary'])->name('update.vocabulary');
         Route::delete('/vocabulary/delete', [VocabularyController::class, 'deleteVocabulary'])->name('delete.vocabulary');
+    });
+
+    //CONTACT
+    Route::prefix('/contact')->group(function () {
+        Route::get('/showContact', [AdminContactController::class, 'showListContacts'])->name('show.list.contact');
     });
 
     Route::post('/update-kanji', [updateKanjiController::class, 'update']);
