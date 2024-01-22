@@ -10,7 +10,7 @@
 @section('content')
     {{-- GỌI LIVEWIRE ĐỂ LẤY DỮ LIỆU Ở DƯỚI --}}
     @livewire('test-livewire')
-    <!-- Thêm các phần khác như Vocabulary, Đọc Hiểu, Viết ở đây -->
+
     {{-- cần thiết để có thể chạy được  --}}
     @livewireScripts
 @endsection
@@ -50,7 +50,7 @@
             }
         }
 
-        document.querySelectorAll('li a').forEach(link => {
+        document.querySelectorAll('.nav_t li a').forEach(link => {
             link.addEventListener('click', function(event) {
                 event.preventDefault();
                 if (this.innerText.includes('コード番号') && hoverHistory.length === 3) {
