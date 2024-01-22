@@ -1,13 +1,13 @@
+@extends('clients.client')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+@section('titel')
     <title>Write-Kanji</title>
+@endsection
+
+@section('css')
     <style>
-        .modal-content,
-        .modal-sidebar {
+        .modal-svg-content,
+        .modal-svg-sidebar {
             margin: 0;
             padding: 0;
             border: none;
@@ -31,7 +31,7 @@
         }
 
         /* Style cho modal */
-        .modal {
+        .modal-SVG {
             display: none;
             position: fixed;
             z-index: 2;
@@ -53,7 +53,7 @@
         }
 
         /* Style cho nội dung modal */
-        .modal-content {
+        .modal-svg-content {
             background-color: #fefefe;
             padding: 20px;
             border: 1px solid #888;
@@ -63,7 +63,7 @@
         }
 
         /* Style cho div thứ hai */
-        .modal-sidebar {
+        .modal-svg-sidebar {
             background-color: #fefefe;
             padding: 20px;
             border: 1px solid #888;
@@ -73,7 +73,7 @@
         }
 
         /* Style cho nút đóng */
-        .close {
+        .close-kanji {
             position: absolute;
             top: 0;
             right: 0;
@@ -81,7 +81,7 @@
             cursor: pointer;
         }
 
-        .close:hover {
+        .close-kanji:hover {
             background-color: #ddd;
         }
 
@@ -137,6 +137,10 @@
             color: #4D9BC1;
         }
 
+        .kanji-modal-span {
+            padding: 5px;
+        }
+
         .kanji {
             display: flex;
             justify-content: center;
@@ -150,7 +154,7 @@
         }
 
         /* Định dạng cho mỗi ký tự Kanji */
-        .kanji span {
+        .kanji-span {
             background-color: wheat;
             /* color: #fff; */
             padding: 10px;
@@ -173,33 +177,32 @@
             text-decoration: none;
         }
     </style>
-</head>
+@endsection
 
-<body>
-    @include('clients.client')
+@section('content')
     <div class="modal-overlay"></div>
     <!-- Khung chứa SVG -->
-    <div id="myModal" class="modal">
+    <div id="SVG-Modal-id" class="modal-SVG">
         <div class="modal-flex-container">
-            <span class="close">&times;</span>
-            <div class="modal-content" id="svg-container">
+            <span class="close-kanji">&times;</span>
+            <div class="modal-svg-content" id="svg-container">
                 <!-- VÙNG HIỂN THỊ CHỮ KANJI -->
             </div>
-            <div class="modal-sidebar">
-                <p id="kanji-title">
-                    <span id="kanji-label">Kanji:</span>
+            <div class="modal-svg-sidebar">
+                <p id="kanji-title" class="kanji-modal-span">
+                    <span id="kanji-label"><b>Kanji:</b></span>
                     <span id="kanji-value">kanji</span>
                 </p>
-                <p id="mean">
-                    <span>意味：</span>
+                <p id="mean" class="kanji-modal-span">
+                    <span><b>意味：</b></span>
                     <span id="mean-value"></span>
                 </p>
-                <p id="kunyomi">
-                    <span>Kunyomi:</span>
+                <p id="kunyomi" class="kanji-modal-span">
+                    <span><b>Kunyomi:</b></span>
                     <span id="kunyomi-value"></span>
                 </p>
-                <p id="onyomi">
-                    <span>Onyomi:</span>
+                <p id="onyomi" class="kanji-modal-span">
+                    <span><b>Onyomi:</b></span>
                     <span id="onyomi-value"></span>
                 </p>
             </div>
@@ -208,9 +211,13 @@
 
     <div class="kanji">
         @foreach ($dataKanji as $data)
-            <span><a class="a" href="#" data-value="{{ $data->kanji_svg }}">{{ $data->kanji }}</a></span>
+            <span class="kanji-span"><a class="a" href="#"
+                    data-value="{{ $data->kanji_svg }}">{{ $data->kanji }}</a></span>
         @endforeach
     </div>
+@endsection
+
+@section('js')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.kanji a').forEach(function(link) {
@@ -259,7 +266,7 @@
                             }
 
                             // Hiển thị modal
-                            const modal = document.getElementById('myModal');
+                            const modal = document.getElementById('SVG-Modal-id');
                             modal.style.display = 'block';
                         })
                         .catch(error => {
@@ -268,10 +275,10 @@
                         });
 
                     // Đóng modal khi click vào nút đóng
-                    const closeButton = document.querySelector('.close');
+                    const closeButton = document.querySelector('.close-kanji');
                     closeButton.addEventListener('click', function() {
                         closeModal();
-                        const modal = document.getElementById('myModal');
+                        const modal = document.getElementById('SVG-Modal-id');
                         modal.style.display = 'none';
                     });
                 });
@@ -301,11 +308,12 @@
 
         function openModal() {
             document.querySelector('.modal-overlay').style.display = 'block';
-            document.querySelector('.modal').style.display = 'block';
+            document.querySelector('.modal-SVG').style.display = 'block';
         }
 
         function closeModal() {
             document.querySelector('.modal-overlay').style.display = 'none';
-            document.querySelector('.modal').style.display = 'none';
+            document.querySelector('.modal-SVG').style.display = 'none';
         }
     </script>
+@endsection
