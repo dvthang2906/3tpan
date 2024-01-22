@@ -11,8 +11,6 @@
 <body>
     @livewire('counter')
 
-
-
     @livewireScripts
 </body>
 

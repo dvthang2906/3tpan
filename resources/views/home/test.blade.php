@@ -57,7 +57,7 @@
         });
 
         function updateURLQuery() {
-            console.log(hoverHistory);
+            // console.log(hoverHistory);
             let [level, category, code] = hoverHistory;
             let queryString =
                 `level=${encodeURIComponent(level)}&category=${encodeURIComponent(category)}&code=${encodeURIComponent(code)}`;
@@ -125,6 +125,22 @@
                 }
             }
 
+
+            // Kiểm tra và thay đổi màu sắc của các câu trả lời đúng
+            if (Array.isArray(data.incorrectAnswerTrueIds) && data.incorrectAnswerTrueIds.length > 0) {
+                data.incorrectAnswerTrueIds.forEach(answerId => {
+                    let incorrectAnswerElement = document.getElementById(answerId);
+                    if (incorrectAnswerElement) {
+                        incorrectAnswerElement.style.color = 'green';
+                    } else {
+                        console.error('IDで要素が見つかりません:', answerId);
+                    }
+                });
+            } else {
+                console.log('IDがないか、回答が間違っているか、リストが空です。');
+            }
+
+
             // Kiểm tra và thay đổi màu sắc của các câu trả lời sai
             if (Array.isArray(data.incorrectAnswerIds) && data.incorrectAnswerIds.length > 0) {
                 data.incorrectAnswerIds.forEach(answerId => {
@@ -132,11 +148,11 @@
                     if (incorrectAnswerElement) {
                         incorrectAnswerElement.style.color = 'red';
                     } else {
-                        console.error('Không tìm thấy phần tử với ID:', answerId);
+                        console.error('IDで要素が見つかりません:', answerId);
                     }
                 });
             } else {
-                console.log('Không có ID câu trả lời sai hoặc danh sách rỗng.');
+                console.log('IDがないか、回答が間違っているか、リストが空です。');
             }
 
             // Hiển thị kết quả
@@ -144,7 +160,7 @@
                 // user_result.innerText = data.result;
 
                 var result = 'あなたの結果： ' + data.result + '点';
-                console.log('2' + result);
+                // console.log('2' + result);
                 showScore(result);
             }
 
@@ -152,7 +168,7 @@
             if (data.message) {
                 // alert(data.message.message);
                 let message = data.message.message;
-                console.log('3' + message);
+                // console.log('3' + message);
                 showScore(message);
             }
         }

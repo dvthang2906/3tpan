@@ -30,9 +30,10 @@
 
 
 @extends('clients.client')
+@section('title')
+    <title>3tpan</title>
+@endsection
 @section('css')
-    <title>HomePage</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
         .red-placeholder::placeholder {
             color: red;
@@ -238,8 +239,8 @@
         </p>
         <p style="margin: 5px">
             @if (isset($result[0]))
-            <span title="よみかた"  style="font-weight: bold">読み方：</span>
-            @foreach ($result[0]['japanese'] as $m)
+                <span title="よみかた" style="font-weight: bold">読み方：</span>
+                @foreach ($result[0]['japanese'] as $m)
                     @if (isset($m['reading']))
                         {{ $m['reading'] }}
                         &nbsp;
@@ -249,13 +250,13 @@
         </p>
         <p style="margin: 5px; word-wrap: break-word;">
             @if (isset($imiString))
-            <span title="いみ" style="font-weight: bold">意味：</span>
-            {{ $imiString }}
+                <span title="いみ" style="font-weight: bold">意味：</span>
+                {{ $imiString }}
             @endif
         </p>
         <p>
             @if (isset($result[0]))
-            <span title="れい" style="margin: 5px;font-weight: bold">例：</span>
+                <span title="れい" style="margin: 5px;font-weight: bold">例：</span>
 
                 @foreach ($result as $m)
                     @foreach ($m['japanese'] as $value)

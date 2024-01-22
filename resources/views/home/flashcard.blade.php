@@ -17,7 +17,7 @@
 @endsection
 
 @section('content')
-    <ul class="menu">
+    {{-- <ul class="menu">
         <li class="menu__mega">
             <a href="#" class="init-bottom">ライブラリ</a>
             <ul class="menu__second-level">
@@ -35,7 +35,7 @@
                 <li><a href="#">クラス</a></li>
             </ul>
         </li>
-    </ul>
+    </ul> --}}
 
     <div class="word_card">
         <div id="progressContainer">

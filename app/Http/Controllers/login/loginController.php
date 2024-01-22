@@ -88,7 +88,6 @@ class loginController extends Controller
                 session()->put('user_id', $user->id);
                 session()->put('fullname', $user->fullnameUser);
                 session()->put('images', $user->images);
-                // dd(session('images'));
                 session()->put('login_status', 'logined');
 
                 $recommendWord = $homeRecommendation->Recommendation();

@@ -47,7 +47,7 @@ class testController extends Controller
         $this->updateLevelFromSession();
 
         // Gọi hàm processTestData để xử lý dữ liệu và lấy các thông tin cần thiết
-        list($count, $countFalse, $falseMondai, $incorrectAnswerIds) = $this->processTestData($request->all(), $test, $this->level);
+        list($count, $countFalse, $falseMondai, $trueMondai, $incorrectAnswerIds, $incorrectAnswerTrueIds) = $this->processTestData($request->all(), $test, $this->level);
 
         // Tính toán kết quả
         $result = $this->calculateResult($count, $totalCount);
@@ -61,10 +61,12 @@ class testController extends Controller
             'message' => $message,
             'status' => $countFalse > 0,
             'falseMondai' => $falseMondai,
+            'trueMondai' => $trueMondai,
             'countFalse' => $countFalse,
             // 'total' => $total,
             'totalCount' => $totalCount,
-            'incorrectAnswerIds' => $incorrectAnswerIds // Mảng ID của các câu trả lời sai
+            'incorrectAnswerIds' => $incorrectAnswerIds, // Mảng ID của các câu trả lời sai
+            'incorrectAnswerTrueIds' => $incorrectAnswerTrueIds,
         ]);
     }
 
@@ -75,7 +77,9 @@ class testController extends Controller
         $count = 0;
         $countFalse = 0;
         $falseMondai = '';
+        $trueMondai = '';
         $incorrectAnswerIds = []; // Mảng để lưu trữ các ID câu trả lời sai
+        $incorrectAnswerTrueIds = []; // Mảng để lưu trữ các ID câu trả lời đúng
 
         foreach ($data as $key => $value) {
             if ($test->check_test($key, $value, $level) == 0) {
@@ -85,11 +89,13 @@ class testController extends Controller
                 $incorrectAnswerIds[] = "answer-{$key}-{$value}"; // Tạo và thêm ID vào mảng
             } else {
                 // Câu trả lời đúng
+                $trueMondai = $value;
+                $incorrectAnswerTrueIds[] = "answer-{$key}-{$value}"; // T
                 $count++; // Tăng số lượng câu trả lời đúng
             }
         }
 
-        return [$count, $countFalse, $falseMondai, $incorrectAnswerIds];
+        return [$count, $countFalse, $falseMondai, $trueMondai, $incorrectAnswerIds, $incorrectAnswerTrueIds];
     }
 
 

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Users\UpdateDataUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateUserDataController extends Controller
 {
@@ -19,6 +20,12 @@ class UpdateUserDataController extends Controller
         $newValue = $request->NewValue;
 
         $users = new UpdateDataUsers();
+        $user = Auth::user();
+        session()->put('username', $user->user);
+        session()->put('user_id', $user->id);
+        session()->put('fullname', $user->fullnameUser);
+        session()->put('images', $user->images);
+
         $users->updateDataUser($field, $userID, $newValue);
     }
 
