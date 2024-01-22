@@ -190,7 +190,7 @@
 
 @section('content')
     <div class="balloon2">
-        <p title="今日のお勧め">今日のおすすめ</p>
+        <p title="きょうのおすすめ">今日のお勧め</p>
     </div>
     <div class="today_new">
         <ul class="today_list" style="margin: 10px;">
@@ -216,18 +216,18 @@
             <div class="bt_search">
                 {{-- <button id="recordButton" class="bt_s" title="ボイスで検索"><span>🎤Ghi âm</span></button> --}}
                 {{-- <button type="submit" class="bt_s" title="検索履歴"><span>⌚</span></button> --}}
-                <button type="submit" class="bt_s" title="検索"><span>🔍</span></button>
+                <button type="submit" class="bt_s" title="けんさく"><span>🔍</span></button>
             </div>
         </div>
         @csrf
     </form>
-    <h3 class="h3">検索結果</h3>
+    <h3 title="けんさくけっか" class="h3">検索結果</h3>
 
     <div class="search_result" style="max-height: 200px; overflow-y: auto;">
         {{-- <div id="result">1: </div> --}}
         <p style="margin: 5px">
             @if (isset($result[0]))
-                <span style="font-weight: bold">単語：</span>
+                <span title="たんご" style="font-weight: bold">単語：</span>
                 @foreach ($result[0]['japanese'] as $m)
                     @if (isset($m['word']) && !is_null($m['word']))
                         <a style="color: #9966CC; border-bottom: 1px solid;" onclick="showPopup()">{{ $m['word'] }}</a>
@@ -238,7 +238,7 @@
         </p>
         <p style="margin: 5px">
             @if (isset($result[0]))
-            <span style="font-weight: bold">読み方：</span>
+            <span title="よみかた"  style="font-weight: bold">読み方：</span>
             @foreach ($result[0]['japanese'] as $m)
                     @if (isset($m['reading']))
                         {{ $m['reading'] }}
@@ -249,7 +249,7 @@
         </p>
         <p style="margin: 5px; word-wrap: break-word;">
             @if (isset($imiString))
-            <span style="font-weight: bold">意味：</span>
+            <span title="いみ" style="font-weight: bold">意味：</span>
             {{ $imiString }}
             @endif
         </p>
@@ -296,7 +296,7 @@
             allowfullscreen>
         </iframe>
     </div>
-    <h3 class="h3">コメント欄</h3>
+    <h3 title="こめんとらん" class="h3">コメント欄</h3>
     <div class="cmt">
         <div id="commentContainer">
             @if (!empty($comment))
