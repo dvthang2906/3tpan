@@ -169,7 +169,7 @@
 
 /* CSS của bảng thông báo điểm */
 
-.modal {
+.resultModal {
     display: none;
     /* Bắt đầu ẩn và sẽ hiển thị thông qua JavaScript */
     position: fixed;
@@ -193,7 +193,7 @@
 
 /* Style chi tiết cho nội dung bảng thông báo */
 
-.modal-content {
+.modal-result-content {
     background-color: #ffffff;
     /* Nền trắng cho nội dung */
     margin: 5% auto;
@@ -213,7 +213,7 @@
 
 /* Hiệu ứng hover tăng kích thước nội dung */
 
-.modal-content:hover {
+.modal-result-content:hover {
     transform: scale(1.03);
     /* Phóng to nhẹ */
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
@@ -223,7 +223,7 @@
 
 /* Nút đóng (x) với chi tiết cẩn thận */
 
-.close {
+.close-result {
     color: #ff5f5f;
     /* Màu đỏ nhạt */
     float: right;
@@ -238,8 +238,8 @@
 
 /* Hiệu ứng nút đóng: xoay và thay đổi màu */
 
-.close:hover,
-.close:focus {
+.close-result:hover,
+.close-result:focus {
     color: #ff0000;
     /* Màu đỏ đậm */
     text-decoration: none;
@@ -251,7 +251,7 @@
 
 /* Style cho tiêu đề modal */
 
-.modal-content h2 {
+.modal-result-content h2 {
     margin: 0;
     /* Không có lề trên */
     color: #333333;
@@ -271,7 +271,7 @@
 
 /* Style cho nội dung chính */
 
-.modal-content div {
+.modal-result-content div {
     font-size: 18px;
     /* Kích thước chữ */
     color: #555555;
@@ -286,7 +286,7 @@
 /* Điều chỉnh cho màn hình nhỏ (responsive design) */
 
 @media screen and (max-width: 768px) {
-    .modal-content {
+    .modal-result-content {
         width: 90%;
         /* Chiếm 90% chiều rộng màn hình */
         padding: 20px;
@@ -304,7 +304,7 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
         /* Bóng đổ nhẹ hơn */
     }
-    .close {
+    .close-result {
         font-size: 30px;
         /* Kích thước nút đóng nhỏ hơn cho màn hình nhỏ */
     }

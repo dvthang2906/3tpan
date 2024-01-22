@@ -26,8 +26,6 @@
                     </ul>
                 </li>
             @endfor
-
-
         </ul>
     </div>
     <div class="mogi">
@@ -146,10 +144,10 @@
         <a class="bt_nav" id="CheckButton"><span>CHECK</span></a>
     </div>
     <!-- Bảng thông báo Modal -->
-    <div id="myModal" class="modal">
+    <div id="resultModal" class="resultModal">
         <!-- Nội dung bảng thông báo -->
-        <div class="modal-content">
-            <span class="close">&times;</span>
+        <div class="modal-result-content">
+            <span class="close-result">&times;</span>
             <h2>試験結果</h2>
             <div id="score"></div>
         </div>

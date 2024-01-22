@@ -19,7 +19,7 @@
     <script>
         let hoverHistory = [];
 
-        document.querySelectorAll('a').forEach(link => {
+        document.querySelectorAll('.nav_t a').forEach(link => {
             link.addEventListener('mouseover', function(event) {
                 const levelText = this.innerText;
                 updateHoverHistory(levelText);
@@ -34,7 +34,7 @@
             const replaceableGroups = [
                 ['Kanji', 'Vocabulary', 'Grammar'],
                 ['Vocabulary', 'Grammar'],
-                ['test-code-no01', 'test-code-no02', 'test-code-no03']
+                ['コード番号01', 'コード番号02', 'コード番号03']
             ];
 
             let groupIndex = replaceableGroups.findIndex(group => group.includes(levelText));
@@ -47,22 +47,24 @@
             }
         }
 
-        document.querySelectorAll('.nav_t li a').forEach(link => {
+        document.querySelectorAll('.nav_t a').forEach(link => {
             link.addEventListener('click', function(event) {
                 event.preventDefault();
-                if (this.innerText.includes('test-code-no') && hoverHistory.length === 3) {
+                if (this.innerText.includes('コード番号') && hoverHistory.length === 3) {
                     updateURLQuery();
                 }
             });
         });
 
         function updateURLQuery() {
+            console.log(hoverHistory);
             let [level, category, code] = hoverHistory;
             let queryString =
                 `level=${encodeURIComponent(level)}&category=${encodeURIComponent(category)}&code=${encodeURIComponent(code)}`;
             window.history.pushState({}, '', '?' + queryString);
             //send level to server
             sendLeveltoServer(level);
+
         }
 
         document.getElementById("CheckButton").addEventListener("click", function() {
@@ -159,18 +161,18 @@
         // logic hiển thị bảng thông báo điểm và kết quả.
         function showScore(text) {
             document.getElementById('score').innerHTML = text;
-            document.getElementById('myModal').style.display = 'block';
+            document.getElementById('resultModal').style.display = 'block';
         }
 
         // Khi người dùng nhấn vào nút (x) để đóng
-        var span = document.getElementsByClassName('close')[0];
+        var span = document.getElementsByClassName('close-result')[0];
         span.onclick = function() {
-            document.getElementById('myModal').style.display = 'none';
+            document.getElementById('resultModal').style.display = 'none';
         }
 
         // Khi người dùng nhấn ngoài modal, đóng nó lại
         window.onclick = function(event) {
-            var modal = document.getElementById('myModal');
+            var modal = document.getElementById('resultModal');
             if (event.target == modal) {
                 modal.style.display = 'none';
             }
