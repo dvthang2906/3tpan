@@ -190,7 +190,7 @@
 
 @section('content')
     <div class="balloon2">
-        <p>今日のおすすめ</p>
+        <p title="今日のお勧め">今日のおすすめ</p>
     </div>
     <div class="today_new">
         <ul class="today_list" style="margin: 10px;">
@@ -227,7 +227,7 @@
         {{-- <div id="result">1: </div> --}}
         <p style="margin: 5px">
             @if (isset($result[0]))
-                単語：
+                <span style="font-weight: bold">単語：</span>
                 @foreach ($result[0]['japanese'] as $m)
                     @if (isset($m['word']) && !is_null($m['word']))
                         <a style="color: #9966CC; border-bottom: 1px solid;" onclick="showPopup()">{{ $m['word'] }}</a>
@@ -238,8 +238,8 @@
         </p>
         <p style="margin: 5px">
             @if (isset($result[0]))
-                読み方：
-                @foreach ($result[0]['japanese'] as $m)
+            <span style="font-weight: bold">読み方：</span>
+            @foreach ($result[0]['japanese'] as $m)
                     @if (isset($m['reading']))
                         {{ $m['reading'] }}
                         &nbsp;
@@ -249,13 +249,13 @@
         </p>
         <p style="margin: 5px; word-wrap: break-word;">
             @if (isset($imiString))
-                <span>意味：</span>
-                {{ $imiString }}
+            <span style="font-weight: bold">意味：</span>
+            {{ $imiString }}
             @endif
         </p>
         <p>
             @if (isset($result[0]))
-                <h3 style="margin: 0px;">Sample</h3>
+            <span style="margin: 5px;font-weight: bold">例：</span>
 
                 @foreach ($result as $m)
                     @foreach ($m['japanese'] as $value)
