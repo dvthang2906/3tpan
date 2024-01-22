@@ -40,7 +40,7 @@ class VocabularyController extends Controller
 
 
         if ($data->isEmpty()) {
-            session()->flash('msg', '妥当データが無い。');
+            session()->flash('msg', '該当データが無し');
 
             return view('admin.data.showVocabulary', compact('data'));
         }

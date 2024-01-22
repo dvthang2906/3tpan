@@ -39,7 +39,7 @@
     </div>
     <nav class="navbar">
         <ul class="nav">
-            <li class="nav-item"><a href="{{ route('pronunciation') }}"><span>話す</span></a></li>
+            <li class="nav-item"><a href="#"><span>話す</span></a></li>
             <li class="nav-item"><a href="{{ route('news') }}"><span>読む</span></a></li>
             <li class="nav-item"><a href="{{ route('listen') }}"><span>聴く</span></a></li>
             <li class="nav-item"><a href="{{ route('write-kanji') }}"><span>書く</span></a></li>
