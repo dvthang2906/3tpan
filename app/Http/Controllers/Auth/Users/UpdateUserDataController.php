@@ -32,7 +32,7 @@ class UpdateUserDataController extends Controller
         if ($loginInfo) {
             $loginInfo->images = $imagePath; // Cập nhật trường 'images'
             $loginInfo->save(); // Lưu thay đổi
-            return response()->json(['message' => '画像をアップデートしました。']);
+            return response()->json(['message' => '画像をアップデートしました。!!']);
         } else {
             return response()->json(['message' => 'まだログインしていません。'], 404);
         }

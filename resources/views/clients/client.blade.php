@@ -51,9 +51,9 @@
             <div class="flex flex-col space-y-2">
                 <p class="flex justify-between items-center">
                     <span>ユーザーID:<input type="text" id="userName" class="text-sm py-1 px-2"
-                            style="border-bottom: 1px solid #000"></span>
-                    <button id="updateUserID"
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1.5 px-2.5 text-sm rounded">更新</button>
+                            style="border-bottom: 1px solid #000; width: 55%;"></span>
+                    {{-- <button id="updateUserID"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1.5 px-2.5 text-sm rounded">更新</button> --}}
                 </p>
                 <p class="flex justify-between items-center">
                     <span>氏名:<input id="userFullName" type="text" class="text-sm py-1 px-2"
@@ -100,7 +100,7 @@
                 .then(response => response.json())
                 .then(data => {
                     // Điền thông tin vào modal
-                    console.log(data);
+                    // console.log(data);
                     document.getElementById('userName').value = data.user;
                     document.getElementById('userFullName').value = data.fullnameUser;
                     if (data.level != null) {
@@ -110,7 +110,7 @@
                     }
                     document.getElementById('email').value = data.email;
                     // Hiển thị modal
-                    document.getElementById('userModal').style.display = 'block';
+                    // document.getElementById('userModal').style.display = 'block';
                 });
         });
 
@@ -154,6 +154,7 @@
             event.preventDefault(); // Ngăn chặn hành vi mặc định của form
 
             var formData = new FormData(this); // Lấy dữ liệu từ form
+
             sendUpdateImages(formData); // Gửi yêu cầu cập nhật
         });
 
@@ -182,11 +183,11 @@
 
 
         //Update User ID
-        var userID = document.getElementById('userLink').getAttribute('data-id');
-        document.getElementById('updateUserID').addEventListener('click', function() {
-            var NewUserName = document.getElementById('userName').value;
-            updateUserData('user', userID, NewUserName);
-        });
+        // var userID = document.getElementById('userLink').getAttribute('data-id');
+        // document.getElementById('updateUserID').addEventListener('click', function() {
+        //     var NewUserName = document.getElementById('userName').value;
+        //     updateUserData('user', userID, NewUserName);
+        // });
 
         //Update User Name
         document.getElementById('updateUserName').addEventListener('click', function() {
