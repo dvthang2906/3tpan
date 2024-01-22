@@ -183,7 +183,7 @@
 
 
         //Update User ID
-        // var userID = document.getElementById('userLink').getAttribute('data-id');
+        var userID = document.getElementById('userLink').getAttribute('data-id');
         // document.getElementById('updateUserID').addEventListener('click', function() {
         //     var NewUserName = document.getElementById('userName').value;
         //     updateUserData('user', userID, NewUserName);
