@@ -26,7 +26,6 @@
 </head>
 
 <body>
-
     @include('layouts.head')
 
     <!-- Modal -->
@@ -49,7 +48,6 @@
                 </form>
 
             </div>
-
             <div class="flex flex-col space-y-2">
                 <p class="flex justify-between items-center">
                     <span>ユーザーID:<input type="text" id="userName" class="text-sm py-1 px-2"
@@ -164,7 +162,6 @@
         function sendUpdateImages(formData) {
             // Lấy CSRF token
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
             fetch('/uploadImageUser', {
                     method: 'POST',
                     body: formData,

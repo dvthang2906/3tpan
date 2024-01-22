@@ -15,9 +15,6 @@
     @livewireScripts
 @endsection
 
-
-
-
 @section('js')
     <script>
         let hoverHistory = [];
@@ -37,7 +34,7 @@
             const replaceableGroups = [
                 ['Kanji', 'Vocabulary', 'Grammar'],
                 ['Vocabulary', 'Grammar'],
-                ['コード番号01', 'コード番号02', 'コード番号03']
+                ['test-code-no01', 'test-code-no02', 'test-code-no03']
             ];
 
             let groupIndex = replaceableGroups.findIndex(group => group.includes(levelText));
@@ -53,7 +50,7 @@
         document.querySelectorAll('.nav_t li a').forEach(link => {
             link.addEventListener('click', function(event) {
                 event.preventDefault();
-                if (this.innerText.includes('コード番号') && hoverHistory.length === 3) {
+                if (this.innerText.includes('test-code-no') && hoverHistory.length === 3) {
                     updateURLQuery();
                 }
             });
