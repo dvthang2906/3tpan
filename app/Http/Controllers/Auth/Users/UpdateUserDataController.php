@@ -14,17 +14,16 @@ class UpdateUserDataController extends Controller
     //
     public function updateUserID(Request $request)
     {
+        $users = new UpdateDataUsers();
         // Log::info($request->field);
         $field = $request->field;
         $userID = $request->userID;
         $newValue = $request->NewValue;
 
-        $users = new UpdateDataUsers();
-        $user = Auth::user();
-        session()->put('username', $user->user);
-        session()->put('user_id', $user->id);
-        session()->put('fullname', $user->fullnameUser);
-        session()->put('images', $user->images);
+        if ($field == 'fullnameUser') {
+            session()->put('fullname', $newValue);
+        }
+
 
         $users->updateDataUser($field, $userID, $newValue);
     }
@@ -39,6 +38,7 @@ class UpdateUserDataController extends Controller
         if ($loginInfo) {
             $loginInfo->images = $imagePath; // Cập nhật trường 'images'
             $loginInfo->save(); // Lưu thay đổi
+            session()->put('images', $loginInfo->images);
             return response()->json(['message' => '画像をアップデートしました。!!']);
         } else {
             return response()->json(['message' => 'まだログインしていません。'], 404);
