@@ -255,7 +255,7 @@
         </p>
         <p>
             @if (isset($result[0]))
-            <span style="margin: 5px;font-weight: bold">例：</span>
+            <span title="れい" style="margin: 5px;font-weight: bold">例：</span>
 
                 @foreach ($result as $m)
                     @foreach ($m['japanese'] as $value)

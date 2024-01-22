@@ -4,8 +4,8 @@
         <div class="hder hidden lg:flex lg:gap-x-12">
             <a href="{{ route('home') }}" class="hd_text" title="ホームページ">Home</a>
             <a href="{{ route('about') }}" class="hd_text" title="3T-Panについて">About</a>
-            <a href="#" class="hd_text" title="3T-Panについて">3Tpan Premium</a>
-            <a href="{{ route('contact') }}" class="hd_text" title="お問い合わせ">Contact</a>
+            <a href="#" class="hd_text" title="3T-Panプレミアム">3Tpan Premium</a>
+            <a href="{{ route('contact') }}" class="hd_text" title="おといあわせ">Contact</a>
             <div class="user_logo">
                 @if (Session::has('username'))
                     <div class="user_logo_con">
@@ -39,10 +39,10 @@
     </div>
     <nav class="navbar">
         <ul class="nav">
-            <li class="nav-item"><a href="#"><span>話す</span></a></li>
-            <li class="nav-item"><a href="{{ route('news') }}"><span>読む</span></a></li>
-            <li class="nav-item"><a href="{{ route('listen') }}"><span>聴く</span></a></li>
-            <li class="nav-item"><a href="{{ route('write-kanji') }}"><span>書く</span></a></li>
+            <li title="はなす" class="nav-item"><a href="#"><span>話す</span></a></li>
+            <li title="よむ" class="nav-item"><a href="{{ route('news') }}"><span>読む</span></a></li>
+            <li title="きく" class="nav-item"><a href="{{ route('listen') }}"><span>聴く</span></a></li>
+            <li title="かく" class="nav-item"><a href="{{ route('write-kanji') }}"><span>書く</span></a></li>
         </ul>
     </nav>
 </div>
