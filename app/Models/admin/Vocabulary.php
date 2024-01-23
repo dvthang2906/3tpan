@@ -22,7 +22,14 @@ class Vocabulary extends Model
     public function getListVocabulary($searchTerm)
     {
         $data = DB::table('vocabulary')
-            ->where('hiragana', 'like', '%' . $searchTerm . '%')
+            ->where(function ($query) use ($searchTerm) {
+                $query->where('lever', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('tango', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('romaji', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('hiragana', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('type', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('mean', 'like', '%' . $searchTerm . '%');
+            })
             ->orderBy('stt', 'ASC')
             ->paginate(20);
 
@@ -33,7 +40,6 @@ class Vocabulary extends Model
     {
         $data = DB::table('vocabulary')
             ->where('lever', $level)
-            // ->where('tango', 'like', '%' . $searchTerm . '%')
             ->where(function ($query) use ($searchTerm) {
                 $query->where('lever', 'like', '%' . $searchTerm . '%')
                     ->orWhere('tango', 'like', '%' . $searchTerm . '%')

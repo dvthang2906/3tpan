@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\admin\Vocabulary;
 use App\Models\alphabet;
 use App\Models\HomeRecommendation;
 use Illuminate\Http\Request;
@@ -45,5 +46,43 @@ class HomeController extends Controller
     public function about()
     {
         return view('home.about');
+    }
+
+
+    public function showVocabulary(Request $request, Vocabulary $vocabulary)
+    {
+        $searchTerm = '';
+        $data = $vocabulary->getListVocabulary($searchTerm);
+
+
+        return view('home.jisho', compact('data'));
+    }
+
+    public function jisho(Request $request, Vocabulary $vocabulary)
+    {
+        $level = $request->level;
+        $searchTerm = $request->searchTerm;
+        session()->flashInput($request->input());
+
+
+        if ($searchTerm == null) {
+            $searchTerm = '';
+        }
+
+        if ($level == null) {
+            $data = $vocabulary->getListVocabulary($searchTerm);
+        } else {
+
+            $data = $vocabulary->findByLevel($level, $searchTerm);
+        }
+
+
+        if ($data->isEmpty()) {
+            session()->flash('msg', '該当データが無し');
+
+            return view('home.jisho', compact('data'));
+        }
+
+        return view('home.jisho', compact('data'));
     }
 }

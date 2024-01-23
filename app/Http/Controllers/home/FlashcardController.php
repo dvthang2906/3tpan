@@ -55,7 +55,8 @@ class FlashCardController extends Controller
             }
             return  view('home.flashcard', compact('getFlashcards', 'count'));
         } else {
-            return "bạn cần đăng nhập; <a href=\"" . route('login') . "\">Đăng nhập</a>";
+            session()->flash('status', 'ログインしてください！！！');
+            return view('login.login');
         }
     }
 

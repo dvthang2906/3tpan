@@ -26,6 +26,7 @@ class VocabularyController extends Controller
         $searchTerm = $request->searchTerm;
         session()->flashInput($request->input());
 
+        // dd($request->all());
 
         if ($searchTerm == null) {
             $searchTerm = '';
@@ -33,6 +34,7 @@ class VocabularyController extends Controller
 
         if ($level == null) {
             $data = $vocabulary->getListVocabulary($searchTerm);
+            // dd($data);
         } else {
 
             $data = $vocabulary->findByLevel($level, $searchTerm);

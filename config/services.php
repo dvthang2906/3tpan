@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+
 return [
 
     /*
@@ -33,5 +35,12 @@ return [
     'google_cloud' => [
         'credentials' => base_path(env('GOOGLE_APPLICATION_CREDENTIALS')),
     ],
+
+    'stripe' => [
+        'model' => App\Models\User::class,
+        'key' => env('STRIPE_KEY'),
+        'secret' => env('STRIPE_SECRET'),
+    ],
+
 
 ];

@@ -186,10 +186,45 @@
             /* Adjust space between paragraphs */
             font-size: 18px;
         }
+
+        .notification {
+            width: 30%;
+            margin: 0 auto;
+            padding: 15px;
+            border-radius: 5px;
+            color: #fff;
+            background-color: #4CAF50;
+            position: fixed;
+            /* Đặt vị trí cố định */
+            top: 10px;
+            /* Khoảng cách từ đỉnh */
+            left: 50%;
+            /* Đẩy sang trái 50% độ rộng của viewport */
+            transform: translateX(-50%);
+            /* Đẩy lại sang trái 50% độ rộng của chính nó */
+            text-align: center;
+            z-index: 1000;
+            /* Đảm bảo nó nằm trên các thành phần khác */
+        }
+
+        .progress-bar {
+            height: 5px;
+            background-color: #fff;
+            width: 0%;
+            transition: width 1s linear;
+        }
     </style>
 @endsection
 
 @section('content')
+
+    @if (session('paymentmessage'))
+        <div class="notification success">
+            {{ session('paymentmessage') }}
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+    @endif
+
     <div class="balloon2">
         <p title="きょうのおすすめ">今日のお勧め</p>
     </div>
@@ -325,6 +360,27 @@
 @endsection
 
 @section('js')
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            let totalTime = 5;
+            let intervalTime = 100; // 100ms cho mỗi cập nhật
+            let elapsed = 0;
+
+            const progressBar = document.getElementById('progress-bar');
+            const interval = setInterval(() => {
+                elapsed += intervalTime;
+                let progress = (elapsed / (totalTime * 1000)) * 100;
+                progressBar.style.width = progress + '%';
+
+                if (elapsed >= totalTime * 1000) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        document.querySelector('.notification').style.display = 'none';
+                    }, 500); // Thêm một chút thời gian trước khi ẩn thông báo
+                }
+            }, intervalTime);
+        });
+    </script>
     <script>
         // Lắng nghe sự kiện click trên nút "COMMENT"
         var commentButton = document.getElementById("comment-button");

@@ -4,7 +4,7 @@
         <div class="hder hidden lg:flex lg:gap-x-12">
             <a href="{{ route('home') }}" class="hd_text" title="ホームページ">Home</a>
             <a href="{{ route('about') }}" class="hd_text" title="3T-Panについて">About</a>
-            <a href="#" class="hd_text" title="3T-Panプレミアム">3Tpan Premium</a>
+            <a href="{{ route('payment') }}" class="hd_text" title="3T-Panプレミアム">3Tpan Premium</a>
             <a href="{{ route('contact') }}" class="hd_text" title="おといあわせ">Contact</a>
             <div class="user_logo">
                 @if (Session::has('username'))
@@ -33,7 +33,7 @@
 </header>
 <div class="nav_head">
     <div class="nomal">
-        <a href="#" class="bt_nav" title="辞書"><span>辞書</span></a>
+        <a href="{{ route('home.show.vocabulary') }}" class="bt_nav" title="辞書"><span>辞書</span></a>
         <a href="{{ route('flashcards') }}" class="bt_nav" title="フラッシュカード"><span>フラッシュカード</span></a>
         <a href="{{ route('test') }}" class="bt_nav" title="テストしてみよう！"><span>テスト</span></a>
     </div>

@@ -18,6 +18,7 @@ use App\Http\Controllers\home\WriteKanjiController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JishoController;
 use App\Http\Controllers\login\loginController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\VoiceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SpeechController;
@@ -83,8 +84,16 @@ Route::post('/home', [loginController::class, 'index'])->name('post-login');
 Route::get('/contact', [contactController::class, 'index'])->name('contact');
 Route::post('/contact', [contactController::class, 'postContact'])->name('post-contact');
 
-
 Route::get('/about', [HomeController::class, 'about'])->name('about');
+
+//jisho
+Route::get('/jisho-vocabulary', [HomeController::class, 'showVocabulary'])->name('home.show.vocabulary');
+Route::get('/jisho-search', [HomeController::class, 'jisho'])->name('home.search.jisho');
+
+//thanh toan Stripe
+Route::get('/payment', [PaymentController::class, 'index'])->name('payment');
+Route::post('/charge', [PaymentController::class, 'charge']);
+
 
 //users
 Route::prefix('/users')->group(function () {

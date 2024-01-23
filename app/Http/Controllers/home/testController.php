@@ -25,7 +25,8 @@ class testController extends Controller
             return view('home.test');
         }
 
-        return "bạn cần đăng nhập; <a href=\"" . route('login') . "\">Đăng nhập</a>";
+        session()->flash('status', 'ログインしてください！！！');
+        return view('login.login');
     }
 
     public function postLevel(Request $request)
