@@ -78,6 +78,7 @@ class loginController extends Controller
 
             // Đăng nhập thành công
             $user = Auth::user();
+
             if ($user->isAdministrator()) {
                 // Là admin
                 session()->put('StatusRole', $user->admin);
@@ -89,6 +90,7 @@ class loginController extends Controller
                 session()->put('fullname', $user->fullnameUser);
                 session()->put('images', $user->images);
                 session()->put('login_status', 'logined');
+                session()->put('payment_status', $user->payment_status);
 
                 $recommendWord = $homeRecommendation->Recommendation();
                 return view('home.home', compact('recommendWord', 'user'));

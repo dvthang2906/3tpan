@@ -7,18 +7,53 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Payment</title>
     <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        #card-element {
+            background-color: white;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccd0d2;
+            width: 60%;
+            box-sizing: border-box;
+            height: 40px;
+        }
+
+        #card-element:focus {
+            border-color: blue;
+        }
+
+        #cardholder-name,
+        #card-zip {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccd0d2;
+            border-radius: 4px;
+            width: 56%;
+        }
+    </style>
 </head>
 
 <body>
 
-    <form id="payment-form" action="/charge" method="POST">
-        @csrf
-        <div id="card-element">
-            <!-- Stripe’s Card Element sẽ được đặt ở đây -->
-        </div>
-        <button id="payment-button">Thanh toán</button>
-        <div id="card-errors" role="alert"></div>
-    </form>
+    <div style="width: 50%;">
+        <form id="payment-form" action="/charge" method="POST" style="margin: 5%;">
+            @csrf
+
+            <label for="cardholder-name">クレジットカードの名義人</label>
+            <br>
+            <input id="cardholder-name" name="cardholder-name" type="text" placeholder="例：Monkey D. Luffy" required>
+            <br>
+            <label for="card-element">カード番号： </label>
+            <div id="card-element">
+                <!-- Stripe’s Card Element sẽ được đặt ở đây -->
+            </div>
+            <div id="card-errors" role="alert" style="color: red"></div>
+            <br>
+            <button id="payment-button">支払い</button>
+
+        </form>
+    </div>
+
 
 
     <script>
@@ -37,9 +72,30 @@
             }
         };
 
+        // CSS cho card element
+        var style = {
+            base: {
+                color: "#32325d",
+                fontWeight: '500',
+                fontFamily: 'Source Code Pro, Consolas, Menlo, monospace',
+                fontSize: '16px',
+                lineHeight: '24px',
+                fontSmoothing: 'antialiased',
+
+                '::placeholder': {
+                    color: '#aab7c4'
+                },
+            },
+            invalid: {
+                color: '#fa755a',
+                iconColor: '#fa755a'
+            }
+        };
+
         // Tạo card element và gắn nó vào div#card-element
         var card = elements.create("card", {
-            style: style
+            style: style,
+            hidePostalCode: true
         });
         card.mount("#card-element");
 
@@ -57,6 +113,13 @@
         var form = document.getElementById('payment-form');
         form.addEventListener('submit', function(event) {
             event.preventDefault();
+
+
+            var additionalData = {
+                name: document.getElementById('cardholder-name').value,
+                // address_zip: document.getElementById('card-zip').value
+            };
+
 
             stripe.createToken(card).then(function(result) {
                 if (result.error) {

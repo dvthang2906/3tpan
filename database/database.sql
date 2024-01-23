@@ -23,6 +23,8 @@ ALTER TABLE login_infomation ADD COLUMN remember_token VARCHAR(100) NULL AFTER e
 
 ALTER TABLE login_infomation ADD COLUMN level VARCHAR(10) AFTER id;
 
+ALTER TABLE login_infomation ADD COLUMN payment_status BOOLEAN default FALSE after id;
+
 
 
 -- foreign key

@@ -218,9 +218,9 @@
 
 @section('content')
 
-    @if (session('paymentmessage'))
+    @if (session('paymentMessage'))
         <div class="notification success">
-            {{ session('paymentmessage') }}
+            {{ session('paymentMessage') }}
             <div class="progress-bar" id="progress-bar"></div>
         </div>
     @endif
