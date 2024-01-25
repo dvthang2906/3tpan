@@ -130,8 +130,6 @@ CREATE TABLE IF NOT EXISTS contact(
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- Thời gian cập nhật bản ghi
 );
 
-ALTER TABLE contact ADD COLUMN status VARCHAR(15) DEFAULT '処理中' AFTER id;
-
 
 // reset password
 CREATE TABLE password_resets (

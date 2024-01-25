@@ -30,12 +30,59 @@
             border-radius: 4px;
             width: 56%;
         }
+
+        #payment-form {
+            width: 50%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #card-element {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 16px;
+        }
+
+        #card-errors {
+            color: red;
+            margin-bottom: 16px;
+        }
+
+        .bt_pay {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .bt_pay:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 
 <body>
-
-    <div style="width: 50%;">
+    <div style="width: 100%;">
         <form id="payment-form" action="/charge" method="POST" style="margin: 5%;">
             @csrf
 
@@ -43,13 +90,13 @@
             <br>
             <input id="cardholder-name" name="cardholder-name" type="text" placeholder="例：Monkey D. Luffy" required>
             <br>
-            <label for="card-element">カード番号： </label>
+            <label for="card-element">カード番号：</label>
             <div id="card-element">
                 <!-- Stripe’s Card Element sẽ được đặt ở đây -->
             </div>
             <div id="card-errors" role="alert" style="color: red"></div>
             <br>
-            <button id="payment-button">支払い</button>
+            <button id="payment-button" class="bt_pay">支払い</button>
 
         </form>
     </div>
