@@ -78,41 +78,44 @@
 
     <script>
         // lấy API thông tin người dùng
-        document.getElementById('userLink').addEventListener('click', function(e) {
-            e.preventDefault();
+        var user_information = document.getElementById('userLink');
+        if (user_information) {
+            user_information.addEventListener('click', function(e) {
+                e.preventDefault();
 
-            // Khi người dùng nhấn vào nút, mở modal
-            document.getElementById("myModal").style.display = "block";
+                // Khi người dùng nhấn vào nút, mở modal
+                document.getElementById("myModal").style.display = "block";
 
-            var userName = this.getAttribute('data-userName');
+                var userName = this.getAttribute('data-userName');
 
-            fetch('/user-information', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-                            'content')
-                    },
-                    body: JSON.stringify({
-                        userName: userName
+                fetch('/user-information', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        },
+                        body: JSON.stringify({
+                            userName: userName
+                        })
                     })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Điền thông tin vào modal
-                    // console.log(data);
-                    document.getElementById('userName').value = data.user;
-                    document.getElementById('userFullName').value = data.fullnameUser;
-                    if (data.level != null) {
-                        document.getElementById('level').innerText = data.level;
-                    } else {
-                        document.getElementById('level').innerText = "bạn chưa có level";
-                    }
-                    document.getElementById('email').value = data.email;
-                    // Hiển thị modal
-                    // document.getElementById('userModal').style.display = 'block';
-                });
-        });
+                    .then(response => response.json())
+                    .then(data => {
+                        // Điền thông tin vào modal
+                        // console.log(data);
+                        document.getElementById('userName').value = data.user;
+                        document.getElementById('userFullName').value = data.fullnameUser;
+                        if (data.level != null) {
+                            document.getElementById('level').innerText = data.level;
+                        } else {
+                            document.getElementById('level').innerText = "bạn chưa có level";
+                        }
+                        document.getElementById('email').value = data.email;
+                        // Hiển thị modal
+                        // document.getElementById('userModal').style.display = 'block';
+                    });
+            });
+        }
 
 
         // Khi người dùng nhấn vào <span> (x), đóng modal
@@ -183,23 +186,29 @@
 
 
         //Update User ID
-        var userID = document.getElementById('userLink').getAttribute('data-id');
-        // document.getElementById('updateUserID').addEventListener('click', function() {
-        //     var NewUserName = document.getElementById('userName').value;
-        //     updateUserData('user', userID, NewUserName);
-        // });
 
-        //Update User Name
-        document.getElementById('updateUserName').addEventListener('click', function() {
-            var userFullName = document.getElementById('userFullName').value;
-            updateUserData('fullnameUser', userID, userFullName);
-        });
+        if (user_information) {
+            var userID = user_information.getAttribute('data-id');
 
-        //Update Email
-        document.getElementById('updateEmail').addEventListener('click', function() {
-            var email = document.getElementById('email').value;
-            updateUserData('email', userID, email);
-        });
+
+            // document.getElementById('updateUserID').addEventListener('click', function() {
+            //     var NewUserName = document.getElementById('userName').value;
+            //     updateUserData('user', userID, NewUserName);
+            // });
+
+            //Update User Name
+            document.getElementById('updateUserName').addEventListener('click', function() {
+                var userFullName = document.getElementById('userFullName').value;
+                updateUserData('fullnameUser', userID, userFullName);
+            });
+
+            //Update Email
+            document.getElementById('updateEmail').addEventListener('click', function() {
+                var email = document.getElementById('email').value;
+                updateUserData('email', userID, email);
+            });
+
+        }
 
 
         function updateUserData(field, userID, NewValue) {

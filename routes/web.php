@@ -84,6 +84,8 @@ Route::post('/home', [loginController::class, 'index'])->name('post-login');
 Route::get('/contact', [contactController::class, 'index'])->name('contact');
 Route::post('/contact', [contactController::class, 'postContact'])->name('post-contact');
 
+
+//about
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 
 //jisho
@@ -206,6 +208,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     //CONTACT
     Route::prefix('/contact')->group(function () {
         Route::get('/showContact', [AdminContactController::class, 'showListContacts'])->name('show.list.contact');
+        Route::post('/updateStatusContact', [AdminContactController::class, 'updateStatus'])->name('update.status.contact');
     });
 
     Route::post('/update-kanji', [updateKanjiController::class, 'update']);

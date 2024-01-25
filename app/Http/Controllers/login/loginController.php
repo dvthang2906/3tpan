@@ -92,6 +92,7 @@ class loginController extends Controller
                 session()->put('login_status', 'logined');
                 session()->put('payment_status', $user->payment_status);
 
+
                 $recommendWord = $homeRecommendation->Recommendation();
                 return view('home.home', compact('recommendWord', 'user'));
             }

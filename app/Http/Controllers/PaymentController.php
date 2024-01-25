@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Stripe\Stripe;
@@ -15,7 +16,11 @@ class PaymentController extends Controller
 
     public function index()
     {
-        return view('Payment.payment');
+        if (!Auth::check()) {
+            return view('home.home')->with('message', 'ログインしてください。！');
+        } else {
+            return view('Payment.payment');
+        }
     }
 
 
@@ -23,6 +28,8 @@ class PaymentController extends Controller
     {
         Stripe::setApiKey(env('STRIPE_SECRET'));
         $user = new User();
+
+
 
 
         $name = $request->input('cardholder-name');

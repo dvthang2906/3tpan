@@ -361,24 +361,41 @@
 
 @section('js')
     <script>
+        window.onload = function() {
+            @if (isset($message))
+                var message = confirm("{{ $message }}");
+                console.log(message);
+
+                if (message) {
+                    window.location.href = 'http://127.0.0.1:8000/login';
+                } else {
+                    window.location.href = 'http://127.0.0.1:8000/home';
+                }
+            @endif
+        }
+    </script>
+
+    <script>
         document.addEventListener('DOMContentLoaded', (event) => {
             let totalTime = 5;
             let intervalTime = 100; // 100ms cho mỗi cập nhật
             let elapsed = 0;
 
             const progressBar = document.getElementById('progress-bar');
-            const interval = setInterval(() => {
-                elapsed += intervalTime;
-                let progress = (elapsed / (totalTime * 1000)) * 100;
-                progressBar.style.width = progress + '%';
+            if (progressBar) {
+                const interval = setInterval(() => {
+                    elapsed += intervalTime;
+                    let progress = (elapsed / (totalTime * 1000)) * 100;
+                    progressBar.style.width = progress + '%';
 
-                if (elapsed >= totalTime * 1000) {
-                    clearInterval(interval);
-                    setTimeout(() => {
-                        document.querySelector('.notification').style.display = 'none';
-                    }, 500); // Thêm một chút thời gian trước khi ẩn thông báo
-                }
-            }, intervalTime);
+                    if (elapsed >= totalTime * 1000) {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            document.querySelector('.notification').style.display = 'none';
+                        }, 500); // Thêm một chút thời gian trước khi ẩn thông báo
+                    }
+                }, intervalTime);
+            }
         });
     </script>
     <script>
@@ -389,54 +406,56 @@
         // Chuyển đổi biến PHP sang JSON và gán nó vào biến JavaScript
         var loginStatus = JSON.parse('<?php echo json_encode($loginStatus); ?>');
 
-        commentButton.addEventListener("click", function() {
-            // Kiểm tra xem người dùng đã đăng nhập hay chưa
-            // console.log('loginStatus: ', loginStatus);
-            if (commentText.value == '') {
-
+        if (commentButton) {
+            commentButton.addEventListener("click", function() {
+                // Kiểm tra xem người dùng đã đăng nhập hay chưa
+                // console.log('loginStatus: ', loginStatus);
                 if (commentText.value == '') {
-                    commentText.classList.add('red-placeholder');
-                    commentText.placeholder = 'Bạn cần nhập nội dung Comment!!!';
-                    return;
-                } else {
-                    // Nếu không rỗng, đảm bảo xóa class để không hiển thị màu đỏ
-                    commentText.classList.remove('red-placeholder');
+
+                    if (commentText.value == '') {
+                        commentText.classList.add('red-placeholder');
+                        commentText.placeholder = 'Bạn cần nhập nội dung Comment!!!';
+                        return;
+                    } else {
+                        // Nếu không rỗng, đảm bảo xóa class để không hiển thị màu đỏ
+                        commentText.classList.remove('red-placeholder');
+                    }
                 }
-            }
-            if (loginStatus == '' || !loginStatus) {
-                if (confirm('Bạn cần đăng nhập. Bấm OK để đăng nhập.')) {
-                    window.location.href = '{{ route('login') }}';
+                if (loginStatus == '' || !loginStatus) {
+                    if (confirm('Bạn cần đăng nhập. Bấm OK để đăng nhập.')) {
+                        window.location.href = '{{ route('login') }}';
+                    } else {
+                        // Xử lý khi người dùng không muốn đăng nhập
+
+                    }
                 } else {
-                    // Xử lý khi người dùng không muốn đăng nhập
+                    // Lấy nội dung bình luận từ trường textarea
+                    var commentTextValue = commentText.value;
 
+                    // Lấy giá trị token CSRF từ trang HTML
+                    var tokenInput = document.querySelector('input[name="_token"]');
+                    var token = tokenInput.value;
+
+                    // Sử dụng Axios để gửi yêu cầu POST
+                    axios.post('/home/add-comment', {
+                            _token: token, // Gửi token CSRF
+                            commentText: commentTextValue // Dữ liệu bình luận
+                        })
+                        .then(function(response) {
+                            // Xử lý phản hồi từ Controller ở đây
+                            var commentValue = response.data;
+                            // Để xóa nội dung, thiết lập giá trị của nó thành chuỗi rỗng
+                            commentText.value = '';
+                            reloadData(commentValue);
+                            // console.log(commentValue);
+                        })
+                        .catch(function(error) {
+                            // Xử lý lỗi (nếu có)
+                            console.error(error);
+                        });
                 }
-            } else {
-                // Lấy nội dung bình luận từ trường textarea
-                var commentTextValue = commentText.value;
-
-                // Lấy giá trị token CSRF từ trang HTML
-                var tokenInput = document.querySelector('input[name="_token"]');
-                var token = tokenInput.value;
-
-                // Sử dụng Axios để gửi yêu cầu POST
-                axios.post('/home/add-comment', {
-                        _token: token, // Gửi token CSRF
-                        commentText: commentTextValue // Dữ liệu bình luận
-                    })
-                    .then(function(response) {
-                        // Xử lý phản hồi từ Controller ở đây
-                        var commentValue = response.data;
-                        // Để xóa nội dung, thiết lập giá trị của nó thành chuỗi rỗng
-                        commentText.value = '';
-                        reloadData(commentValue);
-                        // console.log(commentValue);
-                    })
-                    .catch(function(error) {
-                        // Xử lý lỗi (nếu có)
-                        console.error(error);
-                    });
-            }
-        });
+            });
+        }
 
         function reloadData(data) {
             // Tạo một div mới chứa thông tin comment
