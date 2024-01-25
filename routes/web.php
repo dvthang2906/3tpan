@@ -209,6 +209,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::prefix('/contact')->group(function () {
         Route::get('/showContact', [AdminContactController::class, 'showListContacts'])->name('show.list.contact');
         Route::post('/updateStatusContact', [AdminContactController::class, 'updateStatus'])->name('update.status.contact');
+        Route::delete('/deleteContact', [AdminContactController::class, 'deleteContact'])->name('delete.contact');
     });
 
     Route::post('/update-kanji', [updateKanjiController::class, 'update']);

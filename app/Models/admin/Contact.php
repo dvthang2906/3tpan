@@ -15,6 +15,7 @@ class Contact extends Model
     {
         $dataContact = DB::table($this->table)
             ->select()
+            ->orderBy('created_at', 'DESC')
             ->get();
 
         return $dataContact;
@@ -26,5 +27,12 @@ class Contact extends Model
         DB::table($this->table)
             ->where('id', $id)
             ->update(['status' => $status]);
+    }
+
+    public function deleteContactById($id)
+    {
+        DB::table($this->table)
+            ->where('id', $id)
+            ->delete();
     }
 }
