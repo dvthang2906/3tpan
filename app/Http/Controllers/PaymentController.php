@@ -29,9 +29,6 @@ class PaymentController extends Controller
         Stripe::setApiKey(env('STRIPE_SECRET'));
         $user = new User();
 
-
-
-
         $name = $request->input('cardholder-name');
 
         try {
