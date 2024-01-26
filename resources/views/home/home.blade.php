@@ -225,137 +225,140 @@
         </div>
     @endif
 
-    <div class="balloon2">
-        <p title="きょうのおすすめ">今日のお勧め</p>
-    </div>
-    <div class="today_new">
-        <ul class="today_list" style="margin: 10px;">
-            @if (isset($recommendWord))
-                @foreach ($recommendWord as $word)
-                    <li class="centered-item">{{ $word->tango }}</li>
-                    <li class="item-word" style="color: black;">{{ $word->hiragana }}</li>
-                    {{-- <li class="item-word" style="color: black;">{{ $word->mean }}</li> --}}
-                    <hr>
-                @endforeach
-            @endif
-        </ul>
-    </div>
-    @if (session('msg'))
-        <div class="alert alert-success">{{ $loginUserName }}</div>
-    @endif
-    <form action="{{ route('post-jisho-search') }}" method="POST">
-        <div class="search">
-            <div class="search-box" style="margin-left:33%;">
-                <input type="text" name="value" value="{{ $tangoValue = isset($tangoValue) ? $tangoValue : '' }}"
-                    placeholder="検索キーワード">
-            </div>
-            <div class="bt_search">
-                {{-- <button id="recordButton" class="bt_s" title="ボイスで検索"><span>🎤Ghi âm</span></button> --}}
-                {{-- <button type="submit" class="bt_s" title="検索履歴"><span>⌚</span></button> --}}
-                <button type="submit" class="bt_s" title="けんさく"><span>🔍</span></button>
-            </div>
+    <div style="margin-bottom: 8%">
+        <div class="balloon2">
+            <p title="きょうのおすすめ">今日のお勧め</p>
         </div>
-        @csrf
-    </form>
-    <h3 title="けんさくけっか" class="h3" style="margin-left:33%;">検索結果</h3>
+        <div class="today_new">
+            <ul class="today_list" style="margin: 10px;">
+                @if (isset($recommendWord))
+                    @foreach ($recommendWord as $word)
+                        <li class="centered-item">{{ $word->tango }}</li>
+                        <li class="item-word" style="color: black;">{{ $word->hiragana }}</li>
+                        {{-- <li class="item-word" style="color: black;">{{ $word->mean }}</li> --}}
+                        <hr>
+                    @endforeach
+                @endif
+            </ul>
+        </div>
+        @if (session('msg'))
+            <div class="alert alert-success">{{ $loginUserName }}</div>
+        @endif
+        <form action="{{ route('post-jisho-search') }}" method="POST">
+            <div class="search">
+                <div class="search-box" style="margin-left:33%;">
+                    <input type="text" name="value" value="{{ $tangoValue = isset($tangoValue) ? $tangoValue : '' }}"
+                        placeholder="検索キーワード">
+                </div>
+                <div class="bt_search">
+                    {{-- <button id="recordButton" class="bt_s" title="ボイスで検索"><span>🎤Ghi âm</span></button> --}}
+                    {{-- <button type="submit" class="bt_s" title="検索履歴"><span>⌚</span></button> --}}
+                    <button type="submit" class="bt_s" title="けんさく"><span>🔍</span></button>
+                </div>
+            </div>
+            @csrf
+        </form>
+        <h3 title="けんさくけっか" class="h3" style="margin-left:33%;">検索結果</h3>
 
-    <div class="search_result" style="max-height: 200px; overflow-y: auto;margin-left:33%;">
-        {{-- <div id="result">1: </div> --}}
-        <p style="margin: 5px">
-            @if (isset($result[0]))
-                <span title="たんご" style="font-weight: bold">単語：</span>
-                @foreach ($result[0]['japanese'] as $m)
-                    @if (isset($m['word']) && !is_null($m['word']))
-                        <a style="color: #9966CC; border-bottom: 1px solid;" onclick="showPopup()">{{ $m['word'] }}</a>
-                        &nbsp;
-                    @endif
-                @endforeach
-            @endif
-        </p>
-        <p style="margin: 5px">
-            @if (isset($result[0]))
-                <span title="よみかた" style="font-weight: bold">読み方：</span>
-                @foreach ($result[0]['japanese'] as $m)
-                    @if (isset($m['reading']))
-                        {{ $m['reading'] }}
-                        &nbsp;
-                    @endif
-                @endforeach
-            @endif
-        </p>
-        <p style="margin: 5px; word-wrap: break-word;">
-            @if (isset($imiString))
-                <span title="いみ" style="font-weight: bold">意味：</span>
-                {{ $imiString }}
-            @endif
-        </p>
-        <p>
-            @if (isset($result[0]))
-                <span title="れい" style="margin: 5px;font-weight: bold">例：</span>
-
-                @foreach ($result as $m)
-                    @foreach ($m['japanese'] as $value)
-                        @if (isset($value['word']))
-                            @php
-                                if (isset($value['word'])) {
-                                    $tangoSample[] = $value['word'];
-                                } else {
-                                    $tangoSample[] = 'データがない';
-                                }
-
-                                if (isset($value['reading'])) {
-                                    $cachDoc[] = $value['reading'];
-                                } else {
-                                    $cachDoc[] = 'データがない';
-                                }
-                            @endphp
-                            @if ($value['word'] != $tangoValue)
-                                <span name="tudongnghia" data-id="{{ $value['word'] }}"
-                                    style="color: #9966CC; border-bottom: 1px solid;"
-                                    onclick="showPopup()">{{ $value['word'] }}</span>
-                                &nbsp;
-                            @endif
+        <div class="search_result" style="max-height: 200px; overflow-y: auto;margin-left:33%;">
+            {{-- <div id="result">1: </div> --}}
+            <p style="margin: 5px">
+                @if (isset($result[0]))
+                    <span title="たんご" style="font-weight: bold">単語：</span>
+                    @foreach ($result[0]['japanese'] as $m)
+                        @if (isset($m['word']) && !is_null($m['word']))
+                            <a style="color: #9966CC; border-bottom: 1px solid;"
+                                onclick="showPopup()">{{ $m['word'] }}</a>
+                            &nbsp;
                         @endif
                     @endforeach
-                @endforeach
-            @endif
+                @endif
+            </p>
+            <p style="margin: 5px">
+                @if (isset($result[0]))
+                    <span title="よみかた" style="font-weight: bold">読み方：</span>
+                    @foreach ($result[0]['japanese'] as $m)
+                        @if (isset($m['reading']))
+                            {{ $m['reading'] }}
+                            &nbsp;
+                        @endif
+                    @endforeach
+                @endif
+            </p>
+            <p style="margin: 5px; word-wrap: break-word;">
+                @if (isset($imiString))
+                    <span title="いみ" style="font-weight: bold">意味：</span>
+                    {{ $imiString }}
+                @endif
+            </p>
+            <p>
+                @if (isset($result[0]))
+                    <span title="れい" style="margin: 5px;font-weight: bold">例：</span>
 
-        </p>
-    </div>
+                    @foreach ($result as $m)
+                        @foreach ($m['japanese'] as $value)
+                            @if (isset($value['word']))
+                                @php
+                                    if (isset($value['word'])) {
+                                        $tangoSample[] = $value['word'];
+                                    } else {
+                                        $tangoSample[] = 'データがない';
+                                    }
+
+                                    if (isset($value['reading'])) {
+                                        $cachDoc[] = $value['reading'];
+                                    } else {
+                                        $cachDoc[] = 'データがない';
+                                    }
+                                @endphp
+                                @if ($value['word'] != $tangoValue)
+                                    <span name="tudongnghia" data-id="{{ $value['word'] }}"
+                                        style="color: #9966CC; border-bottom: 1px solid;"
+                                        onclick="showPopup()">{{ $value['word'] }}</span>
+                                    &nbsp;
+                                @endif
+                            @endif
+                        @endforeach
+                    @endforeach
+                @endif
+
+            </p>
+        </div>
 
 
 
-    <div class="ads" style="margin-right:20px;">
-        <iframe id="" width="300px" height="350px"  src="https://comp.ecc.ac.jp/" title="ECCコンピュータ専門学校"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-        </iframe>
-    </div>
-    <h3 title="こめんとらん" class="h3" style="margin-left:33%;">コメント欄</h3>
-    <div class="cmt">
-        <div id="commentContainer">
-            @if (!empty($comment))
-                @foreach ($comment as $commentData)
-                    <div class="comment">
-                        <div class="user" style="color: red;">{{ $commentData->user }}</div>
-                        <div class="comment-text">{{ $commentData->comment }}</div>
-                        <div class="comment-time">{{ $commentData->created_time }}</div>
+        <div class="ads" style="margin-right:20px;">
+            <iframe id="" width="300px" height="350px" src="https://comp.ecc.ac.jp/" title="ECCコンピュータ専門学校"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+            </iframe>
+        </div>
+        <h3 title="こめんとらん" class="h3" style="margin-left:33%;">コメント欄</h3>
+        <div class="cmt">
+            <div id="commentContainer">
+                @if (!empty($comment))
+                    @foreach ($comment as $commentData)
+                        <div class="comment">
+                            <div class="user" style="color: red;">{{ $commentData->user }}</div>
+                            <div class="comment-text">{{ $commentData->comment }}</div>
+                            <div class="comment-time">{{ $commentData->created_time }}</div>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+            @if (!isset($tangoValue) || $tangoValue != '')
+                <div class="comment-container">
+                    <!-- Phần đăng comment -->
+                    @csrf
+                    <div class="form-group">
+                        <textarea class="cmt_area" id="comment-text" name="comment-text" required placeholder="Viết bình luận"></textarea>
                     </div>
-                @endforeach
+                    <button class="bt_cmt" id="comment-button" type="submit" name="comment-value"
+                        style="margin-bottom: 50px;">COMMENT</button>
+                </div>
             @endif
         </div>
-        @if (!isset($tangoValue) || $tangoValue != '')
-            <div class="comment-container">
-                <!-- Phần đăng comment -->
-                @csrf
-                <div class="form-group">
-                    <textarea class="cmt_area" id="comment-text" name="comment-text" required placeholder="Viết bình luận"></textarea>
-                </div>
-                <button class="bt_cmt" id="comment-button" type="submit" name="comment-value"
-                    style="margin-bottom: 50px;">COMMENT</button>
-            </div>
-        @endif
     </div>
 @endsection
 
