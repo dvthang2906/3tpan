@@ -1,5 +1,7 @@
-<body>
-    @include('clients.client')
+@extends('clients.client')
+
+
+@section('content')
     {{-- dữ liệu lấy ra từ database --}}
     <div class="videos-container" style="display: flex; flex-wrap: wrap; justify-content: center;">
         @foreach ($Videolist as $videos)
@@ -33,5 +35,4 @@
             </div>
         @endforeach
     </div>
-
-</body>
+@endsection

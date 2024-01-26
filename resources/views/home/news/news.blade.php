@@ -7,9 +7,6 @@
 
 @section('content')
     @livewire('news-livewire')
-    <div>fotte</div>
-    <div>fotte</div>
-    <div>fotte</div>
 @endsection
 
 @livewireScripts
