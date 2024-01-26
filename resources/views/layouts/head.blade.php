@@ -43,7 +43,7 @@
         <a href="{{ route('test') }}" class="bt_nav" title="テストしてみよう！"><span>テスト</span></a>
     </div>
 
-    {{-- @if (session('payment_status') == true) --}}
+    @if (session('payment_status') == true)
         <nav class="navbar">
             <ul class="nav">
                 <li title="はなす" class="nav-item"><a href="#"><span>話す</span></a></li>
@@ -52,11 +52,14 @@
                 <li title="かく" class="nav-item"><a href="{{ route('write-kanji') }}"><span>書く</span></a></li>
             </ul>
         </nav>
-    {{-- @else --}}
-        {{-- <nav class="navbar">
+    @else
+        <nav class="navbar">
             <ul class="nav">
-                <li title="よむ" class="nav-item"><a href="{{ route('news') }}"><span>読む</span></a></li>
+                <li title="よむ" class="nav-item"><a><span style="color:gray;">読む</span></a></li>
+                <li title="よむ" class="nav-item"><a><span style="color:gray;">読む</span></a></li>
+                <li title="きく" class="nav-item"><a><span style="color:gray;">聴く</span></a></li>
+                <li title="かく" class="nav-item"><a><span style="color:gray;">書く</span></a></li>
             </ul>
-        </nav> --}}
-    {{-- @endif --}}
+        </nav>
+    @endif
 </div>

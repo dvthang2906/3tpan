@@ -278,6 +278,9 @@
             xhr.send();
         }
     </script>
+
+    @include('layouts.footer')
+
     @yield('js')
     @stack('scripts')
 </body>
