@@ -245,7 +245,7 @@
     @endif
     <form action="{{ route('post-jisho-search') }}" method="POST">
         <div class="search">
-            <div class="search-box">
+            <div class="search-box" style="margin-left:33%;">
                 <input type="text" name="value" value="{{ $tangoValue = isset($tangoValue) ? $tangoValue : '' }}"
                     placeholder="検索キーワード">
             </div>
@@ -257,9 +257,9 @@
         </div>
         @csrf
     </form>
-    <h3 title="けんさくけっか" class="h3">検索結果</h3>
+    <h3 title="けんさくけっか" class="h3" style="margin-left:33%;">検索結果</h3>
 
-    <div class="search_result" style="max-height: 200px; overflow-y: auto;">
+    <div class="search_result" style="max-height: 200px; overflow-y: auto;margin-left:33%;">
         {{-- <div id="result">1: </div> --}}
         <p style="margin: 5px">
             @if (isset($result[0]))
@@ -325,14 +325,14 @@
 
 
 
-    <div class="ads">
-        <iframe id="" width="350px" height="350px" src="https://comp.ecc.ac.jp/" title="ECCコンピュータ専門学校"
+    <div class="ads" style="margin-right:20px;">
+        <iframe id="" width="300px" height="350px"  src="https://comp.ecc.ac.jp/" title="ECCコンピュータ専門学校"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen>
         </iframe>
     </div>
-    <h3 title="こめんとらん" class="h3">コメント欄</h3>
+    <h3 title="こめんとらん" class="h3" style="margin-left:33%;">コメント欄</h3>
     <div class="cmt">
         <div id="commentContainer">
             @if (!empty($comment))

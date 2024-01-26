@@ -7,12 +7,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ 'css/admin.css' }}">
     <title>A D M I N</title>
+    <style>
+        body{
+            margin: 30px;
+        }
+    </style>
 </head>
 
 <body>
-    <div>
-        <h1 class="ad">Admin: <span></span></h1>
-        <h1 class="ad">Login at:<span></span></h1>
+    <div style="margin-bottom: 60px;">
+        <h1 class="ad">
+            <b>ROLE: </b><span style="color: red">{{ Session::has('StatusRole') ? 'Admin' : '' }}</span>
+        </h1>
+        {{-- <h1 class="ad">Login at:<span></span></h1> --}}
     </div>
     <div class="cta_btn09">
         <a href="{{ route('ad_userCtl') }}" class="cta_btn09-contact">

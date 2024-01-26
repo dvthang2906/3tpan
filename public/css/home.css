@@ -2,6 +2,7 @@
     position: absolute;
     border: #4D9BC1 solid 1px;
     margin: 20px;
+    margin-left: 100px;
     width: 200px;
     text-align: center;
     list-style: none;
@@ -18,7 +19,7 @@
 }
 
 .balloon2 {
-    margin-left: 50px;
+    margin-left: 140px;
     position: absolute;
     top: 270px;
     display: inline-block;
@@ -142,8 +143,8 @@
 
 .ads {
     position: absolute;
-    margin-top: -250px;
-    margin-left: 72%;
+    margin-top: -230px;
+    margin-left: 75%;
     border: 1px dotted #4D9BC1;
 }
 

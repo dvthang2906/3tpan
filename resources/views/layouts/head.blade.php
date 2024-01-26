@@ -5,9 +5,6 @@
             <a href="{{ route('home') }}" class="hd_text" title="ホームページ">Home</a>
             <a href="{{ route('about') }}" class="hd_text" title="3T-Panについて">About</a>
             @if (session('payment_status') == true)
-                {{-- <a href="#" class="hd_text" title="3T-Panプレミアム-paymented"
-                    style="color: #555; pointer-events: none; text-decoration: none; cursor: default;">Your Premium
-                    status is now active!</a> --}}
             @else
                 <a href="{{ route('payment') }}" class="hd_text" title="3T-Panプレミアム">Upgrade to Premium</a>
             @endif
@@ -46,7 +43,7 @@
         <a href="{{ route('test') }}" class="bt_nav" title="テストしてみよう！"><span>テスト</span></a>
     </div>
 
-    @if (session('payment_status') == true)
+    {{-- @if (session('payment_status') == true) --}}
         <nav class="navbar">
             <ul class="nav">
                 <li title="はなす" class="nav-item"><a href="#"><span>話す</span></a></li>
@@ -55,11 +52,11 @@
                 <li title="かく" class="nav-item"><a href="{{ route('write-kanji') }}"><span>書く</span></a></li>
             </ul>
         </nav>
-    @else
-        <nav class="navbar">
+    {{-- @else --}}
+        {{-- <nav class="navbar">
             <ul class="nav">
                 <li title="よむ" class="nav-item"><a href="{{ route('news') }}"><span>読む</span></a></li>
             </ul>
-        </nav>
-    @endif
+        </nav> --}}
+    {{-- @endif --}}
 </div>
