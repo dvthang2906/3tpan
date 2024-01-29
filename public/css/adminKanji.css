@@ -181,28 +181,6 @@ select::-ms-expand {
     margin-left: 10px;
 }
 
-
-/* Style the form container */
-
-form {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    /* Để căn chỉnh các items về phía bắt đầu của container */
-    align-items: center;
-    /* Để căn giữa các items theo chiều dọc */
-    gap: 10px;
-    /* Tạo khoảng cách giữa các items */
-    max-width: 60%;
-    margin-left: 50px;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-
-/* Style form labels and inputs */
-
 .div-for-input {
     flex-basis: calc(33.333% - 10px);
     /* Chia không gian làm ba và trừ đi khoảng cách */
@@ -333,4 +311,55 @@ tbody tr:nth-child(even) {
 .bt_update:hover,
 .bt_delete:hover {
     background-color: #3888A3;
+}
+
+
+/* Style the kanji search container */
+
+.kanji-search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+
+/* Style the form 検索 kanji */
+
+#kanji-search-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* Add space between the input and the button */
+}
+
+
+/* Style the search input */
+
+#search-kanji {
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+#search-kanji::placeholder {
+    color: #aaa;
+}
+
+
+/* Style the search button */
+
+#kanji-search-form button {
+    /* padding: 10px 20px; */
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    /* font-size: 16px; */
+}
+
+#kanji-search-form button:hover {
+    background-color: #0056b3;
 }

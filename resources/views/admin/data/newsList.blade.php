@@ -25,16 +25,15 @@
             /* Center horizontally */
             align-items: center;
             /* Center vertically */
-            width: 100%;
-            /* max-width: 800px; */
-            /* Maximum width */
+            width: 100% !important;
         }
     </style>
 </head>
 
 <body>
     <h1 class="ad">
-        <b>ROLE: </b><span style="color: red">{{ Session::has('StatusRole') ? 'Admin' : '' }}</span>
+        <b>ROLE: </b><span style="color: red"><a
+                href="{{ route('admin') }}">{{ Session::has('StatusRole') ? 'Admin' : '' }}</a></span>
     </h1>
     <nav class="data" style="padding: 20px;">
         <a href="{{ route('kanji') }}">Kanji</a>
@@ -72,9 +71,9 @@
             <thead>
                 <tr>
                     <th>id</th>
-                    <th>title</th>
-                    <th>created_at</th>
-                    <th>CTL</th>
+                    <th>タイトル</th>
+                    <th>日付</th>
+                    <th>アクション</th>
                 </tr>
             </thead>
             <tbody>

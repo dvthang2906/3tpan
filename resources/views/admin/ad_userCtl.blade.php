@@ -11,7 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         body {
-            margin: 5px;
+            margin: 20px;
         }
 
         /* General Modal Styles */
@@ -268,10 +268,10 @@
     </div>
 
     <div>
-        <h1 class="ad">
-            <b>ROLE: </b><span style="color: red">{{ $StatusRole ? $StatusRole : '' }}</span>
+        <h1 class="ad" style="margin-bottom:20px;">
+            <b>ROLE: </b><span style="color: red"><a
+                    href="{{ route('admin') }}">{{ Session::has('StatusRole') ? 'Admin' : '' }}</a></span>
         </h1>
-        <h1 class="ad">Login at:<span></span></h1>
     </div>
     {{-- <table class="my_table">
         <tr>

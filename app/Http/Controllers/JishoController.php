@@ -42,9 +42,14 @@ class JishoController extends Controller
             $result = $jishoService->search($tangoValue)['data'];
             // dd($result);
 
+            if (isset($result[0]['japanese'][0]['word'])) {
+                $tango_Value_Comment = $result[0]['japanese'][0]['word'];
+            } else {
+                // Xử lý trường hợp 'word' không tồn tại
+                // Ví dụ: bạn có thể gán một giá trị mặc định hoặc xử lý lỗi tại đây
+                $tango_Value_Comment = $tango_Value_Comment = $result[0]['japanese'][0]['reading'];
+            }
 
-
-            $tango_Value_Comment = $result[0]['japanese'][0]['word'];
 
             session()->put('tangoValue', $tango_Value_Comment);
 

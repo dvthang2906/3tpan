@@ -12,7 +12,12 @@
 </head>
 
 <body>
-
+    <div style="margin: 20px;">
+        <h1 class="ad">
+            <b>ROLE: </b><span style="color: red"><a
+                    href="{{ route('admin') }}">{{ Session::has('StatusRole') ? 'Admin' : '' }}</a></span>
+        </h1>
+    </div>
     <h1 class="m-5">CONTACT</h1>
 
     <div class="overflow-x-auto relative m-3">

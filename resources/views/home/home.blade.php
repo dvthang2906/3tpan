@@ -252,9 +252,10 @@
                         placeholder="検索キーワード">
                 </div>
                 <div class="bt_search">
-                    {{-- <button id="recordButton" class="bt_s" title="ボイスで検索"><span>🎤Ghi âm</span></button> --}}
                     {{-- <button type="submit" class="bt_s" title="検索履歴"><span>⌚</span></button> --}}
-                    <button type="submit" class="bt_s" title="けんさく"><span>🔍</span></button>
+                    <button class="bt_s" title="けんさく"><span>🔍</span></button>
+                    {{-- <button type="button" id="startRecordingButton" class="bt_s" title="ボイスで検索"><span>🎤</span></button> --}}
+
                 </div>
             </div>
             @csrf
@@ -268,7 +269,12 @@
                     <span title="たんご" style="font-weight: bold">単語：</span>
                     @foreach ($result[0]['japanese'] as $m)
                         @if (isset($m['word']) && !is_null($m['word']))
-                            <b style="color: red;  text-decoration-line: none;">{{ $m['word'] }}</b>
+                            <b style="color: red;  text-decoration-line: none;"
+                                onclick="playAudio('{{ $m['word'] }}')">{{ $m['word'] }}</b>
+                            &nbsp;
+                        @else
+                            <b style="color: red;  text-decoration-line: none;"
+                                onclick="playAudio('{{ $m['reading'] }}')">{{ $m['reading'] }}</b>
                             &nbsp;
                         @endif
                     @endforeach
@@ -363,6 +369,32 @@
 @endsection
 
 @section('js')
+    <script>
+        function playAudio(word) {
+            // const word = document.getElementById('word').value;
+            if (!word.trim()) {
+                alert('Vui lòng nhập từ vựng!');
+                return;
+            }
+
+            // console.log(word);
+            fetch('/home/synthesize-speech', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        word: word
+                    })
+                })
+                .then(response => response.json())
+                .then(data => new Audio(data.audio_url).play())
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+
+
     <script>
         window.onload = function() {
             @if (isset($message))
@@ -582,5 +614,63 @@
             document.getElementById('popup').remove();
             isPopupVisible = false;
         }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('startRecordingButton').addEventListener('click', startRecording);
+
+            let mediaRecorder;
+            let audioChunks = [];
+
+            function startRecording() {
+                navigator.mediaDevices.getUserMedia({
+                        audio: true
+                    })
+                    .then(stream => {
+                        mediaRecorder = new MediaRecorder(stream, {
+                            mimeType: 'audio/webm'
+                        });
+                        audioChunks = [];
+
+                        mediaRecorder.ondataavailable = e => {
+                            if (e.data.size > 0) audioChunks.push(e.data);
+                        };
+
+                        mediaRecorder.onstop = uploadAudio;
+                        mediaRecorder.start();
+
+                        setTimeout(stopRecording, 5000); // Stop recording after 5 seconds
+                    })
+                    .catch(error => console.error('Error accessing the microphone:', error));
+            }
+
+            function stopRecording() {
+                if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                    mediaRecorder.stop();
+                    mediaRecorder.stream.getTracks().forEach(track => track.stop());
+                }
+            }
+
+            function uploadAudio() {
+                const audioBlob = new Blob(audioChunks, {
+                    type: 'audio/webm'
+                }); // Định dạng phù hợp với API
+                let formData = new FormData();
+                formData.append('audio', audioBlob, 'audio.webm');
+
+                fetch('/home/upload-audio', { // Thay đổi URL phù hợp
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        },
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => console.log('Transcription:', data))
+                    .catch(error => console.error('Error uploading audio:', error));
+            }
+        });
     </script>
 @endsection

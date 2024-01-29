@@ -8,7 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Admin-Kanji</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="{{ asset('css/data.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/adminKanji.css') }}">
     <style>
         /* CSS from Buttom*/
         .button {
@@ -233,8 +233,10 @@
 
 <body>
     <h1 class="ad">
-        <b>ROLE: </b><span style="color: red">{{ Session::has('StatusRole') ? 'Admin' : '' }}</span>
+        <b>ROLE: </b><span style="color: red"><a
+                href="{{ route('admin') }}">{{ Session::has('StatusRole') ? 'Admin' : '' }}</a></span>
     </h1>
+
     <header>
         <nav class="data" style="padding: 20px;">
             <a href="{{ route('kanji') }}">Kanji</a>
@@ -276,10 +278,18 @@
         </div>
     </div>
 
-    <form action="{{ route('search-kanji') }}" method="GET" id="kanji-search-form">
-        <input type="search" name="kanji" class="search-kanji" id="search-kanji" value="{{ $kanji ?? '' }}">
-        <button type="submit" id="btn-search-kanji" class="search-kanji" style="margin-top:10px;">検索</button>
-    </form>
+    <div class="kanji-search-container">
+        <form action="{{ route('search-kanji') }}" method="GET" id="kanji-search-form">
+            <input type="search" name="kanji" id="search-kanji" value="{{ $kanji ?? '' }}"
+                placeholder="Search kanji...">
+            <button type="submit">
+                検索
+            </button>
+        </form>
+    </div>
+
+
+
     @if (session('thongbao'))
         <div style="border: #888 1px solid; width: max-content; padding: 10px;">
             <span style="color: red;">{{ session('thongbao') }}</span>

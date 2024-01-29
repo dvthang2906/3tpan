@@ -11,7 +11,12 @@
 
 <body>
     <h1 class="ad">
-        <b>ROLE: </b><span style="color: red">{{ Session::has('StatusRole') ? 'Admin' : '' }}</span>
+        <b>ROLE: </b>
+        <span style="color: red">
+            <a href="{{ route('admin') }}">
+                {{ Session::has('StatusRole') ? 'Admin' : '' }}
+            </a>
+        </span>
     </h1>
     <nav class="data" style="padding: 20px;">
         <a href="{{ route('kanji') }}">Kanji</a>

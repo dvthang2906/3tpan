@@ -136,7 +136,7 @@
 }
 
 .cmt {
-    margin: 20px 5px 5px 25%;
+    margin: 20px 5px 5px 33%;
     width: 500px;
     height: fit-content;
 }
@@ -177,6 +177,7 @@
     margin-top: 10px;
     border: 1px solid #ddd;
     box-sizing: border-box;
+    margin-left: -120px;
 }
 
 .bt_cmt {
@@ -187,6 +188,7 @@
     color: white;
     border: none;
     cursor: pointer;
+    margin-left: -120px;
 }
 
 .bt_cmt:hover {

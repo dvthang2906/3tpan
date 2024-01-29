@@ -13,8 +13,9 @@
 </head>
 
 <body class="bg-gray-100">
-    <h1 class="ad" style="margin-left: 10px;">
-        <b>ROLE: </b><span style="color: red">{{ Session::has('StatusRole') ? 'Admin' : '' }}</span>
+    <h1 class="ad">
+        <b>ROLE: </b><span style="color: red"><a
+                href="{{ route('admin') }}">{{ Session::has('StatusRole') ? 'Admin' : '' }}</a></span>
     </h1>
     <nav class="data" style="padding: 20px;">
         <a href="{{ route('kanji') }}">Kanji</a>
