@@ -64,6 +64,7 @@ class SpeechController extends Controller
         }
     }
 
+
     public function uploadAudio(Request $request)
     {
         if (!$request->hasFile('audio')) {
@@ -71,6 +72,8 @@ class SpeechController extends Controller
         }
 
         $file = $request->file('audio');
+
+        Log::info($file);
         $filename = 'user_audio/' . uniqid('', true) . '.' . $file->getClientOriginalExtension();
         try {
             Storage::disk('public')->put($filename, file_get_contents($file->getRealPath()));
@@ -124,7 +127,7 @@ class SpeechController extends Controller
 
             $config = (new RecognitionConfig())
                 ->setEncoding(AudioEncoding::LINEAR16)
-                ->setSampleRateHertz(44100)
+                ->setSampleRateHertz(48000) // Set this to the sample rate of your audio file
                 ->setLanguageCode('ja-JP');
 
             $response = $this->speechClient->recognize($config, $audio);
@@ -141,8 +144,12 @@ class SpeechController extends Controller
         }
     }
 
+
     protected function compareTranscription($userTranscription, $sampleTranscription)
     {
-        return similar_text($userTranscription, $sampleTranscription) > 80;
+        if ($userTranscription === null || $sampleTranscription === null) {
+            return false; // Or handle this case as you see fit.
+        }
+        return similar_text($userTranscription, $sampleTranscription) > 50;
     }
 }

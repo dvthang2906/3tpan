@@ -68,13 +68,13 @@
                     @endif
                     <div class="group">
                         <label for="user" class="label">Username<span>*</span></label>
-                        <input id="user" type="text" name="userName" class="input"
+                        <input id="user" type="text" name="userName" class="input" style="color: black;"
                             value="{{ old('userName') }}" required>
                     </div>
                     <div class="group">
                         <label for="pass" class="label">Password<span>*</span></label>
-                        <input id="pass" type="password" name="password" class="input" data-type="password"
-                            value="{{ old('password') }}" required>
+                        <input id="pass" style="color: black;" type="password" name="password" class="input"
+                            data-type="password" value="{{ old('password') }}" required>
                     </div>
                     <div class="group">
                         <input id="check" type="checkbox" class="check" checked>
@@ -96,7 +96,7 @@
                     @endif
                     <div class="group">
                         <label for="user" class="label">Fullname<span>*</span></label>
-                        <input id="user" type="text" name="fullname" class="input"
+                        <input id="user" type="text" style="color: black;" name="fullname" class="input"
                             value="{{ old('fullname') }}" required>
                         @error('fullname')
                             <div class="error" style="color: red">{{ $message }}</div>
@@ -105,7 +105,7 @@
 
                     <div class="group">
                         <label for="user" class="label">Username<span>*</span></label>
-                        <input id="user" type="text" name="userName" class="input"
+                        <input id="user" style="color: black;" type="text" name="userName" class="input"
                             value="{{ old('userName') }}" required>
                         @error('userName')
                             <div class="error" style="color: red">{{ $message }}</div>
@@ -114,21 +114,21 @@
 
                     <div class="group">
                         <label for="pass" class="label">Password<span>*</span></label>
-                        <input id="pass" type="password" name="password" class="input" data-type="password"
-                            value="{{ old('password') }}" required>
+                        <input id="pass" style="color: black;"type="password" name="password" class="input"
+                            data-type="password" value="{{ old('password') }}" required>
                         @error('password')
                             <div class="error" style="color: red">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="group">
                         <label for="pass" class="label">Repeat Password<span>*</span></label>
-                        <input id="pass" type="password" name="password1" class="input" data-type="password"
-                            value="{{ old('password1') }}" required>
+                        <input id="pass"style="color: black;" type="password" name="password1" class="input"
+                            data-type="password" value="{{ old('password1') }}" required>
                     </div>
                     <div class="group">
                         <label for="pass" class="label">Email Address<span>*</span></label>
-                        <input id="pass" type="text" name="email" value="{{ old('email') }}"
-                            class="input" required>
+                        <input id="pass" style="color: black;"type="text" name="email"
+                            value="{{ old('email') }}" class="input" required>
                         @error('email')
                             <div class="error" style="color: red">{{ $message }}</div>
                         @enderror

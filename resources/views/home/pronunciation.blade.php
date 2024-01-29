@@ -39,6 +39,7 @@
                 return;
             }
 
+            console.log(word);
             fetch('/home/synthesize-speech', {
                     method: 'POST',
                     headers: {
@@ -95,6 +96,7 @@
         }
 
         function updateFeedback(data) {
+            console.log(data);
             const feedbackElement = document.getElementById('pronunciationFeedback');
             let feedbackMessage = 'Phản hồi: ';
 

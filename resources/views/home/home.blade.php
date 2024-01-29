@@ -260,15 +260,14 @@
         </form>
         <h3 title="けんさくけっか" class="h3" style="margin-left:33%;">検索結果</h3>
 
-        <div class="search_result" style="max-height: 200px; overflow-y: auto;margin-left:33%;">
+        <div class="search_result" style="max-height: 200px; overflow-y: auto;margin-left:33%;padding:5px;">
             {{-- <div id="result">1: </div> --}}
             <p style="margin: 5px">
                 @if (isset($result[0]))
                     <span title="たんご" style="font-weight: bold">単語：</span>
                     @foreach ($result[0]['japanese'] as $m)
                         @if (isset($m['word']) && !is_null($m['word']))
-                            <a style="color: #9966CC; border-bottom: 1px solid;"
-                                onclick="showPopup()">{{ $m['word'] }}</a>
+                            <b style="color: red;  text-decoration-line: none;">{{ $m['word'] }}</b>
                             &nbsp;
                         @endif
                     @endforeach
@@ -518,6 +517,29 @@
             popup.style.background = '#fff';
             popup.style.padding = '20px';
             popup.style.border = '1px solid #000';
+            popup.style.borderRadius = '10px';
+            popup.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+            popup.style.fontFamily = '"Helvetica Neue", Helvetica, Arial, sans-serif';
+            popup.style.fontSize = '16px';
+            popup.style.lineHeight = '1.8'; // Thêm line-height
+            popup.style.animation = 'fadeIn 0.3s';
+
+            // Tạo một style sheet mới và thêm keyframes
+            var styleSheet = document.createElement("style");
+            styleSheet.type = "text/css";
+            styleSheet.textContent = `
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+`;
+            document.head.appendChild(styleSheet);
+
+            // Thêm popup vào body
+            document.body.appendChild(popup);
+
+
+
 
             // Nội dung popup
             if (typeof window.tango !== 'undefined') {
