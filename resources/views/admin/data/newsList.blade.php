@@ -18,6 +18,17 @@
         .add-News {
             margin: 10px;
         }
+
+        .form-container {
+            display: flex;
+            justify-content: center;
+            /* Center horizontally */
+            align-items: center;
+            /* Center vertically */
+            width: 100%;
+            /* max-width: 800px; */
+            /* Maximum width */
+        }
     </style>
 </head>
 
@@ -39,18 +50,20 @@
             {{ Session::get('success') }}
         @endif
     </div>
-    <form action="{{ route('search-News') }}" method="POST">
-        @csrf
-        <div class="date">
-            <label for="start-date">From :</label>
-            <input type="date" id="start-date" name="start-date" value="{{ $startDate ?? '' }}">
-        </div>
-        <div class="date">
-            <label for="end-date">To :</label>
-            <input type="date" id="end-date" name="end-date" value="{{ $endDate ?? '' }}">
-        </div>
-        <input class="date" type="submit" value="検索">
-    </form>
+    <div class="form-container">
+        <form action="{{ route('search-News') }}" method="POST">
+            @csrf
+            <div class="date">
+                <label for="start-date">From :</label>
+                <input type="date" id="start-date" name="start-date" value="{{ $startDate ?? '' }}">
+            </div>
+            <div class="date">
+                <label for="end-date">To :</label>
+                <input type="date" id="end-date" name="end-date" value="{{ $endDate ?? '' }}">
+            </div>
+            <input class="date" type="submit" value="検索">
+        </form>
+    </div>
 
     <a href="{{ route('add-News') }}" class="add-News">＋</a>
 

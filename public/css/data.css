@@ -185,14 +185,13 @@ select::-ms-expand {
 /* Style the form container */
 
 form {
-    /* display: flex;
+    display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     /* Để căn chỉnh các items về phía bắt đầu của container */
-    /* align-items: center; */
-    /* */
+    align-items: center;
     /* Để căn giữa các items theo chiều dọc */
-    /* gap: 10px; */
+    gap: 10px;
     /* Tạo khoảng cách giữa các items */
     max-width: 60%;
     margin-left: 50px;
