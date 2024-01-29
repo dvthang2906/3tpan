@@ -26,6 +26,18 @@ class HomeRecommendation extends Model
                     ->where('id', $user_id)
                     ->get();
 
+
+                // dd($level[0]->level);
+
+                if ($level[0]->level == null) {
+                    $vocabulary = DB::table('vocabulary')
+                        ->inRandomOrder()
+                        ->limit($count)
+                        ->get();
+
+                    return $vocabulary;
+                }
+
                 $vocabulary = DB::table('vocabulary')
                     ->where('lever', $level[0]->level)
                     ->inRandomOrder()

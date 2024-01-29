@@ -108,7 +108,7 @@
                         if (data.level != null) {
                             document.getElementById('level').innerText = data.level;
                         } else {
-                            document.getElementById('level').innerText = "bạn chưa có level";
+                            document.getElementById('level').innerText = "あなたはまだレベルがありません";
                         }
                         document.getElementById('email').value = data.email;
                         // Hiển thị modal
