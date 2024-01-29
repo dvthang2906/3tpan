@@ -12,9 +12,9 @@
                     <ul>
                         @foreach (['kanji' => 'Kanji', 'vocabulary' => 'Vocabulary', 'grammar' => 'Grammar'] as $key => $value)
                             <li>
-                                <a style="margin-left: 5px">{{ $value }}</a>
+                                <a style="margin-left: 42px">{{ $value }}</a>
                                 <ul>
-                                    <li><a style="margin-left: 5px"
+                                    <li><a style="margin-left: 80px; margin-top:5px"
                                             wire:click="updateCategory('{{ $key }}', 'N{{ $i }}')">コード番号01</a>
                                     </li>
                                     {{-- Example for additional items:
