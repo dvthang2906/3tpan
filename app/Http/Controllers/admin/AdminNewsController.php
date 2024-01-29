@@ -27,10 +27,8 @@ class AdminNewsController extends Controller
         $startDate = $request->input(('start-date'));
         $endDate = $request->input('end-date');
 
-        // dd('1:' . $startDate . '|||||| 2:' . $endDate);
 
         if ($startDate && $endDate) {
-            // dd('1:' . $startDate . '|||||| 2:' . $endDate);
 
             $news = $searchNews->findByNews($startDate, $endDate);
 

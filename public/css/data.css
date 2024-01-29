@@ -62,14 +62,31 @@ select::-ms-expand {
     right: 5%;
 }
 
-.bt_data {
-    min-width: 100px;
-    line-height: 2em;
-    font-size: 1.2em;
-    text-align: center;
-    margin: 10px 30px;
-    border-radius: 1vh;
+.input,
+.selectdiv select {
+    width: 100%;
+    /* Đảm bảo chiếm đầy không gian của container */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
+
+.bt_data {
+    margin: 5px;
+    padding: 10px;
+    font-size: 1em;
+    /* Điều chỉnh theo tỷ lệ phù hợp */
+}
+
+
+/* .bt_data {
+        min-width: 100px;
+        line-height: 2em;
+        font-size: 1.2em;
+        text-align: center;
+        margin: 10px 30px;
+        border-radius: 1vh;
+    } */
 
 .bt_save {
     background-color: white;
@@ -143,6 +160,16 @@ select::-ms-expand {
     transition: background-color 0.3s ease-in-out;
 }
 
+.bt_data:hover,
+.data a:hover,
+.add-News:hover,
+.bt_update:hover,
+.bt_delete:hover {
+    /* Màu sắc và hiệu ứng hover thống nhất */
+    background-color: #3888A3;
+    color: white;
+}
+
 .data a:hover {
     background-color: #ddd;
 }
@@ -158,19 +185,31 @@ select::-ms-expand {
 /* Style the form container */
 
 form {
-    max-width: 600px;
-    /* Đặt kích thước form tối đa */
-    margin: 20px auto;
-    background-color: white;
-    padding: 20px;
+    /* display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    /* Để căn chỉnh các items về phía bắt đầu của container */
+    /* align-items: center; */
+    /* */
+    /* Để căn giữa các items theo chiều dọc */
+    /* gap: 10px; */
+    /* Tạo khoảng cách giữa các items */
+    max-width: 60%;
+    margin-left: 50px;
+    padding: 10px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-wrap: wrap;
 }
 
 
 /* Style form labels and inputs */
+
+.div-for-input {
+    flex-basis: calc(33.333% - 10px);
+    /* Chia không gian làm ba và trừ đi khoảng cách */
+    margin: 5px;
+    /* Khoảng cách giữa các thành phần */
+}
 
 div {
     flex: 1 0 30%;
@@ -248,10 +287,19 @@ thead {
     color: #fff;
 }
 
+
+/* th,
+    td {
+        padding: 8px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    } */
+
 th,
 td {
     padding: 8px;
-    text-align: center;
+    text-align: left;
+    /* Hoặc center nếu bạn thích */
     border-bottom: 1px solid #ddd;
 }
 

@@ -23,30 +23,35 @@
         <a href="{{ route('show.vocabulary') }}">Vocabulary</a>
     </nav>
     <div class="container mx-auto p-4">
-        {{-- <h1 class="text-2xl font-bold text-gray-700 mb-4">Vocabulary</h1> --}}
-
+        <!-- Form -->
         <form action="{{ route('search.level.vocabulary') }}" method="GET" class="mb-4">
             @csrf
-            <div class="mb-3">
-                <label for="level"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">LEVEL:</label>
-                <select name="level" id="level-test"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="">Choose a level</option>
-                    @for ($i = 1; $i <= 5; $i++)
-                        <option value="N{{ $i }}" {{ old('level') == 'N' . $i ? 'selected' : '' }}>
-                            N{{ $i }}</option>
-                    @endfor
-                </select>
+            <div class="grid grid-cols-12 gap-4 items-end">
+                <div class="col-span-1 flex items-center">
+                    <label for="level-test" class="text-sm font-medium text-gray-900 dark:text-gray-400">LEVEL:</label>
+                </div>
+                <div class="col-span-3">
+                    <select name="level" id="level-test"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="">Choose a level</option>
+                        @for ($i = 1; $i <= 5; $i++)
+                            <option value="N{{ $i }}" {{ old('level') == 'N' . $i ? 'selected' : '' }}>
+                                N{{ $i }}
+                            </option>
+                        @endfor
+                    </select>
+                </div>
+                <div class="col-span-6">
+                    <input type="text" name="searchTerm" placeholder="検索キーワード" value="{{ request('searchTerm') }}"
+                        class="border p-2 rounded w-full">
+                </div>
+                <div class="col-span-2">
+                    <button type="submit"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-sm w-4/5">検索</button>
+                </div>
             </div>
-            <input type="text" name="searchTerm" placeholder="検索キーワード" value="{{ request('searchTerm') }}"
-                class="border p-2 rounded">
-            <button type="submit"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">検索</button>
-
-            {{-- <button type="submit"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">語彙追加</button> --}}
         </form>
+
 
         <div class="overflow-x-auto relative shadow-md sm:rounded-lg"
             style="display: flex; justify-content: center; width:100%">
@@ -80,32 +85,34 @@
                                 {{ $item->type }}</td>
                             <td class="py-4 px-6" id="update-button-mean-{{ $item->stt }}" contenteditable="true">
                                 {{ $item->mean }}</td>
-                            <td class="py-3 px-6">
-                                {{-- <a href="/path-to-update/{{ $item->id }}" --}}
-                                <form class="updateVocabulary">
-                                    @csrf
-                                    <button type="submit" class="text-blue-600 hover:text-blue-900"
-                                        onclick="updateDataVocabulary({{ $item->stt }})">Update</button>
-                                </form>
+
                             </td>
                             <td class="py-3 px-6">
-                                <form class="deleteVocabulary">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="hidden" name="id-stt-Vocabulary" value="{{ $item->stt }}">
-                                    <button type="submit" class="text-red-600 hover:text-red-900"
-                                        id="deleteVocabulary-btn-"{{ $item->stt }}
-                                        onclick="return confirm('Are you sure you want to delete this?')">Delete</button>
-
-                                </form>
+                                <div class="flex space-x-2"> <!-- This div will align the buttons horizontally -->
+                                    <form class="updateVocabulary"
+                                        onsubmit="return updateDataVocabulary({{ $item->stt }});">
+                                        @csrf
+                                        <button type="submit" class="text-blue-600 hover:text-blue-900">Update</button>
+                                    </form>
+                                    <form class="deleteVocabulary"
+                                        onsubmit="return confirm('Are you sure you want to delete this?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="id-stt-Vocabulary" value="{{ $item->stt }}">
+                                        <button type="submit" class="text-red-600 hover:text-red-900"
+                                            id="deleteVocabulary-btn-{{ $item->stt }}">Delete</button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
                     {{-- error 通知 --}}
                     <tr>
-                        <td>
+                        <td colspan="100%"> {{-- Make sure to span across all columns in the table --}}
                             @if (session('msg'))
-                                <div>{{ session('msg') }}</div>
+                                <div class="bg-red-400 text-white text-center p-3 rounded">
+                                    {{ session('msg') }}
+                                </div>
                             @endif
                             @php
                                 session()->forget('msg');
