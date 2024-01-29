@@ -234,7 +234,8 @@
                 @if (isset($recommendWord))
                     @foreach ($recommendWord as $word)
                         <li class="centered-item">{{ $word->tango }}</li>
-                        <li class="item-word" style="color: black;">{{ $word->hiragana }}</li>
+                        <li class="item-word" style="color: black;">{{ $word->hiragana == '0' ? 'null' : $word->hiragana }}
+                        </li>
                         {{-- <li class="item-word" style="color: black;">{{ $word->mean }}</li> --}}
                         <hr>
                     @endforeach
