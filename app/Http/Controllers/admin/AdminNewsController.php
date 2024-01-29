@@ -27,7 +27,15 @@ class AdminNewsController extends Controller
         $startDate = $request->input(('start-date'));
         $endDate = $request->input('end-date');
 
+        // dd('1:' . $startDate . '|||||| 2:' . $endDate);
 
+        if ($startDate && $endDate) {
+            // dd('1:' . $startDate . '|||||| 2:' . $endDate);
+
+            $news = $searchNews->findByNews($startDate, $endDate);
+
+            return view('admin.data.newsList', compact('news', 'startDate', 'endDate'));
+        }
 
         if (empty($startDate) && empty($endDate)) {
             $news = $getNews->getDataNews();
@@ -35,8 +43,6 @@ class AdminNewsController extends Controller
             $news = $searchNews->findByNewsEndDate($endDate);
         } else if (isEmpty($endDate)) {
             $news = $searchNews->findByNewsStartDate($startDate);
-        } else {
-            $news = $searchNews->findByNews($startDate, $endDate);
         }
 
         return view('admin.data.newsList', compact('news', 'startDate', 'endDate'));

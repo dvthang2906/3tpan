@@ -14,7 +14,7 @@ class searchNews extends Model
         $data = DB::table('news')
             ->select()
             ->whereDate('created_at', '>=', $startDate)
-            ->whewhereDatee('created_at', '<=', $endDate)
+            ->whereDate('created_at', '<=', $endDate)
             ->get();
 
         return $data;
