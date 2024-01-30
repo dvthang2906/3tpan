@@ -56,9 +56,6 @@
                                         <li><a style="margin-left: 80px; margin-top:5px"
                                                 wire:click="updateCategory('{{ $key }}', 'N{{ $i }}')">コード番号01</a>
                                         </li>
-                                        {{-- Example for additional items:
-                                    <li><a style="margin-left: 5px">コード番号02</a></li>
-                                    --}}
                                     </ul>
                                 </li>
                             @endforeach
@@ -73,9 +70,9 @@
         <header>
             <h1>日本語<span>
                     {{-- @hasSection('category') --}}
-                    {{ session('category') }}
+                    {{ session('category') ?? 'Vocabulary' }}
                     {{-- @endif --}}
-                    -{{ session('level') }}
+                    -{{ session('level') ?? 'N5' }}
                 </span>模擬テスト</h1>
         </header>
         {{-- Nội dung câu hỏi và câu trả lời --}}
