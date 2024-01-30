@@ -44,6 +44,6 @@ class ForgotPasswordController extends Controller
         // Gửi email với token
         $user->notify(new MyCustomResetPassword($token));
 
-        return redirect()->route('login')->withErrors($validator)->with('status', 'token đã được gửi đến gmail của bạn');
+        return redirect()->route('login')->withErrors($validator)->with('status', 'パスワードを変更するリンクを送りました。');
     }
 }
