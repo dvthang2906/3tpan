@@ -1,6 +1,5 @@
 @extends('clients.client')
 
-
 @section('title')
     <title>FLASH CARD</title>
 @endsection
@@ -17,26 +16,6 @@
 @endsection
 
 @section('content')
-    {{-- <ul class="menu">
-        <li class="menu__mega">
-            <a href="#" class="init-bottom">ライブラリ</a>
-            <ul class="menu__second-level">
-                <li><a href="#"><span id="test">食べ物</span></a></li>
-                <li><a href="#">動物</a></li>
-                <li><a href="#">銀行</a></li>
-                <li><a href="#">日常生活</a></li>
-            </ul>
-        </li>
-        <li class="menu__single">
-            <a href="#" class="init-bottom">とうろく</a>
-            <ul class="menu__second-level">
-                <li><a href="#">フォルダー</a></li>
-                <li><a href="#">テーマ</a></li>
-                <li><a href="#">クラス</a></li>
-            </ul>
-        </li>
-    </ul> --}}
-
     <div class="word_card">
         <div id="progressContainer">
             <div id="progressBar"></div>
