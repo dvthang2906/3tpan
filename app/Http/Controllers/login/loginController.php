@@ -92,7 +92,7 @@ class loginController extends Controller
                 session()->put('login_status', 'logined');
                 session()->put('payment_status', $user->payment_status);
 
-                session()->put('levelStatus', $user->LEVEL);
+                session()->put('levelStatus', $user->level);
 
 
 

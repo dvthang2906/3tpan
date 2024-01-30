@@ -18,8 +18,10 @@ class HomeController extends Controller
 
         $recommendWord = $homeRecommendation->Recommendation();
         $user = Auth::user();
-        session()->put('levelStatus', $user->level);
-        // dd(session('levelStatus'));
+
+        if ($user) {
+            session()->put('levelStatus', $user->level);
+        }
 
         return view('home.home', compact('result', 'recommendWord'));
     }

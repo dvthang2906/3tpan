@@ -97,6 +97,7 @@ Route::get('/payment', [PaymentController::class, 'index'])->name('payment');
 Route::post('/charge', [PaymentController::class, 'charge']);
 
 
+
 //users
 Route::prefix('/users')->group(function () {
     // Route::get('/Signup', [loginController::class, 'Signup'])->name('Signup');

@@ -13,7 +13,8 @@ class TestLivewire extends Component
     public $test_question;
     public $test_answer;
     public $category = 'vocabulary'; // Giá trị mặc định
-    public $level = 'N4';
+    public $level = 'N5';
+
 
 
     public function mount()

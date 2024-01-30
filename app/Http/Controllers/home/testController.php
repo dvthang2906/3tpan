@@ -42,7 +42,7 @@ class testController extends Controller
     {
         $user_id = session('user_id');
         $totalCount = session('totalCount', 0);
-        // $total = count($request->all()); // tổng tất cả câu người dùng đã làm
+
 
         // Cập nhật $this->level trong mỗi yêu cầu
         $this->updateLevelFromSession();
