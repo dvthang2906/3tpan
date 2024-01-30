@@ -1,20 +1,12 @@
 @php
     $status = false;
 @endphp
-<!DOCTYPE html>
-<html lang="ja">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Flashcard</title>
+@extends('clients.client')
+
+@section('css')
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-
+    <link rel="stylesheet" href="{{ asset('css/flashCard.css') }}">
     <style>
         .flashcard-container-all {
             display: flex;
@@ -22,7 +14,7 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            background-color: #eaeaea;
+            background-color: white;
             padding: 20px;
             box-sizing: border-box;
         }
@@ -111,12 +103,14 @@
             background-color: #0056b3;
         }
     </style>
-</head>
+@endsection
+@section('title')
+    <title>Flashcard</title>
+@endsection
 
-<body>
 
-    {{--
-    <button id="reviewButton">もう一度復習</button> --}}
+
+@section('content')
     @if (isset($totalLearnedCount) && $totalLearnedCount > 0)
 
 
@@ -143,122 +137,13 @@
                     </div>
                 @endforeach
                 <div class="buttons">
-
                     <button class="prevBtn">Prev</button>
                     <button class="nextBtn">Next</button>
                     <button id="delete_learned_Btn">覚えた</button>
+
                 </div>
             </div>
         @endif
-
-
-
-        <script>
-            let currentFlashcard = 0;
-            const totalFlashcards = {{ count($ReviewLearnedFlashcard) }};
-
-
-
-            function showFlashcard(index) {
-                document.querySelectorAll('.flashcard-container').forEach(function(container) {
-                    container.style.display = 'none';
-                });
-
-                var flashcardToShow = document.querySelector('.flashcard-container[data-index="' + index + '"]');
-                if (flashcardToShow) {
-                    flashcardToShow.style.display = 'block';
-                }
-            }
-
-            document.querySelector('.nextBtn').addEventListener('click', function() {
-                if (currentFlashcard < totalFlashcards - 1) {
-                    currentFlashcard++;
-                    showFlashcard(currentFlashcard);
-                } else {
-                    currentFlashcard = -1;
-                    currentFlashcard++;
-                    showFlashcard(currentFlashcard);
-                }
-            });
-
-            document.querySelector('.prevBtn').addEventListener('click', function() {
-                if (currentFlashcard > 0) {
-                    currentFlashcard--;
-                    showFlashcard(currentFlashcard);
-                } else {
-                    currentFlashcard = totalFlashcards;
-                    currentFlashcard--;
-                    showFlashcard(currentFlashcard);
-                }
-            });
-
-            // Thêm event listener cho việc click để flip card
-            document.querySelectorAll('.flashcard').forEach(function(flashcard) {
-                flashcard.addEventListener('click', function() {
-                    this.classList.toggle('flip');
-                });
-            });
-
-
-
-
-
-            // thay đổi trạng thái thành true. khi người dugnf bấm nút ok. đã  thuộc
-            document.getElementById('delete_learned_Btn').addEventListener('click', function() {
-                // Tìm phần tử flashcard-container đang hiển thị
-                var currentFlashcardContainer = document.querySelector(
-                    '.flashcard-container:not([style*="display: none"])');
-
-                // Nếu tồn tại phần tử, lấy giá trị data-stt
-                var data_stt = currentFlashcardContainer ? currentFlashcardContainer.getAttribute('data-stt-delete') :
-                    null;
-
-                if (data_stt) {
-
-                    // ... tiếp tục logic để gửi dữ liệu đi
-                    var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                    axios.post('/home/delete-learned-status', {
-                            _token: token,
-                            stt: data_stt // Gửi data_stt như là currentFlashcard
-                        })
-                        .then(function(response) {
-                            console.log(response.data.message);
-
-                            // Đánh dấu flashcard hiện tại là đã học
-                            if (currentFlashcardContainer) {
-                                currentFlashcardContainer.classList.add('learned');
-                            }
-
-                            // Tìm flashcard tiếp theo và hiển thị nó
-                            var nextFlashcardContainer = currentFlashcardContainer.nextElementSibling;
-                            if (nextFlashcardContainer && nextFlashcardContainer.classList.contains(
-                                    'flashcard-container')) {
-                                currentFlashcardContainer.style.display = 'none'; // Ẩn flashcard hiện tại
-                                nextFlashcardContainer.style.display = 'block'; // Hiển thị flashcard tiếp theo
-                            } else {
-                                console.error('Không có flashcard tiếp theo để hiển thị.');
-                                // Có thể hiển thị thông báo hoặc làm mới danh sách flashcard ở đây
-                                alert("Bạn đã học hết các flashcards. Nhấn OK để tiếp tục.");
-                                window.location.reload();
-
-                            }
-
-                            // ... bất kỳ cập nhật UI nào khác nếu cần ...
-                        })
-                        .catch(function(error) {
-                            // Xử lý lỗi
-                            console.error(error);
-                        });
-                } else {
-                    console.error('Không tìm thấy flashcard-container đang hiển thị.');
-                }
-            });
-
-
-
-
-            // ÔN LUYỆN
-        </script>
     @else
         @if (isset($msg))
             <div class="alert alert-success">
@@ -266,35 +151,114 @@
             </div>
         @endif
     @endif
+@endsection
 
-    {{-- <script>
-        // Parse giá trị boolean từ PHP sang JavaScript
-        let status = {{ json_encode($status) }};
 
-        if (status == false) {
-            status = true
+@section('js')
+    <script>
+        let currentFlashcard = 0;
+        const totalFlashcards = {{ count($ReviewLearnedFlashcard) }};
 
-            document.getElementById('reviewButton').addEventListener('click', function() {
+
+
+        function showFlashcard(index) {
+            document.querySelectorAll('.flashcard-container').forEach(function(container) {
+                container.style.display = 'none';
+            });
+
+            var flashcardToShow = document.querySelector('.flashcard-container[data-index="' + index + '"]');
+            if (flashcardToShow) {
+                flashcardToShow.style.display = 'block';
+            }
+        }
+
+        document.querySelector('.nextBtn').addEventListener('click', function() {
+            if (currentFlashcard < totalFlashcards - 1) {
+                currentFlashcard++;
+                showFlashcard(currentFlashcard);
+            } else {
+                currentFlashcard = -1;
+                currentFlashcard++;
+                showFlashcard(currentFlashcard);
+            }
+        });
+
+        document.querySelector('.prevBtn').addEventListener('click', function() {
+            if (currentFlashcard > 0) {
+                currentFlashcard--;
+                showFlashcard(currentFlashcard);
+            } else {
+                currentFlashcard = totalFlashcards;
+                currentFlashcard--;
+                showFlashcard(currentFlashcard);
+            }
+        });
+
+        // Thêm event listener cho việc click để flip card
+        document.querySelectorAll('.flashcard').forEach(function(flashcard) {
+            flashcard.addEventListener('click', function() {
+                this.classList.toggle('flip');
+            });
+        });
+
+
+
+
+
+        // thay đổi trạng thái thành true. khi người dugnf bấm nút ok. đã  thuộc
+        document.getElementById('delete_learned_Btn').addEventListener('click', function() {
+            // Tìm phần tử flashcard-container đang hiển thị
+            var currentFlashcardContainer = document.querySelector(
+                '.flashcard-container:not([style*="display: none"])');
+
+            // Nếu tồn tại phần tử, lấy giá trị data-stt
+            var data_stt = currentFlashcardContainer ? currentFlashcardContainer.getAttribute('data-stt-delete') :
+                null;
+
+            if (data_stt) {
+
+                // ... tiếp tục logic để gửi dữ liệu đi
                 var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-                axios.post('/home/update-status-reviewlearned', {
+                axios.post('/home/delete-learned-status', {
                         _token: token,
-                        status: status
+                        stt: data_stt // Gửi data_stt như là currentFlashcard
                     })
                     .then(function(response) {
-                        //  Xử lý giá trị nhận về từ response
+                        console.log(response.data.message);
 
+                        // Đánh dấu flashcard hiện tại là đã học
+                        if (currentFlashcardContainer) {
+                            currentFlashcardContainer.classList.add('learned');
+                        }
 
+                        // Tìm flashcard tiếp theo và hiển thị nó
+                        var nextFlashcardContainer = currentFlashcardContainer.nextElementSibling;
+                        if (nextFlashcardContainer && nextFlashcardContainer.classList.contains(
+                                'flashcard-container')) {
+                            currentFlashcardContainer.style.display = 'none'; // Ẩn flashcard hiện tại
+                            nextFlashcardContainer.style.display = 'block'; // Hiển thị flashcard tiếp theo
+                        } else {
+                            console.error('Không có flashcard tiếp theo để hiển thị.');
+                            // Có thể hiển thị thông báo hoặc làm mới danh sách flashcard ở đây
+                            alert("Bạn đã học hết các flashcards. Nhấn OK để tiếp tục.");
+                            window.location.reload();
+
+                        }
+
+                        // ... bất kỳ cập nhật UI nào khác nếu cần ...
                     })
                     .catch(function(error) {
                         // Xử lý lỗi
                         console.error(error);
-                        // Hiển thị thông báo lỗi cho người dùng, ví dụ:
-                        alert('An error occurred: ' + error);
                     });
-            });
-        }
-    </script> --}}
-</body>
+            } else {
+                console.error('Không tìm thấy flashcard-container đang hiển thị.');
+            }
+        });
 
-</html>
+
+
+
+        // ÔN LUYỆN
+    </script>
+@endsection
