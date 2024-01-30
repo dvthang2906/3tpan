@@ -56,7 +56,7 @@
     @else
         <nav class="navbar">
             <ul class="nav">
-                <li title="よむ" class="nav-item"><a><span style="color:gray;">読む</span></a></li>
+                <li title="よむ" class="nav-item"><a><span style="color:gray;">話す</span></a></li>
                 <li title="よむ" class="nav-item"><a><span style="color:gray;">読む</span></a></li>
                 <li title="きく" class="nav-item"><a><span style="color:gray;">聴く</span></a></li>
                 <li title="かく" class="nav-item"><a><span style="color:gray;">書く</span></a></li>

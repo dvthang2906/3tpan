@@ -230,11 +230,11 @@ class AdminNewsController extends Controller
         }
 
         if ($output === null) {
-            session()->flash('msg', 'Lỗi khi chạy script Python');
+            session()->flash('status', 'Lỗi khi chạy script Python');
             return view('admin.data.TestList');
         }
 
-        session()->flash('msg', 'Xử lý thành công');
+        session()->flash('status', '正常にデータアップデート出来ました。');
         return view('admin.data.TestList');
     }
 }

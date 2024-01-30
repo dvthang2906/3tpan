@@ -38,6 +38,7 @@
             <div class="progress-bar" id="progress-bar"></div>
         </div>
     @endif
+
     @if ($errors->any())
         <div class="notification success">
             @foreach ($errors->all() as $error)

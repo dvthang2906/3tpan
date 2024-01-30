@@ -39,14 +39,16 @@
         </header>
         {{-- Nội dung câu hỏi và câu trả lời --}}
         <section class="kj_test scrollable" style="margin: 5px">
-            @switch($test_mondai[0]->CATEGORY)
-                @case('kanji')
-                    <h2>問題: ____の漢字のよみかたを4つの中から1つを えらびなさい</h2>
-                @break
+            @if (is_array($test_mondai) && count($test_mondai) > 0 && isset($test_mondai[0]->CATEGORY))
+                @switch($test_mondai[0]->CATEGORY)
+                    @case('kanji')
+                        <h2>問題: ____の漢字のよみかたを4つの中から1つを えらびなさい</h2>
+                    @break
 
-                @default
-                    <h2>問題: （ ）に入るものを４つの中から１つを えらびなさい</h2>
-            @endswitch
+                    @default
+                        <h2>問題: （ ）に入るものを４つの中から１つを えらびなさい</h2>
+                @endswitch
+            @endif
 
             @foreach ($test_mondai as $key => $mondai)
                 @if ($mondai->CATEGORY == 'kanji')

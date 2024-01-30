@@ -41,6 +41,7 @@ class TestLivewire extends Component
         // dd($this->test_question);
         $this->test_answer = $test->test_answer($this->level);
         // dd($this->test_answer);
+
     }
 
     public function render()

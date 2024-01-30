@@ -8,6 +8,7 @@
     <title>TEST</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('css/data.css') }}">
+
     <style>
         #excel_upload_form {
             max-width: 600px;
@@ -58,6 +59,29 @@
         select[multiple] {
             height: auto;
         }
+
+        .notification {
+            width: 50%;
+            /* Thu nhỏ và căn giữa */
+            margin: 0 auto;
+            /* Căn giữa */
+            padding: 15px;
+            border-radius: 5px;
+            color: #fff;
+            background-color: #4CAF50;
+            margin-bottom: 20px;
+            position: relative;
+            text-align: center;
+            /* Căn chữ giữa */
+        }
+
+        .progress-bar {
+            height: 5px;
+            background-color: #fff;
+            width: 0%;
+            transition: width 1s linear;
+            /* Điều chỉnh để transition mượt mà hơn */
+        }
     </style>
 </head>
 
@@ -72,11 +96,13 @@
         <a href="{{ route('shows.test') }}">Test</a>
         <a href="{{ route('show.vocabulary') }}">Vocabulary</a>
     </nav>
-    <div>
-        @if (Session::has('msg'))
-            {{ session('msg') }}
-        @endif
-    </div>
+
+    @if (session('status'))
+        <div class="notification success">
+            {{ session('status') }}
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+    @endif
     <form id="excel_upload_form" action="{{ route('post.data.test') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <p>
@@ -100,7 +126,29 @@
         <button type="submit">Upload</button>
 
     </form>
+
     <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            let totalTime = 5;
+            let intervalTime = 100; // 100ms cho mỗi cập nhật
+            let elapsed = 0;
+
+            const progressBar = document.getElementById('progress-bar');
+            const interval = setInterval(() => {
+                elapsed += intervalTime;
+                let progress = (elapsed / (totalTime * 1000)) * 100;
+                progressBar.style.width = progress + '%';
+
+                if (elapsed >= totalTime * 1000) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        document.querySelector('.notification').style.display = 'none';
+                    }, 500); // Thêm một chút thời gian trước khi ẩn thông báo
+                }
+            }, intervalTime);
+        });
+
+
         // ファイルアップロード時の処理
         document.getElementById('get_sheets').addEventListener('click', function() {
 

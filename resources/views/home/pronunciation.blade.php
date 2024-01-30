@@ -14,6 +14,7 @@
         <h1>Luyện Phát Âm Tiếng Nhật</h1>
 
         <div id="vocabulary">
+
             <h2>Từ Vựng: <input type="text" id="word" value=""></h2>
             <button onclick="playAudio()">Nghe</button>
         </div>
