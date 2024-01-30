@@ -188,6 +188,17 @@
                     enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
+                        {{-- payments --}}
+                        <div class="form-group">
+                            <label for="payment" class="block text-sm font-medium text-gray-700">Payment:</label>
+                            <select
+                                class="form-control mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                id="payment" name="payment">
+                                <option value=""></option>
+                                <option value="FALSE" {{ old('payment') == 'FALSE' ? 'selected' : '' }}>一般</option>
+                                <option value="TRUE" {{ old('payment') == 'TRUE' ? 'selected' : '' }}>VIP</option>
+                            </select>
+                        </div>
                         <!-- Level -->
                         <div class="form-group">
                             <label for="level" class="block text-sm font-medium text-gray-700">Level:</label>
@@ -195,12 +206,13 @@
                                 class="form-control mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                 id="level" name="level">
                                 <option value=""></option>
-                                <option value="N5">N5</option>
-                                <option value="N4">N4</option>
-                                <option value="N3">N3</option>
-                                <option value="N2">N2</option>
-                                <option value="N1">N1</option>
+                                <option value="N5" {{ old('level') == 'N5' ? 'selected' : '' }}>N5</option>
+                                <option value="N4" {{ old('level') == 'N4' ? 'selected' : '' }}>N4</option>
+                                <option value="N3" {{ old('level') == 'N3' ? 'selected' : '' }}>N3</option>
+                                <option value="N2" {{ old('level') == 'N2' ? 'selected' : '' }}>N2</option>
+                                <option value="N1" {{ old('level') == 'N1' ? 'selected' : '' }}>N1</option>
                             </select>
+
                         </div>
 
                         <!-- Admin -->
@@ -209,24 +221,33 @@
                             <select
                                 class="form-control mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                 id="admin" name="admin" required>
-                                <option value="0">User Account</option>
-                                <option value="1">Admin</option>
-                                <option value="2">Super User</option>
-                                <option value="3">Editor</option>
-                                <option value="4">Manager</option>
+                                <option value="0" {{ old('admin') == '0' ? 'selected' : '' }}>User Account
+                                </option>
+                                <option value="1" {{ old('admin') == '1' ? 'selected' : '' }}>Admin</option>
+                                <option value="2" {{ old('admin') == '2' ? 'selected' : '' }}>Super User</option>
+                                <option value="3" {{ old('admin') == '3' ? 'selected' : '' }}>Editor</option>
+                                <option value="4" {{ old('admin') == '4' ? 'selected' : '' }}>Manager</option>
                             </select>
                         </div>
 
                         <!-- User -->
                         <div class="form-group">
                             <label for="user">User:</label>
-                            <input type="text" class="form-control" id="user" name="user" required>
+                            <input type="text" class="form-control" id="user" name="user"
+                                value="{{ old('user') }}" required>
+                            @if ($errors->has('user'))
+                                <div class="error" style="color: red">{{ $errors->first('user') }}</div>
+                            @endif
                         </div>
 
                         <!-- Fullname User -->
                         <div class="form-group">
                             <label for="fullnameUser">Full Name:</label>
-                            <input type="text" class="form-control" id="fullnameUser" name="fullnameUser" required>
+                            <input type="text" class="form-control" id="fullnameUser" name="fullnameUser"
+                                value="{{ old('fullnameUser') }}" required>
+                            @if ($errors->has('fullnameUser'))
+                                <div class="error" style="color: red">{{ $errors->first('fullnameUser') }}</div>
+                            @endif
                         </div>
 
                         <!-- Password -->
@@ -238,7 +259,11 @@
                         <!-- Email -->
                         <div class="form-group">
                             <label for="email">Email:</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
+                            <input type="email" class="form-control" id="email" name="email"
+                                value="{{ old('email') }}" required>
+                            @if ($errors->has('email'))
+                                <div class="error" style="color: red">{{ $errors->first('email') }}</div>
+                            @endif
                         </div>
 
                         <!-- Images -->
@@ -248,6 +273,7 @@
                                 id="images">
                                 <!-- Image will be displayed here -->
                             </div>
+
                             <input type="file" class="form-control" id="imageInput" name="images"
                                 onchange="displayImage(this)">
                         </div>
@@ -273,32 +299,11 @@
                     href="{{ route('admin') }}">{{ Session::has('StatusRole') ? 'Admin' : '' }}</a></span>
         </h1>
     </div>
-    {{-- <table class="my_table">
-        <tr>
-            <th>User ID</th>
-            <th>LogIn ID</th>
-            <th>User Name</th>
-            <th>Tel</th>
-            <th>Email</th>
-            <th>Rank</th>
-            <th>Option</th>
-        </tr>
-        @foreach ($dataUsers as $data)
-            <tr>
-                <td>{{ $data->id }}</td>
-                <td>{{ $data->user }}</td>
-                <td>{{ $data->fullnameUser }}</td>
-                <td>{{ $data->email }}</td>
-                <td>{{ $data->level }}</td>
-                <td>
-                    <button class="bt_user1">Update</button>
-                    <button class="bt_user2">Delete</button>
-                </td>
-            </tr>
-        @endforeach
-    </table> --}}
 
-    <table class="min-w-full divide-y divide-gray-300 shadow-sm overflow-hidden border-b border-gray-200 sm:rounded-lg">
+
+
+    <table
+        class="min-w-full divide-y divide-gray-300 shadow-sm overflow-hidden border-b border-gray-200 sm:rounded-lg">
         <thead class="bg-gray-50">
             <tr>
                 <th scope="col"
@@ -308,6 +313,10 @@
                 <th scope="col"
                     class="px-5 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
                     Status
+                </th>
+                <th scope="col"
+                    class="px-5 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
+                    payment
                 </th>
                 <th scope="col"
                     class="px-5 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
@@ -361,6 +370,9 @@
                         @endswitch
                     </td>
                     <td class="px-5 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {{ $data->payment_status == false ? '一般' : 'VIP' }}
+                    </td>
+                    <td class="px-5 py-4 whitespace-nowrap text-sm text-gray-900">
                         {{ $data->user }}
                     </td>
                     <td class="px-5 py-4 whitespace-nowrap text-sm text-gray-900">
@@ -391,6 +403,25 @@
     </div>
 
     <script>
+        // JavaScript to open the modal if there are any validation errors
+        window.onload = function() {
+            @if ($errors->any())
+                openModal();
+                var uploadedImage = sessionStorage.getItem('uploadedImage');
+                console.log(uploadedImage);
+                if (uploadedImage) {
+                    var imageContainer = document.getElementById('images');
+                    var imgElement = document.createElement('img');
+                    imgElement.src = uploadedImage;
+                    imgElement.style.maxWidth = '100%';
+                    imgElement.style.maxHeight = '100%';
+                    imageContainer.appendChild(imgElement);
+                }
+            @endif
+
+
+        };
+
         function openModal() {
             // Get the modal element
             var modal = document.getElementById('addUserModal');
@@ -427,7 +458,7 @@
                 } else {
                     var reader = new FileReader();
                     reader.onload = function(e) {
-                        document.getElementById('imagePreview').src = e.target.result;
+                        document.getElementById('images').src = e.target.result;
                     };
                     reader.readAsDataURL(file);
                 }
@@ -435,18 +466,21 @@
         });
 
         function displayImage(input) {
+            var imageContainer = document.getElementById('images');
+            imageContainer.innerHTML = ''; // Clear the preview
+
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
 
                 reader.onload = function(e) {
-                    var imgElement = document.createElement("img");
+                    var imgElement = document.createElement('img');
                     imgElement.src = e.target.result;
-                    imgElement.style.maxWidth = '200px';
-                    imgElement.style.maxHeight = '150px';
-
-                    var imageContainer = document.getElementById('images');
-                    imageContainer.innerHTML = '';
+                    imgElement.style.maxWidth = '100%';
+                    imgElement.style.maxHeight = '100%';
                     imageContainer.appendChild(imgElement);
+
+                    // Lưu trữ dữ liệu ảnh vào sessionStorage
+                    sessionStorage.setItem('uploadedImage', e.target.result);
                 };
 
                 reader.readAsDataURL(input.files[0]);

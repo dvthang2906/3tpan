@@ -62,13 +62,32 @@ class AdminController extends Controller
     // THEM USER TỪ TRANG ADMIN/USER
     public function addUser(AddUserService $addUserService, Request $request)
     {
-        // dd($request->all());
+
         $level = $request->level;
         $admin = $request->admin;
         $user = $request->user;
         $fullnameUser = $request->fullnameUser;
         $pass = $request->password;
         $email = $request->email;
+
+
+        $rule = [
+            'user' => 'required|unique:login_infomation,user',
+            'fullnameUser' => 'required|unique:login_infomation,fullnameUser',
+            'email' => 'required',
+        ];
+
+        $message = [
+            'user.required' => '入力が必要。',
+            'user.unique' => 'ユーザーIDが既に存在しています。',
+            'fullnameUser.required' => '入力が必要。',
+            'fullnameUser.unique' => 'ユーザー名が既に存在しています。',
+            'email.required' => '入力が必要。',
+        ];
+
+
+        $request->validate($rule, $message);
+
 
         if ($request->hasFile('images')) {
             $file = $request->file('images');
