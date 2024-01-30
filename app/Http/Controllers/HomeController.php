@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\admin\Vocabulary;
 use App\Models\alphabet;
 use App\Models\HomeRecommendation;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -15,7 +17,9 @@ class HomeController extends Controller
         $result = [];
 
         $recommendWord = $homeRecommendation->Recommendation();
-        // dd($recommendWord);
+        $user = Auth::user();
+        session()->put('levelStatus', $user->level);
+        // dd(session('levelStatus'));
 
         return view('home.home', compact('result', 'recommendWord'));
     }

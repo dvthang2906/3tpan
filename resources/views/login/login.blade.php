@@ -70,7 +70,7 @@
                     <div class="group">
                         <label for="user" class="label">Username<span>*</span></label>
                         <input id="user" type="text" name="userName" class="input" style="color: black;"
-                            value="{{ old('userName') }}" required>
+                            value="{{ old('fullname') }}" required>
                     </div>
                     <div class="group">
                         <label for="pass" class="label">Password<span>*</span></label>
@@ -96,16 +96,16 @@
                         <p style="color: red; margin-top:px;">{{ session('msg') }}</p>
                     @endif
                     <div class="group">
-                        <label for="user" class="label">Fullname<span>*</span></label>
+                        <label for="user" class="label">User_ID<span>*</span></label>
                         <input id="user" type="text" style="color: black;" name="fullname" class="input"
                             value="{{ old('fullname') }}" required>
-                        @error('fullname')
-                            <div class="error" style="color: red">{{ $message }}</div>
-                        @enderror
+                        @if ($errors->has('fullname'))
+                            <div class="error" style="color: red">{{ $errors->first('fullname') }}</div>
+                        @endif
                     </div>
 
                     <div class="group">
-                        <label for="user" class="label">Username<span>*</span></label>
+                        <label for="user" class="label">Fullname<span>*</span></label>
                         <input id="user" style="color: black;" type="text" name="userName" class="input"
                             value="{{ old('userName') }}" required>
                         @error('userName')

@@ -92,9 +92,8 @@ class loginController extends Controller
                 session()->put('login_status', 'logined');
                 session()->put('payment_status', $user->payment_status);
 
-                if ($user->LEVEL == null) {
-                    dd($user->level);
-                }
+                session()->put('levelStatus', $user->LEVEL);
+
 
 
                 $recommendWord = $homeRecommendation->Recommendation();
@@ -127,9 +126,9 @@ class loginController extends Controller
         // Tạo một token ngẫu nhiên
         $rememberToken = Str::random(60);
 
-        $relus = [
-            'fullname' => 'required',
-            'userName' => 'required|unique:login_infomation,user',
+        $rule = [
+            'fullname' => 'required|unique:login_infomation,user',
+            'userName' => 'required ',
             'password' => 'required|min:6',
             'email' => 'required|email'
         ];
@@ -138,7 +137,7 @@ class loginController extends Controller
             'fullname.required' => '入力が必要',
             // 'fullname.regex' => '半角英数字で入力してください',
             'userName.required' => '入力が必要',
-            'userName.unique' => '名前はすでに存在します。',
+            'fullname.unique' => '名前はすでに存在します。',
             'password.required' => '入力が必要',
             'password.min' => '最低６文字入力してください。',
             'email.required' => '入力が必要',
@@ -146,7 +145,8 @@ class loginController extends Controller
         ];
 
 
-        $request->validate($relus, $message);
+        $request->validate($rule, $message);
+
 
         $dataInsert = [
             $fullname,

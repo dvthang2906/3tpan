@@ -13,7 +13,7 @@ class testController extends Controller
 {
     protected $level;
     //số điểm đỗ.
-    protected $succsessScore = 8;
+    protected $succsessScore = 10;
 
     public function __construct()
     {

@@ -36,31 +36,62 @@
     </nav>
 </header>
 
-<div class="nav_head">
-    <div class="nomal">
-        <a href="{{ route('home.show.vocabulary') }}" class="bt_nav" title="辞書"><span>辞書</span></a>
-        <a href="{{ route('flashcards') }}" class="bt_nav" title="フラッシュカード"><span>フラッシュカード</span></a>
-        <a href="{{ route('test') }}" class="bt_nav" title="テストしてみよう！"><span>テスト</span></a>
-    </div>
+@if (session('levelStatus') != null)
+    <div class="nav_head">
+        <div class="nomal">
+            <a href="{{ route('home.show.vocabulary') }}" class="bt_nav" title="辞書"><span>辞書</span></a>
+            <a href="{{ route('flashcards') }}" class="bt_nav" title="フラッシュカード"><span>フラッシュカード</span></a>
+            <a href="{{ route('test') }}" class="bt_nav" title="テストしてみよう！"><span>テスト</span></a>
+        </div>
 
-    @if (session('payment_status') == true)
-        <nav class="navbar">
-            <ul class="nav">
-                {{-- <li title="はなす" class="nav-item"><a href="{{ route('pronunciation') }}"><span>話す</span></a></li> --}}
-                <li title="はなす" class="nav-item"><a href="#"><span>話す</span></a></li>
-                <li title="よむ" class="nav-item"><a href="{{ route('news') }}"><span>読む</span></a></li>
-                <li title="きく" class="nav-item"><a href="{{ route('listen') }}"><span>聴く</span></a></li>
-                <li title="かく" class="nav-item"><a href="{{ route('write-kanji') }}"><span>書く</span></a></li>
-            </ul>
-        </nav>
-    @else
-        <nav class="navbar">
-            <ul class="nav">
-                <li title="よむ" class="nav-item"><a><span style="color:gray;">話す</span></a></li>
-                <li title="よむ" class="nav-item"><a><span style="color:gray;">読む</span></a></li>
-                <li title="きく" class="nav-item"><a><span style="color:gray;">聴く</span></a></li>
-                <li title="かく" class="nav-item"><a><span style="color:gray;">書く</span></a></li>
-            </ul>
-        </nav>
-    @endif
-</div>
+        @if (session('payment_status') == true)
+            <nav class="navbar">
+                <ul class="nav">
+                    {{-- <li title="はなす" class="nav-item"><a href="{{ route('pronunciation') }}"><span>話す</span></a></li> --}}
+                    <li title="はなす" class="nav-item"><a href="#"><span>話す</span></a></li>
+                    <li title="よむ" class="nav-item"><a href="{{ route('news') }}"><span>読む</span></a></li>
+                    <li title="きく" class="nav-item"><a href="{{ route('listen') }}"><span>聴く</span></a></li>
+                    <li title="かく" class="nav-item"><a href="{{ route('write-kanji') }}"><span>書く</span></a></li>
+                </ul>
+            </nav>
+        @else
+            <nav class="navbar">
+                <ul class="nav">
+                    <li title="よむ" class="nav-item"><a><span style="color:gray;">話す</span></a></li>
+                    <li title="よむ" class="nav-item"><a><span style="color:gray;">読む</span></a></li>
+                    <li title="きく" class="nav-item"><a><span style="color:gray;">聴く</span></a></li>
+                    <li title="かく" class="nav-item"><a><span style="color:gray;">書く</span></a></li>
+                </ul>
+            </nav>
+        @endif
+    </div>
+@else
+    <div class="nav_head">
+        <div class="nomal">
+            <a class="bt_nav" title="辞書"><span style="color: gray">辞書</span></a>
+            <a class="bt_nav" title="フラッシュカード"><span style="color: gray">フラッシュカード</span></a>
+            <a href="{{ route('test') }}" class="bt_nav" title="テストしてみよう！"><span>テスト</span></a>
+        </div>
+
+        @if (session('payment_status') == true)
+            <nav class="navbar">
+                <ul class="nav">
+                    {{-- <li title="はなす" class="nav-item"><a href="{{ route('pronunciation') }}"><span>話す</span></a></li> --}}
+                    <li title="はなす" class="nav-item"><a><span style="color: gray">話す</span></a></li>
+                    <li title="よむ" class="nav-item"><a><span style="color: gray">読む</span></a></li>
+                    <li title="きく" class="nav-item"><a><span style="color: gray">聴く</span></a></li>
+                    <li title="かく" class="nav-item"><a><span style="color: gray">書く</span></a></li>
+                </ul>
+            </nav>
+        @else
+            <nav class="navbar">
+                <ul class="nav">
+                    <li title="よむ" class="nav-item"><a><span style="color:gray;">話す</span></a></li>
+                    <li title="よむ" class="nav-item"><a><span style="color:gray;">読む</span></a></li>
+                    <li title="きく" class="nav-item"><a><span style="color:gray;">聴く</span></a></li>
+                    <li title="かく" class="nav-item"><a><span style="color:gray;">書く</span></a></li>
+                </ul>
+            </nav>
+        @endif
+    </div>
+@endif

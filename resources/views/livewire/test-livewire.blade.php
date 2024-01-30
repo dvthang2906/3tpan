@@ -2,32 +2,63 @@
     $count = 0;
     $totalCount = 0;
 @endphp
-<div>
-    <div class="contents">
-        <ul class="nav_t">
 
-            @for ($i = 1; $i <= 5; $i++)
-                <li>
-                    <a id="level">N{{ $i }}</a>
-                    <ul>
-                        @foreach (['kanji' => 'Kanji', 'vocabulary' => 'Vocabulary', 'grammar' => 'Grammar'] as $key => $value)
-                            <li>
-                                <a style="margin-left: 42px">{{ $value }}</a>
-                                <ul>
-                                    <li><a style="margin-left: 80px; margin-top:5px"
-                                            wire:click="updateCategory('{{ $key }}', 'N{{ $i }}')">コード番号01</a>
-                                    </li>
-                                    {{-- Example for additional items:
-                                <li><a style="margin-left: 5px">コード番号02</a></li>
-                                --}}
-                                </ul>
-                            </li>
-                        @endforeach
-                    </ul>
-                </li>
-            @endfor
-        </ul>
-    </div>
+<div>
+    @if (session('levelStatus') == null)
+        <div class="contents">
+            <ul class="nav_t">
+
+                @for ($i = 1; $i <= 5; $i++)
+                    <li>
+                        @if ($i == 5)
+                            <a id="level">N{{ $i }}</a>
+                        @else
+                            <a id="level" style="color: gray">N{{ $i }}</a>
+                        @endif
+                        <ul>
+                            @foreach (['kanji' => 'Kanji', 'vocabulary' => 'Vocabulary', 'grammar' => 'Grammar'] as $key => $value)
+                                <li style="color: gray">
+                                    <a style="margin-left: 42px; color: gray;">{{ $value }}</a>
+                                    <ul>
+                                        <li><a style="margin-left: 80px; margin-top:5px; color: gray"
+                                                wire:click="updateCategory('{{ $key }}', 'N{{ $i }}')">コード番号01</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </li>
+                @endfor
+            </ul>
+        </div>
+    @else
+        <div class="contents">
+            <ul class="nav_t">
+
+                @for ($i = 1; $i <= 5; $i++)
+                    <li>
+                        <a id="level">N{{ $i }}</a>
+                        <ul>
+                            @foreach (['kanji' => 'Kanji', 'vocabulary' => 'Vocabulary', 'grammar' => 'Grammar'] as $key => $value)
+                                <li>
+                                    <a style="margin-left: 42px">{{ $value }}</a>
+                                    <ul>
+                                        <li><a style="margin-left: 80px; margin-top:5px"
+                                                wire:click="updateCategory('{{ $key }}', 'N{{ $i }}')">コード番号01</a>
+                                        </li>
+                                        {{-- Example for additional items:
+                                    <li><a style="margin-left: 5px">コード番号02</a></li>
+                                    --}}
+                                    </ul>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </li>
+                @endfor
+            </ul>
+        </div>
+    @endif
+
     <div class="mogi">
         <header>
             <h1>日本語<span>
