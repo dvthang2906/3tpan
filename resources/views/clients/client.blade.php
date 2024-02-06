@@ -77,6 +77,7 @@
 
 
     <script>
+        let status = false;
         // lấy API thông tin người dùng
         var user_information = document.getElementById('userLink');
         if (user_information) {
@@ -107,6 +108,7 @@
                         document.getElementById('userFullName').value = data.fullnameUser;
                         if (data.level != null) {
                             document.getElementById('level').innerText = data.level;
+
                         } else {
                             document.getElementById('level').innerText = "あなたはまだレベルがありません";
                         }
@@ -121,6 +123,7 @@
         // Khi người dùng nhấn vào <span> (x), đóng modal
         document.getElementsByClassName("close")[0].onclick = function() {
             document.getElementById("myModal").style.display = "none";
+            window.location.reload();
         }
 
         // Khi người dùng nhấn ra ngoài modal, đóng nó

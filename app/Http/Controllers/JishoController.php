@@ -37,11 +37,17 @@ class JishoController extends Controller
             $tangoValue = $request->value;
 
 
+            //単語。おすすめ
+            $recommendWord = $homeRecommendation->Recommendation();
 
             // tìm từ vựng đơn
             $result = $jishoService->search($tangoValue)['data'];
-            // dd($result);
 
+            if (empty($result)) {
+                return view('home.home', compact('tangoValue', 'recommendWord'));
+            }
+
+            // dd($result);
             if (isset($result[0]['japanese'][0]['word'])) {
                 $tango_Value_Comment = $result[0]['japanese'][0]['word'];
             } else {
@@ -65,15 +71,6 @@ class JishoController extends Controller
             }
             return view('home.home');
         }
-
-
-        // tìm kiếm ví dụ theo từ vựng
-        // dd($comment);
-
-        //単語。おすすめ
-        $recommendWord = $homeRecommendation->Recommendation();
-
-
 
         // Trả về view với kết quả tìm kiếm
         return view('home.home', compact('result', 'tangoValue', 'imiString', 'comment', 'recommendWord'));

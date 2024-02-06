@@ -1,11 +1,10 @@
--- Create database
 CREATE DATABASE 3tpanDB;
 CREATE USER 3tpan IDENTIFIED WITH MYSQL_NATIVE_PASSWORD BY 'ecc';
 GRANT ALL ON 3tpanDB.* TO 3tpan;
 use 3tpanDB;
 
 
--- Thong tin dang nhap
+
 DROP TABLE IF EXISTS login_infomation;
 CREATE TABLE IF NOT EXISTS login_infomation(
   id SMALLINT AUTO_INCREMENT,
@@ -18,7 +17,8 @@ CREATE TABLE IF NOT EXISTS login_infomation(
   last_updated datetime  NULL,
   PRIMARY KEY (id)
 );
--- them token
+
+
 ALTER TABLE login_infomation ADD COLUMN remember_token VARCHAR(100) NULL AFTER email;
 
 ALTER TABLE login_infomation ADD COLUMN level VARCHAR(10) AFTER id;
@@ -26,36 +26,25 @@ ALTER TABLE login_infomation ADD COLUMN level VARCHAR(10) AFTER id;
 ALTER TABLE login_infomation ADD COLUMN payment_status BOOLEAN default FALSE after id;
 
 
-
--- foreign key
-
--- insert
 INSERT INTO login_infomation (`admin`, `user`, `fullnameUser`, `password`, `email`)
-VALUES (1, 'admin', 'admin', '123456', 'admin@gmail.com');
-
--- alphabet
-CREATE TABLE alphabet (
-	stt int PRIMARY KEY,
-	hiragana VARCHAR(255) NOT NULL,
-	katakana VARCHAR(255) NOT NULL,
-	romaji VARCHAR(255) NOT NULL
-);
+VALUES (1, 'admin', 'admin', '$2y$10$/Vt4lzYoW5QS22XnoWzZ.uxsg3goC43KxOHVqEjhhgjn76XtyPR/W', 'admin@gmail.com');
 
 
--- Vocabulary
+
 DROP TABLE IF EXISTS vocabulary;
-CREATE TABLE IF NOT EXISTS vocabulary(
-	stt int PRIMARY KEY,
-	level VARCHAR(15),
-	tango VARCHAR(255),
-	romaji VARCHAR(50),
-	hiragana VARCHAR(255),
-	type VARCHAR(255),
-	mean VARCHAR(255)
+CREATE TABLE IF NOT EXISTS vocabulary (
+    stt INT PRIMARY KEY,
+    level VARCHAR(15),
+    tango VARCHAR(255),
+    romaji VARCHAR(50),
+    hiragana VARCHAR(255),
+    type VARCHAR(255),
+    mean VARCHAR(255)
 );
 
--- Kanji
-DROP TABLE IF EXISTS kanji
+
+
+DROP TABLE IF EXISTS kanji;
 CREATE TABLE IF NOT EXISTS kanji(
 	stt int PRIMARY KEY,
 	level VARCHAR(15),
@@ -67,8 +56,8 @@ CREATE TABLE IF NOT EXISTS kanji(
 	kanji_mean VARCHAR(255)
 );
 
--- Grammar
-DROP TABLE IF EXISTS grammar
+
+DROP TABLE IF EXISTS grammar;
 CREATE TABLE IF NOT EXISTS grammar(
 	stt int PRIMARY KEY,
 	level VARCHAR(15),
@@ -79,24 +68,19 @@ CREATE TABLE IF NOT EXISTS grammar(
 
 DELETE FROM vocabulary WHERE stt IS NULL;
 
-
---THEM INDEX cho cột stt
 ALTER TABLE vocabulary ADD INDEX (stt);
--- Đảm bảo rằng bảng `vocabulary` được tạo với cột `stt` là `INT UNSIGNED`
-ALTER TABLE `vocabulary` MODIFY `stt` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY;
 
--- user_vocabulary
-DROP TABLE IF EXISTS user_vocabulary;
+
 CREATE TABLE IF NOT EXISTS `user_vocabulary` (
-  `id` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  `user_id` SMALLINT NOT NULL, -- Lưu ý đã bỏ `UNSIGNED`
-  `vocabulary_id` INT UNSIGNED NOT NULL, -- Đảm bảo `stt` trong `vocabulary` cũng là `INT UNSIGNED` và đã được đánh index
-  `learned` BOOLEAN DEFAULT FALSE,
-  `review_time` DATETIME DEFAULT NULL,
-  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  FOREIGN KEY (`user_id`) REFERENCES `login_infomation`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (`vocabulary_id`) REFERENCES `vocabulary`(`stt`) ON DELETE CASCADE ON UPDATE CASCADE
+    `id` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    `user_id` SMALLINT NOT NULL,
+    `vocabulary_id` INT NOT NULL,
+    `learned` BOOLEAN DEFAULT FALSE,
+    `review_time` DATETIME DEFAULT NULL,
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (`user_id`) REFERENCES `login_infomation`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (`vocabulary_id`) REFERENCES `vocabulary`(`stt`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
@@ -104,7 +88,8 @@ CREATE TABLE IF NOT EXISTS `user_vocabulary` (
 
 
 
---comment
+
+
 DROP TABLE IF EXISTS tango_comment;
 CREATE TABLE IF NOT EXISTS tango_comment(
 	user VARCHAR(50) NOT NULL,
@@ -115,31 +100,32 @@ CREATE TABLE IF NOT EXISTS tango_comment(
 );
 
 
-//Contact
 DROP TABLE IF EXISTS contact;
 CREATE TABLE IF NOT EXISTS contact(
-    id INT AUTO_INCREMENT PRIMARY KEY,     -- ID duy nhất cho mỗi liên hệ
-    first_name VARCHAR(50) NOT NULL,       -- Tên
-    last_name VARCHAR(50) NOT NULL,        -- Họ
-    email VARCHAR(100),                    -- Địa chỉ Email
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    status VARCHAR(15) DEFAULT '処理中',
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100),
     country VARCHAR(25),
-    phone_number VARCHAR(15),              -- Số điện thoại
-    message TEXT,                          -- messsage
+    phone_number VARCHAR(15),
+    message TEXT,
     remember_token VARCHAR(100),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Thời gian tạo bản ghi
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- Thời gian cập nhật bản ghi
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 
-// reset password
-CREATE TABLE password_resets (
+
+DROP TABLE IF EXISTS password_resets;
+CREATE TABLE IF NOT EXISTS password_resets (
     email VARCHAR(255) NOT NULL,
     token VARCHAR(255) NOT NULL,
     created_at TIMESTAMP NULL DEFAULT NULL,
     INDEX password_resets_email_index (email)
 );
 
-//news
+
 DROP TABLE IF EXISTS news;
 CREATE TABLE IF NOT EXISTS news (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -151,16 +137,16 @@ CREATE TABLE IF NOT EXISTS news (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-// INSERT INTO bang python
 
-// NEWS FURIGANA
+
+
 CREATE TABLE news_hiragana (
     id INT AUTO_INCREMENT PRIMARY KEY,
     kanji VARCHAR(50),
     hiragana VARCHAR(50)
 );
 
-// INSERT DU LIỆU CHO table news_hiragana
+
 
 
 INSERT INTO news_hiragana (kanji, hiragana) VALUES
@@ -239,58 +225,58 @@ INSERT INTO news_hiragana (kanji, hiragana) VALUES
 ('万台', 'まんだい'),
 ('燃料', 'ねんりょう'),
 ('不具合', 'ふぐあい'),
-    ('走行中', 'そうこうちゅう'),
-    ('恐', 'おそ'),
-    ('万台余', 'まんだいよ'),
-    ('国土交通省', 'こくどこうつうしょう'),
-    ('届', 'とどけ'),
-    ('出', 'で'),
-    ('対象', 'たいしょう'),
-    ('年', 'ねん'),
-    ('月', 'つき'),
-    ('年', 'ねん'),
-    ('月', 'つき'),
-    ('製造', 'せいぞう'),
-    ('万', 'まん'),
-    ('台余', 'だいよ'),
-    ('国交省', 'こっこうしょう'),
-    ('内部', 'ないぶ'),
-    ('変形', 'へんけい'),
-    ('燃料', 'ねんりょう'),
-    ('動', 'どう'),
-    ('最悪', 'さいあく'),
-    ('場合', 'ばあい'),
-    ('走行中', 'そうこうちゅう'),
-    ('恐', 'おそ'),
-    ('件', 'けん'),
-    ('不具合', 'ふぐあい'),
-    ('確認', 'かくにん'),
-    ('事故', 'じこ'),
-    ('起', 'おこ'),
-    ('同様', 'どうよう'),
-    ('不具合', 'ふぐあい'),
-    ('届', 'とどけ'),
-    ('出', 'で'),
-    ('回目', 'かいめ'),
-    ('生産', 'せいさん'),
-    ('車', 'くるま'),
-    ('含', 'ふくむ'),
-    ('合', 'ごう'),
-    ('約', 'やく'),
-    ('万台', 'まんだい'),
-    ('上', 'うえ'),
-    ('同様', 'どうよう'),
-    ('事象', 'じしょう'),
-    ('他社', 'たしゃ'),
-    ('確認', 'かくにん'),
-    ('一連', 'いちれん'),
-    ('不具合', 'ふぐあい'),
-    ('届', 'とどけ'),
-    ('出', 'で'),
-    ('年以降', 'ねんいこう'),
-    ('合', 'ごう'),
-    ('万台', 'まんだい'),
-    ('超', 'ちょう');
+('走行中', 'そうこうちゅう'),
+('恐', 'おそ'),
+('万台余', 'まんだいよ'),
+('国土交通省', 'こくどこうつうしょう'),
+('届', 'とどけ'),
+('出', 'で'),
+('対象', 'たいしょう'),
+('年', 'ねん'),
+('月', 'つき'),
+('年', 'ねん'),
+('月', 'つき'),
+('製造', 'せいぞう'),
+('万', 'まん'),
+('台余', 'だいよ'),
+('国交省', 'こっこうしょう'),
+('内部', 'ないぶ'),
+('変形', 'へんけい'),
+('燃料', 'ねんりょう'),
+('動', 'どう'),
+('最悪', 'さいあく'),
+('場合', 'ばあい'),
+('走行中', 'そうこうちゅう'),
+('恐', 'おそ'),
+('件', 'けん'),
+('不具合', 'ふぐあい'),
+('確認', 'かくにん'),
+('事故', 'じこ'),
+('起', 'おこ'),
+('同様', 'どうよう'),
+('不具合', 'ふぐあい'),
+('届', 'とどけ'),
+('出', 'で'),
+('回目', 'かいめ'),
+('生産', 'せいさん'),
+('車', 'くるま'),
+('含', 'ふくむ'),
+('合', 'ごう'),
+('約', 'やく'),
+('万台', 'まんだい'),
+('上', 'うえ'),
+('同様', 'どうよう'),
+('事象', 'じしょう'),
+('他社', 'たしゃ'),
+('確認', 'かくにん'),
+('一連', 'いちれん'),
+('不具合', 'ふぐあい'),
+('届', 'とどけ'),
+('出', 'で'),
+('年以降', 'ねんいこう'),
+('合', 'ごう'),
+('万台', 'まんだい'),
+('超', 'ちょう');
 
 
 INSERT INTO news_hiragana (kanji, hiragana) VALUES
@@ -342,7 +328,7 @@ INSERT INTO news_hiragana (kanji, hiragana) VALUES
 ('声', 'こえ'),
 ('上','あ');
 
-//
+
 
 INSERT INTO news_hiragana (kanji, hiragana) VALUES
 ('旧', 'きゅう'),
@@ -455,7 +441,7 @@ INSERT INTO news_hiragana (kanji, hiragana) VALUES
 
 
 
-// Tables Kanji
+
 DROP TABLE IF EXISTS kanji;
 CREATE TABLE IF NOT EXISTS kanji (
 	id INT AUTO_INCREMENT PRIMARY KEY,
@@ -498,5 +484,24 @@ VALUES
 ('互', '04e92', 'たが.い、 かたみ.に', 'ゴ', 'mutually, reciprocally, together');
 
 
-// Update images desc login_infomation
+
 ALTER TABLE login_infomation ADD COLUMN images TEXT AFTER email;
+
+
+DROP TABLES IF EXISTS videos;
+CREATE TABLE videos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    url VARCHAR(255) NOT NULL,
+    images TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+
+INSERT INTO videos (title, description, url, images)
+VALUES 
+('Mieruko-chan-Episode-1', 'Mieruko-chan-Episode-1', 'videos/MierukoChanEpisode1.mp4', null),
+('Mieruko-chan-Episode-2', 'Mieruko-chan-Episode-2', 'videos/mierukochanepisode2.mp4', 'images/Mieruko-chan-Episode-2.jpg'),
+('Movie Title', 'Movie', 'videos/movie.mp4', 'images/movie.jpg');
