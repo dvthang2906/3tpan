@@ -32,6 +32,7 @@
 @extends('clients.client')
 @section('title')
     <title>3tpan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 @endsection
 @section('css')
     <style>
@@ -207,6 +208,10 @@
             /* Đảm bảo nó nằm trên các thành phần khác */
         }
 
+        .centered-item {
+            cursor: url({{ asset('images/speaker-icon.png') }}), auto;
+        }
+
         .progress-bar {
             height: 5px;
             background-color: #fff;
@@ -233,7 +238,10 @@
             <ul class="today_list" style="margin: 10px;">
                 @if (isset($recommendWord))
                     @foreach ($recommendWord as $word)
-                        <li class="centered-item">{{ $word->tango }}</li>
+                        <li>
+                            <span class="centered-item" style="color: red"
+                                onclick="playAudio('{{ $word->tango }}')">{{ $word->tango }}</span>
+                        </li>
                         <li class="item-word" style="color: black;">{{ $word->hiragana == '0' ? 'null' : $word->hiragana }}
                         </li>
                         {{-- <li class="item-word" style="color: black;">{{ $word->mean }}</li> --}}
@@ -269,11 +277,11 @@
                     <span title="たんご" style="font-weight: bold">単語：</span>
                     @foreach ($result[0]['japanese'] as $m)
                         @if (isset($m['word']) && !is_null($m['word']))
-                            <b style="color: red;  text-decoration-line: none;"
+                            <b class="centered-item" style="color: red;  text-decoration-line: none;"
                                 onclick="playAudio('{{ $m['word'] }}')">{{ $m['word'] }}</b>
                             &nbsp;
                         @else
-                            <b style="color: red;  text-decoration-line: none;"
+                            <b class="centered-item" style="color: red;  text-decoration-line: none;"
                                 onclick="playAudio('{{ $m['reading'] }}')">{{ $m['reading'] }}</b>
                             &nbsp;
                         @endif
@@ -370,7 +378,16 @@
 
 @section('js')
     <script>
+        document.getElementById('targetArea').addEventListener('mouseenter', function() {
+            this.style.cursor = "url('speaker-icon.png'), auto";
+        });
+
+        document.getElementById('targetArea').addEventListener('mouseleave', function() {
+            this.style.cursor = "default";
+        });
+
         function playAudio(word) {
+
             // const word = document.getElementById('word').value;
             if (!word.trim()) {
                 alert('Vui lòng nhập từ vựng!');
